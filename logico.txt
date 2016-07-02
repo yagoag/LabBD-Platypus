@@ -1,0 +1,635 @@
+Pessoa (
+	PK_Pessoa(cpf), 
+	senha,
+	salt,
+	sobreNome, 
+	preNome, 
+	rgCod, 
+	rgOrg, 
+	endLog, 
+	endNum, 
+	endCid, 
+	endBai, 
+	endCEP
+)
+
+Funcionario (
+	PK_Funcionario(siape),
+	FK_Pessoa(cpf)
+)
+
+Docente (
+	PK_Docente(FK_Funcionario(siape)), 
+	gabineteLocal, 
+	gabineteTelDDD, 
+	gabineteTelSufixo, 
+	gabineteTelPrefixo
+)
+
+TelefoneDocente(
+	PK(
+		ddd, 
+		numero, 
+		FK_Docente(siape)
+	), 
+	ddi
+)
+
+Email (PK_Email(provedor, endereco)) 
+
+EmailDocente(
+	PK_EmailDocente(
+		FK_Docente(siape),
+		FK_Email(provedor, endereco)
+	)
+)
+
+Aluno (
+	PK_Aluno(ra), 
+	FK_Pessoa(cpf),
+	ira,
+	sexoDoc, 
+	sexoDesc, 
+	sexoNome, 
+	maePrenome, 
+	maeSobrenome, 
+	paiPrenome,
+	paiSobrenome,
+	nascDia,
+	nascMes, 
+	nascAno, 
+	nascLoca, 
+	nascUF, 
+	emailProv, 
+	emailEnd, 
+	ensMedAnoT, 
+	ensMedInst
+)
+
+AlunoMatriculadoCurso (
+	PK_AlunoMatriculadoCurso(
+		FK_Aluno(ra),
+		FK_Curso(siglaCurso)
+	),
+	dataIngresso,
+	dataSaida
+)
+
+EmailAluno(
+	PK_EmailAluno(
+		FK_Aluno(ra),
+		FK_Email(provedor, endereco)
+	)
+)
+
+CargoAdministrativo (
+	PK_CargoAdministrativo(nomeCargo),
+	local,
+	cargaHorario
+)
+
+DocenteTemCargoAdministrativo (
+	PK_DocenteTemCargoAdministrativo(
+		FK_Docente(siape),
+		FK_CargoAdministrativo(nomeCargo),
+		periodo
+	)
+)
+
+Disciplina ( 
+	PK(
+		siglaDisciplina
+	),
+	nome,
+	numCredPrat,
+	numCredTeo
+)
+
+Turma (
+	PK_Turma(
+		semestre,
+		ano,
+		siglaTurma,
+		FK_Disciplina(siglaDisciplina)
+	),
+	valida,
+	vagas,
+	inscricaoMin,
+	inscricaoMax
+)
+
+AlunoCursaTurma(
+	PK(
+		FK_Aluno(ra),
+		FK_Turma(semestre, ano, siglaTurma)
+	),
+	mediaFinal
+)
+
+Nota ( 
+	PK_Nota(
+		FK_AlunoCursaTurma(
+			ra, semestre, ano, siglaTurma
+		)
+	),
+	descricao,
+	nota
+)
+
+
+Carga (	
+	PK_Carga(
+		FK_Disciplina(siglaDisciplina),
+		FK_Docente(siape)
+	),
+	tempoAno,
+	tempoSem,
+	cargo
+)
+
+Tecnico(
+	PK(
+		FK_Funcionario(siape)
+	), 
+	FK_Gabinete(nroGabinete, local)
+)
+
+Curso(PK(siglaCurso), nome)
+
+ProjetoPoliticoPedagogico (
+    PK (
+        FK_Curso(
+            siglaCurso
+        ),
+        inicioVigencia
+    ),
+    projeto
+)
+
+AprovacaoPPP (
+    PK (
+        FK_ProjetoPoliticPedagogico (
+            siglaCurso,
+            inicioVigencia
+        )
+        FK_Docente (
+            siape
+        )
+    ),
+    status
+)
+
+Enade(PK(DataRealizacao)) 
+
+Gabinete(PK(nroGabinete, local))
+
+TelefoneGabinete(
+	PK(
+		ddd, 
+		numero, 
+		FK_Gabinete(nroGabinete, local)
+	)
+)
+
+
+Reconhecimento(
+	PK_Reconhecimento(
+		idReconhecimento
+	)
+)
+
+CursoSolicitaReconhecimento( #Antigo ItemReconhecimento
+	PK(
+		FK_Reconhecimento(
+			idReconhecimento
+		),
+		fase
+	),
+	data
+)
+
+ItemAvaliado(
+	PK_ItemAvaliado(
+		FK_CursoSolicitaReconhecimento(idReconhecimento, fase),
+		item,
+		resultado
+	)
+)
+
+ComiteReconhecimento(
+	PK(
+		nome, 
+		sobrenome, 
+		FK_reconhecimento(id_reconhecimento)
+	)
+)
+
+CursoIndicadoParaDisciplina(
+	PK( 
+		FK_Curso(siglaCurso), 
+		FK_Disciplina(siglaDisciplina) 
+	), 
+	tipoOferta, 
+	perfil
+) 
+
+CursoRealizaEnade(
+	PK(
+		FK_Curso(siglaCurso), 
+		FK_Enade(dataRealizacao)
+	), 
+	resultado
+) #obs: Resultado é derivado
+
+AlunoRealizaEnade(
+	PK(
+		FK_Aluno(ra), 
+		FK_Enade(dataRealizacao)
+	), 
+	dataCredenciamento, 
+	status, 
+	resultado
+)
+
+PreRequisito(
+	PK(
+		FK_Disciplina(siglaDisciplina), 
+		FK_Disciplina(siglaDisciplina)
+	), 
+	listaPreRequisitos
+)
+
+CoRequisito(
+	PK(
+		FK_Disciplina(siglaDisciplina), 
+		FK_Disciplina(siglaDisciplina)
+	), 
+	listaCoRequisitos
+)
+
+Matricula(
+	PK(FK_Curso(siglaCurso, nome), 
+	FK_Aluno(ra)), 
+	dataIngresso,
+	dataSaida
+) 
+
+NucleoDocenteEstruturante(
+	PK(
+		FK_Curso(
+            siglaCurso
+        )
+	),
+	regimento: varchar(max),
+    dataCriacao: date
+)
+
+MembroNucleoDocenteEstruturante(
+	PK(
+		FK_Docente(siape), 
+		FK_NucleoDocenteEstruturante(
+			siglaCurso
+		)
+	), 
+	dataPosse, 
+	portaria
+)
+
+ItemDePauta(
+	PK(
+		descricao, 
+		FK_Reuniao(dataHora)
+	)
+)
+
+Documento (
+    PK(
+    	FK_ItemDePauta(
+    		descricao, 
+			dataHora
+    	),
+   		link
+    )
+)
+
+DecisaoAprovada(
+	PK(
+		FK_ItemDePauta(
+			descricao, 
+			dataHora
+		), 
+		decisao
+	)
+)
+
+Reuniao(PK(dataHora))
+
+ReuniaoNucleoDocenteEstruturante(
+	PK(
+		FK_Reuniao(dataHora), 
+		FK_NucleoDocenteEstruturante(
+			siglaCurso
+		)
+	)
+)
+
+ParticipaReuniaoNucleo(
+	PK(
+		MembroNucleoDocenteEstruturante(
+			siape,
+			siglaCurso
+		), 
+		FK_ReuniaoNucleoDocenteEstruturante(
+			dataHora, 
+			siglaCurso
+		)	
+	)
+)
+
+PropoeItemReuniaoNucleoDocenteEstruturante(
+	PK(
+		FK_MembroNucleoDocenteEstruturante(
+			siape, 
+			siglaCurso, 
+		), 
+		FK_ItemDePauta(
+			descricao, 
+			dataHora
+		)
+	)
+)
+
+ComunicadoNucleoDocenteEstruturante(
+	PK(
+		FK_PropoeItemReuniaoNucleoDocenteEstruturante(
+			siape, 
+			siglaCurso, 
+			linkDocumento, 
+			dataHora
+		),
+		comunicado
+	)
+)
+
+PropostaIntervencaoNucleoDocenteEstruturante(
+	PK(
+		FK_PropoeItemReuniaoNucleoDocenteEstruturante(
+			siape, 
+			siglaCurso, 
+			linkDocumento, 
+			dataHora
+		),
+		propostaIntervencao
+	)
+)
+
+ConselhoCoordenacao(
+	PK(
+		FK_Curso(siglaCurso),
+        dataCriacao
+    )
+)
+
+MembroConselhoCoordenacao(
+	PK(
+		FK_Pessoa(cpf), 
+		FK_ConselhoCoordenacao(
+			siglaCurso, 
+			dataCriacao
+		)
+	), 
+	dataPosse, 
+	portaria
+)
+
+ReuniaoConselhoCoordenacaoCurso(
+	PK(
+	    dataHora,
+		FK_ConselhoCoordenacao(
+			siglaCurso,
+	        dataCriacao
+		)
+	)
+)
+
+
+ParticipaReuniaoConselhoCoordenacao(
+	PK(
+		FK_MembroConselhoCoordenacao(
+			cpf, 
+			siglaCurso, 
+			dataCriacao
+		), 
+		FK_ReuniaoConselhoCoordenacaoCurso(
+			dataHora
+			siglaCurso, 
+			dataCriacao
+		)	
+	)
+)
+
+PropoeItemReuniaoConselhoDeCoordenacao(
+	PK(
+		FK_MembroConselhoCoordenacao(
+			cpf, 
+			siglaCurso, 
+			dataCriacao
+		),
+		FK_ItemDePauta(descricao, FK_Reuniao(dataHora))
+	)
+)
+
+ComunicadoNucleoDocenteEstruturante(
+	PK(
+		FK_PropoeItemReuniaoConselhoDeCoordenacao(
+			cpf,  
+			siglaCurso, 
+			dataCriacao,
+			linkDocumento, 
+			dataHora
+		),
+		comunicado
+	)
+)
+
+PropostaIntervencaoNucleoDocenteEstruturante(
+	PK(
+		FK_PropoeItemReuniaoConselhoDeCoordenacao(
+			cpf, 
+			siglaCurso, 
+			dataCriacao,
+			linkDocumento, 
+			dataHora
+		),
+		propostaIntervencao
+	)
+)
+
+PlanoDeEnsino(
+	PK_PlanoDeEnsino(	
+		FK_Turma(	
+			siglaDisciplina, 
+			siglaTurma, 
+			ano, 
+			semestre
+		)
+	), 
+	FK_Docente(siape), 
+	ementa,
+	estrategia, 
+	objetivosEspecificos,
+	objetivosGerais
+)
+
+PlanoDeEnsino_Recurso(
+	PK_PlanoDeEnsino_Recurso(
+		FK_PlanoDeEnsino(	
+			siglaDisciplina, 
+			siglaTurma, 
+			ano, 
+			semestre
+		), 
+		recurso
+	)
+)
+
+
+PlanoDeEnsino_Atividade(
+	PK_PlanoDeEnsino_Atividade(
+		FK_PlanoDeEnsino(	
+			siglaDisciplina, 
+			siglaTurma, 
+			ano, 
+			semestre
+		),   
+		horas, atividades
+	)
+)
+
+PlanoDeEnsino_EAD (
+	PK_PlanoDeEnsino_EAD(
+		FK_PlanoDeEnsino(	
+			siglaDisciplina, 
+			siglaTurma, 
+			ano, 
+			semestre
+		),  
+		horas, atividades
+	)
+)
+
+PlanoDeEnsino_DistribHoras (
+	PK_PlanoDeEnsino_DistribHoras(
+		FK_PlanoDeEnsino(	
+			siglaDisciplina, 
+			siglaTurma, 
+			ano, 
+			semestre
+		),  
+		horas, atividades
+	)
+)
+
+PlanoDeEnsino_BibliografiaBasica (
+	PK_PlanoDeEnsino_BibBasica(
+		FK_PlanoDeEnsino(	
+			siglaDisciplina, 
+			siglaTurma, 
+			ano, 
+			semestre
+		),   
+		titulo, editor, ano, autor
+	)
+)
+
+
+PlanoDeEnsino_BibliografiaComplementar (
+	PK_PlanoDeEnsino_BibComp(
+		FK_PlanoDeEnsino(	
+			siglaDisciplina, 
+			siglaTurma, 
+			ano, 
+			semestre
+		),  
+		titulo, editor, ano, autor
+	)
+)
+
+
+PlanoDeEnsino_Topico (
+	PK_PlanoDeEnsino_Topico(
+		FK_PlanoDeEnsino(	
+			siglaDisciplina, 
+			siglaTurma, 
+			ano, 
+			semestre
+		),  
+		horas, topico
+	)
+)
+
+Licenca (
+	PK (
+		dataInicio, 
+        dataTermino,
+        FK_Funcionario (
+            siape
+        )
+	),
+	documento,
+    indicacao,
+    motivo
+)
+
+Local (
+	PK_Local(predio, nroSala),
+	nroCarteiras
+)
+
+AlunoInscreveTurma (
+	PK_AlunoInscreveTurma (
+		FK_Aluno(ra), 
+		FK_Turma(semestre, ano, siglaTurma, siglaDisciplina)
+	),
+	situacao, 
+	motivo
+)
+
+TemPrioridadeDocente (
+	PK_TPD (
+		FK_Disciplina(siglaDisciplina),
+		FK_Docente(siape)
+	), 
+	grau
+)
+
+ListaDocenteTurma (
+	PK_LDT (
+		FK_Docente(siape), 
+		FK_Turma(semestre, ano, siglaTurma, siglaDisciplina)
+	)
+)
+
+TurmaAtribuicaoLocal (
+	PK_TAL (
+		FK_Turma(semestre, ano, siglaTurma, siglaDisciplina), 
+		FK_Local(predio, nroSala)
+	),
+	diaSemana, 
+	horario
+)
+
+EquipeDeApoio (
+	PK_EDA (
+		FK_PlanoDeEnsino(	
+			siglaDisciplina, 
+			siglaTurma, 
+			ano, 
+			semestre
+		),
+	), 
+	FK_Pessoa(cpf),
+	FK_Tecnico(siape),
+	descricao
+)
+

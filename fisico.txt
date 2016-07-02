@@ -1,0 +1,783 @@
+Distinções entre o esquema físico e o esquema lógico:
+- A PK de ItemAvaliado foi alterado com id para melhor indexação, pois não é adequado o atributo item do tipo varchar(max) estar como PK.
+- A PK de ItemDePauta foi alterado com id para melhor indexação, pois não é adequado o atributo descricao do tipo varchar(200) estar como PK.
+- A PK de Documento foi alterado com id para melhor indexação, pois não é adequado o atributo link do tipo varchar(max) estar como PK.
+- A PK de ComunicadoNucleoDocenteEstruturante foi alterado com id para melhor indexação, pois não é adequado o atributo comunicado do tipo varchar(max) estar como PK.
+- A PK de PropostaIntervencaoNucleoDocenteEstruturante foi alterado com id para melhor indexação, pois não é adequado o atributo propostaIntervencao do tipo varchar(max) estar como PK.
+- Nota é identificada por um ID, já que sua PK ficaria muito extensa se adicionássemos descrição à PK e, caso não o fizéssemos, não poderíamos adicionar mais de uma nota por discplina
+
+Pessoa (
+	PK(
+        cpf: char(11)
+    ),
+    senha: varchar(30),
+    salt: varchar(30),
+	sobreNome: varchar(30),
+	preNome: varchar(30),
+	rgCod: varchar(10), 
+	rgOrg: varchar(4),
+	endLog: varchar(40),
+	endNum: int, 
+	endCid: varchar(30), 
+	endBai: varchar(30),
+	endCEP: char(8)
+)
+
+Funcionario (
+    PK (
+        siape: char(9)
+    ),
+    FK_Pessoa (
+        cpf: char(11)
+    )
+)
+
+Docente (
+	PK (
+        FK_Funcionario(
+            siape: char(9)
+        )
+    ),
+    gabineteLocal: varchar(40), 
+	gabineteTelDDD: char(2), 
+	gabineteTelSufixo: char(4), 
+	gabineteTelPrefixo: varchar(5)
+)
+
+TelefoneDocente(
+	PK(
+		ddd: char(2), 
+		numero: varchar(9),
+		FK_Docente(
+            siape: char(9)
+        )
+	), 
+	ddi: varchar(3)
+)
+
+Email (
+    PK(
+        provedor: varchar(20),
+        endereco: varchar(30)
+    )
+)
+
+EmailDocente(
+	PK(
+		FK_Docente(
+            siape: char(9)
+        ),
+		FK_Email(
+            provedor: vaarchar(20),
+            endereco: varchar(30)
+        )
+	)
+)
+
+Aluno (
+	PK(
+        ra: int
+    ), 
+	FK_Pessoa(
+        cpf: char(11)
+    ),
+    ira: int,
+	sexoDoc: varchar(max), 
+	sexoDesc: varchar(max), 
+	sexoNome: varchar(20),
+	maePrenome: varchar(30), 
+	maeSobrenome: varchar(30), 
+	paiPrenome:  varchar(30),
+	paiSobrenome: varchar(30),
+	nascData: date, 
+	nascLoca: varchar(30),
+	nascUF: char(2),
+	emailProv: varchar(30),
+	emailEnd: varchar(20),
+	ensMedAnoT: int,
+	ensMedInst: varchar(30)
+)
+
+AlunoMatriculadoCurso (
+	PK (
+		FK_Aluno(
+            ra: int
+        ),
+		FK_Curso(
+            siglaCurso: varchar(5)
+        )
+	),
+	dataIngresso: date,
+	dataSaida: date
+)
+
+EmailAluno(
+	PK (
+		FK_Aluno(
+            ra: int
+        ),
+		FK_Email(
+            provedor: varchar(20),
+            endereco: varchar(30)
+        )
+	)
+)
+
+CargoAdministrativo (
+	PK (
+        nomeCargo: varchar(30)
+    ),
+	local: varchar(30),
+	cargaHoraria: int
+)
+
+
+DocenteTemCargoAdministrativo (
+	PK (
+		FK_Docente(
+            siape: char(9)
+        ),
+		FK_CargoAdministrativo(
+            nomeCargo: varchar(30)
+        ),
+		dataInicio: date,
+		dataFim: date
+	)
+)
+
+Disciplina (
+	PK (
+		siglaDisciplina: varchar(5)
+	),
+    nome: varchar(30),
+	numCredPrat: int,
+	numCredTeo: int
+)
+
+Turma (
+	PK (
+		semestre: tinyint,
+		ano: int,
+		siglaTurma: varchar(5),
+		FK_Disciplina(
+            siglaDisciplina: varchar(5)
+        )
+	),
+	valida: bit,
+	vagas: int,
+	inscricaoMin: int,
+	inscricaoMax: int
+)
+
+AlunoCursaTurma(
+	PK(
+		FK_Aluno(
+            ra: int
+        ),
+		FK_Turma(
+            semestre: tinyint,
+            ano: int,
+            siglaTurma: varchar(5),
+            siglaDisciplina: varchar(5)
+        )
+	),
+	mediaFinal: real
+)
+
+Nota ( 
+	PK(
+      id: int
+    ),
+    FK_AlunoCursaTurma(
+        ra: int,
+        semestre: tinyint,
+        ano: int,
+        siglaTurma: varchar(5),
+        siglaDisciplina: varchar(5)
+    ),
+	descricao: varchar(30),
+	nota: real
+)
+
+Carga (	
+	PK(
+		FK_Disciplina(
+            siglaDisciplina: varchar(5)
+        ),
+		FK_Docente(
+            siape: char(9)
+        ),
+        tempoAno: int,
+        tempoSem: tinyint
+	),
+	cargo: varchar(30)
+)
+
+Tecnico(
+	PK(
+        FK_Funcionario(
+            siape: char(9)
+        )
+	),
+    FK_Gabinete(
+        nroGabinete: int,
+        local: varchar(30)
+    )
+)
+
+Curso(
+    PK(
+        siglaCurso: varchar(5)
+	),
+    nome: varchar(30)
+)
+
+ProjetoPoliticoPedagogico (
+    PK (
+        FK_Curso(
+            siglaCurso: varchar(5)
+        ),
+        inicioVigencia: date
+    ),
+    projeto: varchar(max)
+)
+
+AprovacaoPPP (
+    PK (
+        FK_ProjetoPoliticPedagogico (
+            siglaCurso: varchar(5),
+            inicioVigencia: date
+        )
+        FK_Docente (
+            siape
+        )
+    ),
+    status: bit
+)
+
+Enade (
+    PK(
+        dataRealizacao: date
+    )
+)
+
+Gabinete (
+    PK (
+        nroGabinete: int, 
+        local: varchar(30)
+    )
+)
+
+TelefoneGabineteTecnico(
+	PK(
+		ddd: char(2), 
+		numero: varchar(9), 
+		FK_Gabinete(
+            nroGabinete: int,
+            local: varchar(30)
+        )
+	)
+)
+
+Reconhecimento(
+	PK(
+		idReconhecimento: int
+	)
+)
+
+CursoSolicitaReconhecimento(
+	PK (
+		FK_Reconhecimento(
+            idReconhecimento: int
+        ),
+        fase: tinyint
+	),
+	data: date
+)
+
+ItemAvaliado(
+	PK(
+		FK_CursoSolicitaReconhecimento(
+			idReconhecimento: int,
+			fase: tinyint
+		)
+        id: int
+    ),
+    item: varchar(max),
+    resultado: bit
+)
+
+ComiteReconhecimento(
+	PK(
+		nome: varchar(30), 
+		sobrenome: varchar(30), 
+		FK_Reconhecimento(
+            id_reconhecimento: int
+        )
+	)
+)
+
+CursoIndicadoParaDisciplina(
+	PK( 
+		FK_Curso(
+            siglaCurso: varchar(5)
+        ),
+		FK_Disciplina(
+            siglaDisciplina: varchar(5)
+        )
+	), 
+	tipoOferta: varchar(30), 
+	perfil: tinyint
+)
+
+CursoRealizaEnade(
+	PK(
+		FK_Curso(
+            siglaCurso: varchar(5)
+        ), 
+		FK_Enade(
+            dataRealizacao: date
+        )
+	), 
+	resultado: float
+) #obs: Resultado é derivado
+
+
+AlunoRealizaEnade(
+	PK(
+		FK_Aluno(ra: int), 
+		FK_Enade(dataRealizacao: date)
+	), 
+	dataCredenciamento: date, 
+	status: varchar(20), 
+	resultado: float 
+) 
+
+PreRequisito(
+	PK(
+		FK_Disciplina(
+            siglaDisciplina: varchar(5)
+        ), 
+		FK_Disciplina(
+            siglaDisciplina: varchar(5)
+        )
+	)
+	
+)
+
+CoRequisito(
+	PK(
+		FK_Disciplina(
+            siglaDisciplina: varchar(5)
+        ), 
+		FK_Disciplina(
+            siglaDisciplina: varchar(5)
+        )
+	)
+)
+
+Matricula (
+    PK(
+        FK_Curso(
+            siglaCurso: varchar(5)
+        ),
+        FK_Aluno(
+            ra: int
+        ),
+        dataIngresso: date,
+        dataSaida: date
+      )
+)
+
+NucleoDocenteEstruturante(
+	PK(
+		FK_Curso(
+            siglaCurso: varchar(30)
+        )
+	),
+	regimento: varchar(max),
+    dataCriacao: date
+)
+
+MembroNucleoDocenteEstruturante(
+	PK(
+        FK_Docente(
+            siape: char(9)
+        ), 
+        FK_NucleoDocenteEstruturante(
+            siglaCurso: varchar(5)
+        )
+	), 
+	dataPosse: date, 
+	portaria: varchar(max)
+)
+
+ItemDePauta(
+	PK(
+		idIP: int,
+		FK_Reuniao(
+        	dataHora: datetime
+   		)
+	), 
+	descricao: varchar(200)
+)
+
+Documento (
+    PK(
+    	FK_ItemDePauta(
+    		idIP: int,
+    		dataHora: datetime
+    	),
+    	idDocumento: int
+    ),
+    link: varchar(max)
+)
+
+DecisaoAprovada(
+	PK(
+		FK_ItemDePauta(
+			idIP: int, 
+			dataHora: datetime
+		)
+	),
+    decisao: varchar(max)
+)
+
+Reuniao(PK(dataHora: datetime))
+
+ReuniaoNucleoDocenteEstruturante(
+	PK(
+		FK_Reuniao(
+            dataHora: datetime
+        ), 
+		FK_NucleoDocenteEstruturante(
+			siglaCurso : varchar(5))
+		)
+	)
+)
+
+
+ParticipaReuniaoNucleo(
+	PK(
+		FK_MembroNucleo(
+			siapeDocente : char(9),
+            siglaCurso : varchar(5)
+		), 
+		FK_ReuniaoNucleoDocenteEstruturante(
+			dataHoraReuniao : datetime, 
+			siglaCurso : varchar(5)
+		)	
+	)
+)
+
+PropoeItemReuniaoNucleoDocenteEstruturante(
+	PK(
+		FK_MembroNucleoDocenteEstruturante(
+			siapeDocente : char(9),
+			siglaCurso: varchar(5)),
+		), 
+		FK_ItemDePauta(
+			idIP: int, 
+			dataHoraReuniao : datetime)
+		)
+	)
+)
+
+ComunicadoNucleoDocenteEstruturante(
+	PK(
+		FK_PropoeItemReuniaoNucleoDocenteEstruturante(
+			siape : char(9), 
+			siglaCurso : varchar(5), 
+			idIP: int, 
+			dataHoraReuniao : date
+		),
+		idCNDE: int
+	)
+	comunicado : varchar(max)
+)
+
+PropostaIntervencaoNucleoDocenteEstruturante(
+	PK(
+		FK_PropoeItemReuniaoNucleoDocenteEstruturante(
+			siape : char(9), 
+			siglaCurso : varchar(5),
+			idIP: int, 
+			dataHora: datetime
+		),
+		idPINDE: int
+	)
+	propostaIntervencao : varchar(max)
+)
+
+ConselhoCoordenacao(
+	PK(
+		FK_Curso(siglaCurso : varchar(5)),
+        dataCriacao : date
+    )
+)
+
+MembroConselhoCoordenacao(
+	PK(
+		FK_Pessoa(
+            cpf : char(11)
+        ), 
+		FK_ConselhoCoordenacao(
+			siglaCurso: varchar(5), 
+			dataCriacao : date
+		)
+	), 
+	dataPosse : date, 
+	portaria : varchar(max)
+)
+
+ReuniaoConselhoCoordenacaoCurso(
+	PK(
+	    dataHora: datetime
+		FK_ConselhoCoordenacao(
+			siglaCurso : varchar(5)
+	        dataCriacao : date
+		)
+	)
+)
+
+ParticipaReuniaoConselhoCoordenacao(
+	PK(
+		FK_MembroConselhoCoordenacao(
+			cpf : char(11), 
+            siglaCurso : varchar(5)
+			dataCriacao : date
+		), 
+		FK_ReuniaoConselhoCoordenacaoCurso(
+            dataHora: datetime
+			siglaCurso : varchar(5)
+            dataCriacao : date
+		)	
+	)
+)
+
+PropoeItemReuniaoConselhoDeCoordenacao(
+	PK(
+		FK_MembroConselhoCoordenacao(
+			cpf : char(11), 
+			siglaCurso: varchar(5), 
+            dataCriacao : date
+		),
+		FK_ItemDePauta(
+            idIP: int,
+            dataHora: datetime
+        )
+	)
+)
+
+PlanoDeEnsino(
+	PK_PlanoDeEnsino(	
+		FK_Turma(	
+			siglaDisciplina: varchar(5), 
+            siglaturma: varchar(5), 
+			ano: int, 
+			semestre: tinyint
+		)
+    )
+	FK_Docente(
+        siape: char(9)
+    ), 
+	ementa: varchar(200), 
+	estrategia: varchar(40), 
+	objetivosEspecificos: varchar(200),
+	objetivosGerais: varchar(200)
+)
+
+PlanoDeEnsino_Recurso(
+	PK_PlanoDeEnsino_Recurso(
+		FK_PlanoDeEnsino(	
+			siglaDisciplina: varchar(5),
+            siglaTurma: varchar(5),
+            ano: int,
+            semestre: int
+        ), 
+		recurso: varchar(max)
+	)
+)
+
+
+PlanoDeEnsino_Atividade(
+	PK_PlanoDeEnsino_Atividade(
+		FK_PlanoDeEnsino(	
+			siglaDisciplina: varchar(5),
+            siglaTurma: varchar(5),
+            ano: int,
+            semestre: tinyint
+        ),
+		horas:int,
+        atividade: varchar(30)
+	)
+)
+
+PlanoDeEnsino_EAD (
+	PK (
+		FK_PlanoDeEnsino(	
+			siglaDisciplina: varchar(5),
+            siglaTurma: varchar(5),
+            ano: int,
+            semestre: tinyint
+        ),
+		horas:int,
+        atividades: varchar(30)
+	)
+)
+
+PlanoDeEnsino_DistribHoras (
+	PK(
+		FK_PlanoDeEnsino(	
+			siglaDisciplina: varchar(5),
+            siglaTurma: varchar(5),
+            ano: int,
+            semestre: tinyint
+        ),
+		horas: int,
+        atividades: varchar(30)
+	)
+)
+
+PlanoDeEnsino_BibliografiaBasica (
+	PK(
+		FK_PlanoDeEnsino(	
+			siglaDisciplina: varchar(5),
+            siglaTurma: varchar(5),
+            ano: int,
+            semestre: tinyint
+        ), 
+		titulo: varchar(30),
+        editor: varchar(30), 
+        ano: int,
+        autor: varchar(30)
+	)
+)
+
+PlanoDeEnsino_BibliografiaComplementar (
+	PK(
+		FK_PlanoDeEnsino(	
+			siglaDisciplina: varchar(5),
+            siglaTurma: varchar(5),
+            ano: int,
+            semestre: tinyint
+        ),	
+        titulo: varchar(30),
+        editor: varchar(30), 
+        ano: int, 
+        autor: varchar(30)
+	)
+)
+
+
+PlanoDeEnsino_Topico (
+	PK(
+		FK_PlanoDeEnsino(	
+			siglaDisciplina: varchar(5),
+            siglaTurma: varchar(5),
+            ano: int,
+            semestre: int
+        ), 
+		horas: int,
+        topico: varchar(30)
+	)
+)
+
+Licenca (
+	PK (
+		dataInicio: date, 
+        dataTermino: date,
+        FK_Funcionario (
+            siape: char(9)
+        )
+	),
+	documento: varchar(max), 
+    indicacao: varchar(200), 
+    motivo: varchar(200),
+)
+
+Local (
+	PK_Local(
+        predio: varchar(30), 
+        nroSala: int
+    ),
+	nroCarteiras: int
+)
+
+AlunoInscreveTurma (
+	PK_AlunoInscreveTurma (
+		FK_Aluno(
+            ra: int
+        ), 
+		FK_Turma(
+            semestre: tinyint, 
+            ano: int, 
+            siglaTurma: varchar(5), 
+            siglaDisciplina: varchar(30)
+        )
+	),
+	situacao: varchar(30), 
+	motivo: varchar(30)
+)
+
+TemPrioridadeDocente (
+	PK(
+		FK_Disciplina(
+            siglaDisciplina: varchar(5)
+        ),
+		FK_Docente(
+            siape: char(9)
+        )
+	), 
+	grau: tinyint
+)
+
+ListaDocenteTurma (
+	PK (
+		FK_Docente(
+            siape: char(9)
+        ),
+		FK_Turma(
+            semestre: tinyint, 
+            ano: int, 
+            siglaTurma: varchar(5), 
+            siglaDisciplina: varchar(5)
+        ),
+	)
+)
+
+TurmaAtribuicaoLocal (
+	PK (
+		FK_Turma(
+            semestre: tinyint, 
+            ano: int, 
+            siglaTurma: time, 
+            siglaDisciplina: time
+        ),
+		FK_Local(
+            predio: varchar(30), 
+            nroSala: int
+        )
+	),
+	diaSemana: varchar(30), 
+	horario: varchar(5)
+)
+
+EquipeDeApoio (
+	PK_EDA (
+		FK_PlanoDeEnsino(	
+			siglaDisciplina: varchar(5),
+            siglaTurma: varchar(5),
+            ano: int,
+            semestre: int
+        ),
+	), 
+	FK_Pessoa(
+        cpf: char(11)
+    ),
+	FK_Tecnico(
+        siape: char(9)
+    ),
+	descricao: varchar(200)
+)
+
