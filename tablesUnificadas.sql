@@ -341,10 +341,10 @@ CREATE TABLE PlanoDeEnsino (
     siglaTurma           VARCHAR(5),
     siglaDisciplina      VARCHAR(5),
     siape                CHAR(9),
-    ementa               nvarchar(200),
-    estrategia           nvarchar(40),
-    objetivosEspecificos nvarchar(200),
-    objetivosGerais      nvarchar(200),
+    ementa               varchar(max),
+    estrategia           varchar(max),
+    objetivosEspecificos varchar(max),
+    objetivosGerais      varchar(max),
 
     PRIMARY KEY (semestre, ano, siglaTurma, siglaDisciplina),
     FOREIGN KEY (semestre, ano, siglaTurma, siglaDisciplina) REFERENCES Turma (semestre, ano, siglaTurma, siglaDisciplina),
@@ -368,9 +368,10 @@ CREATE TABLE PlanoDeEnsino_Atividades(
     siglaTurma      VARCHAR(5),
     siglaDisciplina VARCHAR(5),
     horas           INT,
-    atividade       VARCHAR(30),
+	id				INT,
+    atividade       VARCHAR(max),
 
-    PRIMARY KEY (semestre, ano, siglaTurma, siglaDisciplina, horas, atividade),
+    PRIMARY KEY (semestre, ano, siglaTurma, siglaDisciplina, horas, id),
     FOREIGN KEY (semestre, ano, siglaTurma, siglaDisciplina) REFERENCES PlanoDeEnsino (semestre, ano, siglaTurma, siglaDisciplina)
 );
  
@@ -380,7 +381,7 @@ CREATE TABLE PlanoDeEnsino_EAD(
     siglaTurma      VARCHAR(5),
     siglaDisciplina VARCHAR(5),
     horas           INT,
-    atividade       VARCHAR(30),
+    atividade       VARCHAR(200),
 
     PRIMARY KEY (semestre, ano, siglaTurma, siglaDisciplina, horas, atividade),
     FOREIGN KEY (semestre, ano, siglaTurma, siglaDisciplina) REFERENCES PlanoDeEnsino (semestre, ano, siglaTurma, siglaDisciplina)
@@ -392,7 +393,7 @@ CREATE TABLE PlanoDeEnsino_DistribHoras(
     siglaTurma      VARCHAR(5),
     siglaDisciplina VARCHAR(5),
     horas           INT,
-    atividade       VARCHAR(30),
+    atividade       VARCHAR(200),
 
     PRIMARY KEY (semestre, ano, siglaTurma, siglaDisciplina, horas, atividade),
     FOREIGN KEY (semestre, ano, siglaTurma, siglaDisciplina) REFERENCES PlanoDeEnsino (semestre, ano, siglaTurma, siglaDisciplina)
@@ -403,10 +404,10 @@ CREATE TABLE PlanoDeEnsino_BibliografiaBasica(
     ano             INT,
     siglaTurma      VARCHAR(5),
     siglaDisciplina VARCHAR(5),
-    titulo          VARCHAR(30),
-    editor          VARCHAR(30),
+    titulo          VARCHAR(100),
+    editor          VARCHAR(50),
     bibAno          INT,
-    autor           VARCHAR(30),
+    autor           VARCHAR(50),
 
     PRIMARY KEY (semestre, ano, siglaTurma, siglaDisciplina, titulo, editor, bibAno, autor),
     FOREIGN KEY (semestre, ano, siglaTurma, siglaDisciplina) REFERENCES PlanoDeEnsino (semestre, ano, siglaTurma, siglaDisciplina)
@@ -417,10 +418,10 @@ CREATE TABLE PlanoDeEnsino_BibliografiaComplementar(
     ano             INT,
     siglaTurma      VARCHAR(5),
     siglaDisciplina VARCHAR(5),
-    titulo          VARCHAR(30),
-    editor          VARCHAR(30),
+    titulo          VARCHAR(100),
+    editor          VARCHAR(50),
     bibAno          INT,
-    autor           VARCHAR(30),
+    autor           VARCHAR(50),
 
     PRIMARY KEY (semestre, ano, siglaTurma, siglaDisciplina, titulo, editor, bibAno, autor),
     FOREIGN KEY (semestre, ano, siglaTurma, siglaDisciplina) REFERENCES PlanoDeEnsino (semestre, ano, siglaTurma, siglaDisciplina)
@@ -432,9 +433,10 @@ CREATE TABLE PlanoDeEnsino_Topico(
     siglaTurma      VARCHAR(5),
     siglaDisciplina VARCHAR(5),
     horas           INT,
-    topico          VARCHAR(30)
+	id				INT,
+    topico          VARCHAR(max)
 
-    PRIMARY KEY (semestre, ano, siglaTurma, siglaDisciplina, horas, topico),
+    PRIMARY KEY (semestre, ano, siglaTurma, siglaDisciplina, horas, id),
     FOREIGN KEY (semestre, ano, siglaTurma, siglaDisciplina) REFERENCES PlanoDeEnsino (semestre, ano, siglaTurma, siglaDisciplina)
 );
 
@@ -542,7 +544,7 @@ CREATE TABLE MembroConsehoCoordenacao(
   siglaCurso varchar(5),
   dataCriacao date,
   dataPosse date,
-  portaria varchar(max)
+  portaria varchar(max),
   PRIMARY KEY (cpf, siglaCurso, dataCriacao),
   FOREIGN KEY (cpf) REFERENCES Pessoa (cpf),
   FOREIGN KEY (siglaCurso, dataCriacao) REFERENCES ConselhoCoordenacao (siglaCurso, dataCriacao)
