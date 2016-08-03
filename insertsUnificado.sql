@@ -210,3 +210,457 @@ INSERT INTO ComiteReconhecimento VALUES ('Pedro'	,	'Rogerio',	2)
 INSERT INTO ComiteReconhecimento VALUES ('Marcela'	,	'Paz'	 ,	3)
 INSERT INTO ComiteReconhecimento VALUES ('Yago'		,	'Rocha' ,	4)
 INSERT INTO ComiteReconhecimento VALUES ('Alexandre',	'Lara'   ,	5)
+
+-- Guilhermo
+
+INSERT INTO PlanoDeEnsino VALUES (
+	2, 2013, 'A', 'LCD',  '000000004',
+	'DE ACORDO COM OS OBJETIVOS NORTEADOS PELA DISCIPLINA, OS ASSUNTOS ABORDADOS SERÃO: ESTUDO DE DIVERSOS COMPONENTES E A SUA MANIPULAÇÃO; EQUIPAMENTOS DE MEDIÇÃO E TESTES; PROJETO, IMPLEMENTAÇÃO, MEDIÇÃO E TESTE DE CIRCUITOS COMBINATÓRIOS; PROJETO, IMPLEMENTAÇÃO, MEDIÇÃO E TESTE DE CIRCUITOS SEQÜENCIAIS.',
+	'Estratégias de Ensino
+- Exposição dos assuntos de forma participativa; 
+- Apresentação de aplicações e benefícios; 
+- Apresentação de exemplos práticos; 
+- Proposição de trabalhos práticos e uma prova. ',
+	'Habilitar o aluno a realizar simulações e implementações por meio de diagramas esquemáticos e linguagens de descrição de hardware (HDLs) de circuitos digitais incluindo portas lógicas, decodificadores, multiplexadores, flip-flops e registradores, aritmética e modelos de memória.',
+	'CAPACITAR O ALUNO QUANTO À IMPLEMENTAÇÃO E TESTE DE CIRCUITOS COMBINATÓRIOS E SEQÜENCIAIS, UTILIZANDO TECNOLOGIAS ATUALMENTE DISPONÍVEIS; E TAMBÉM, QUANTO AO MANEJO DE EQUIPAMENTOS LABORATORIAIS DE IMPLEMENTAÇÃO, MEDIÇÃO E TESTE DE CIRCUITOS.'
+);
+
+INSERT INTO PlanoDeEnsino VALUES (
+	2, 2013, 'A', 'CD', '000000004',
+	'DE ACORDO COM OS OBJETIVOS NORTEADOS PELA DISCIPLINA, OS ASSUNTOS ABORDADOS SERÃO: PORTAS LÓGICAS BÁSICAS E, OU E NÃO; EXEMPLOS DE CIRCUITS COMBINATÓRIOS TÍPICOS; TECNOLOGIAS DE IMPLEMENTAÇÃO DE CIRCUITOS DIGITAIS; CONCEITOS DE SISTEMAS SEQÜENCIAIS SÍNCRONOS E ASSÍNCRONOS; ELEMENTOS DE ESTADO: LATCHES E FLIP-FLOPS; SÍNTESE DE CIRCUITOS SEQÜENCIAIS (MÁQUINAS DE MEALY E MOORE); EXEMPLOS DE CIRCUITOS SEQÜENCIAIS TÍPICOS.',
+	'Estratégias de Ensino
+As seguintes estratégias são sugeridas: 
+- exposição dos assuntos de forma interativa; 
+- reflexões sobre excertos das referências básicas; 
+- proposição de exercícios; 
+- resolução de exercícios; 
+- aplicação de avaliação. ',
+	'Objetivos Específicos
+-Além de capacitar os alunos para o entendimento dos assuntos listados na seção anterior (Tópicos/Duração), bem como para desenvolver reflexão sobre estes assuntos, outros objetivos associados à capacitação dos alunos podem ser ressaltados: 
+
+- análise de sistemas digitais (nível simbólico); 
+- projeto de sistemas digitais (nível simbólico); 
+- aquisição de fundamentos para técnicas de implementação de sintese digitais (nível elétrico); 
+- aquisição de vocabulário específico; 
+- estimular a capacitade de criação de sistemas digitais voltados à solução de problemas reais e/ou visando gerar maior qualidade na interação com o meio em que se vive.',
+	'CAPACITAR O ALUNO QUANTO AO PROJETO LÓGICO DE CIRCUITOS COMBINATÓRIOS E SEQÜENCIAIS, BEM COMO QUANTO A IMPLEMENTAÇÃO USANDO PORTAS LÓGICAS, ABORDANDO QUESTÕES COMO MINIMIZAÇÃO, CONSUMO DE ENERGIA, RETARDO DE PROPAGAÇÃO, INTERCONEXÃO, FAMÍLIAS DE CIRCUITOS INTEGRADOS E COMPONENTES TÍPICOS.'
+);
+
+INSERT INTO PlanoDeEnsino VALUES (
+	2, 2013, 'A', 'PC', '000000003',
+	'1- ESPECIFICAÇÃO DA LINGUAGEM DE PROGRAMAÇÃO: TIPOS DE DADOS, ESTRUTURAS DE CONTROLE, ENTRADA E SAÍDA.2- REPRESENTAÇÃO DE ALGORITMOS NA LINGUAGEM DE PROGRAMAÇÃO;3- ESTRUTURA DE DADOS;4- ORGANIZAÇÃO DE ARQUIVOS;5- EXERCÍCIOS;',
+	'Aulas expositivas, discussão de exemplos e implementação com a linguagem C++.',
+	'Aprendizado dos conceitos de orientação a objetos utilizando a liguagem C++.',
+	'APRESENTAÇÃO DE LINGUAGENS DE PROGRAMAÇÃO E DO MAPEAMENTO DOS ALGORITMOS JÁ CONHECIDOS PARA PROGRAMAS NAS LINGUAGENS DE PROGRAMAÇÃO. COMPLEMENTAR O CONHECIMENTO DE METODOLOGIAS DE PROGRAMAÇÃO E INTRODUZIR NOVAS TÉCNICAS DE MANIPULAÇÃO DE ESTRUTURAS DE INFORMAÇÃO E DEPURAÇÃO DE ERROS EM PROGRAMAS. INTRODUZIR A METODOLOGIA DE PROGRAMAÇÃO ORIENTADA A OBJETOS.'
+);
+
+INSERT INTO PlanoDeEnsino VALUES (
+	1, 2013, 'A', 'CAP', '000000001',
+	'DE ACORDO COM OS OBJETIVOS NORTEADOS PELA DISCIPLINA, OS ASSUNTOS ABORDADOS SERÃO: CARACTERÍSTICAS BÁSICAS DOS COMPUTADORES: UNIDADES BÁSICAS, INSTRUÇÕES, PROGRAMAS ARMAZENADOS, LINGUAGEM DE MÁQUINA, ENDEREÇAMENTO, LINGUAGENS DE PROGRAMAÇÃO, SISTEMAS OPERACIONAIS, EQUIPAMENTOS PERIFÉRICOS; SISTEMAS NUMÉRICOS, ARITMÉTICA BINÁRIA, CÓDIGOS PONDERADOS E NÃO PONDERADOS: REPRESENTAÇÃO E CONVERSÕES DE BASES; AMBIENTE DE PROGRAMAÇÃO: EDIÇÃO, COMPILADORES, FERRAMENTAS AUXILIARES; CONCEITOS DE METODOLOGIAS DE DESENVOLVIMENTO DE ALGORITMOS: ESTRUTURAÇÃO DE CÓDIGO E DADOS, MODULARIZAÇÃO, DESENVOLVIMENTO TOP-DOWN, REAPROVEITAMENTO DE CÓDIGO, ABSTRAÇÃO DE CONTROLE E DE DADOS; CONSTRUÇÃO DE ALGORITMOS: ABORDAGEM PARA SOLUÇÃO DE PROBLEMAS, ESTRUTURAS DE CONTROLE, ESTRUTURAÇÃO DE DADOS, ESTRUTURAS DE MODULARIZAÇÃO; LINGUAGENS DE PROGRAMAÇÃO: CODIFICAÇÃO DE ALGORITMOS, COMPILAÇÃO, DEPURAÇÃO; E DISCIPLINA DE DOCUMENTAÇÃO.',
+	'Apresentação de com projetor, proposição e resolução de algoritmos, bem como proposição de programas na linguagem C nas aulas de laboratório. Proposição de material de estudo para discussão em aula.',
+	'Fornecer ao aluno conhecimentos básicos sobre computadores (organização, representação de valores em memória, periféricos, sistema operacional), sobre algoritmos (proposição de soluções, refinamentos e modularização) e sobre programação (codificação dos algoritmos em uma linguagem de programação - linguagem C).',
+	'OS ALUNOS DEVERÃO SER CAPAZES DE ABORDAR PROBLEMAS DE DIFERENTES COMPLEXIDADES E ESTAR APTOS A PROVER SOLUÇÕES ALGORÍTMICAS PARA SOLUCIONÁ-LOS, APRESENTANDO PROPOSTAS DE SOLUÇÃO ESTRUTURADAS, ORGANIZADAS, COERENTES E COM DOCUMENTAÇÃO ADEQUADA. SERÃO CAPAZES DE UTILIZAR EFICIENTEMENTE AS ESTRUTURAS DE ENTRADA E SAÍDA, ESTRUTURAS CONDICIONAIS E ESTRUTURAS DE REPETIÇÃO NOS ALGORITMOS PROPOSTOS, BEM COMO FARÃO USO JUSTO DAS ESTRUTURAS DE REPRESENTAÇÃO DE DADOS EM MEMÓRIA. TERÃO COMPETÊNCIA PARA ORGANIZAR O ALGORITMO EM SUB-ROTINAS COM PASSAGEM ADEQUADA DE PARÂMETROS E FAZER USO CORRETO DE VARIÁVEIS GLOBAIS E LOCAIS. POSSUIRÃO CONHECIMENTO PARA A MANIPULAÇÃO BÁSICA DE DADOS EM ARQUIVOS.ADICIONALMENTE, OS ALUNOS APRENDERÃO UMA LINGUAGEM DE PROGRAMAÇÃO NA QUAL AS SOLUÇÕES ALGORÍTMICAS ELABORADAS SERÃO IMPLEMENTADAS. TERÃO, PORTANTO, TAMBÉM A HABILIDADE DE UTILIZAR DE FORMA EFICIENTE UM AMBIENTE DE PROGRAMAÇÃO (SISTEMA OPERACIONAL E EDITOR DE PROGRAMAS) E UM COMPILADOR, COM VISTA A GERAR PROGRAMAS UTILIZANDO CORRETAMENTE AS ESTRUTURAS DE CONTROLE E A REPRESENTAÇÃO DE DADOS DISPONÍVEIS.'
+);
+
+INSERT INTO PlanoDeEnsino VALUES (
+	1, 2013, 'A', 'IL', '000000002',
+	'DE ACORDO COM OS OBJETIVOS NORTEADOS PELA DISCIPLINA, OS ASSUNTOS ABORDADOS SERÃO: O CÁLCULO PROPOSICIONAL: PROPOSIÇÕES ATÔMICAS, CONECTIVOS, PROPOSIÇÕES COMPOSTAS, FÓRMULAS BEM FORMADAS, LINGUAGEM PROPOSICIONAL, SEMÂNTICA (MODELOS), CONSEQÜÊNCIA LÓGICA, EQUIVALÊNCIA LÓGICA, MÉTODOS DE MINIMIZAÇÃO, MINIMIZAÇÃO DE EXPRESSÕES ALGÉBRICAS, DEDUÇÃO, FORMAS NORMAIS, REGRAS DE INFERÊNCIA, ARGUMENTOS, O PRINCÍPIO DE RESOLUÇÃO; EA LÓGICA DE PRIMEIRA ORDEM: ALFABETOS DE PRIMEIRA ORDEM, TERMOS, FÓRMULAS BEM FORMADAS, LINGUAGEM DE PRIMEIRA ORDEM, ESCOPO DE QUANTIFICADORES, VARIÁVEIS LIVRES E LIGADAS, SEMÂNTICA (MODELOS), CONSEQÜÊNCIA LÓGICA, EQUIVALÊNCIA LÓGICA, DEDUÇÃO, SKOLEMIZAÇÃO, FORMAS NORMAIS, QUANTIFICAÇÃO UNIVERSAL E NOTAÇÃO CLAUSAL, CLÁUSULAS DE HORN, UNIVERSO DE HERBRAND, DEMONSTRAÇÃO AUTOMÁTICA DE TEOREMAS POR COMPUTADOR, SUBSTITUIÇÃO E UNIFICAÇÃO, UNIFICADORES MAIS GERAIS, O PRINCÍPIO DE RESOLUÇÃO.',
+	'Exposição dialogada em todos os itens. Desenvolvimento (e resolução) de exercícios e problemas em sala de aula e proposição de empenho individual de forma similar.',
+	'Apresentar e discutir os fundamentos das linguagens do Cálculo Proposicional e da Lógica de Primeira Ordem, de maneira a habilitar o aluno a usar ambas as linguagens como formalismos para a representação e resolução de problemas. Promover a abordagem e o tratamento de problemas de maneira sistemática e formal.',
+	'ALÉM DE DESENVOLVER NO ALUNO A CAPACIDADE DO RACIOCÍNIO LÓGICO E ABSTRATO NO INTUITO DE PREPARÁ-LO A DESENVOLVER ALGORITMOS RÁPIDOS E EFICIENTES, A DISCIPLINA TEM COMO OBJETIVO DAR FUNDAMENTAÇÃO SOBRE SISTEMAS DEDUTIVOS E FORMALISMOS DA LÓGICA CLÁSSICA. AO FINAL DA DISCIPLINA O ALUNO DEVE CONHECER OS CONCEITOS DA LÓGICA PROPOSICIONAL E DE PREDICADOS E SUAS APLICAÇÕES NA COMPUTAÇÃO.'
+);
+
+INSERT INTO PlanoDeEnsino_Recurso VALUES (
+	1, 2013, 'A', 'CAP',
+	'Projetores, software de apresentação, computadores para as aulas de laboratório e lousa, ambiente MOODLE de ensino à distância, compiladores da linguagem C.'
+);
+
+INSERT INTO PlanoDeEnsino_Recurso VALUES (
+	1, 2013, 'A', 'IL',
+	'Lousa, giz e projetor multimídia. Literatura sugerida.'
+);
+
+INSERT INTO PlanoDeEnsino_Recurso VALUES (
+	2, 2013, 'A', 'PC',
+	'Laboratório de informática; 
+literatura relacionada; 
+ambiente Moodle.'
+);
+
+INSERT INTO PlanoDeEnsino_Recurso VALUES (
+	2, 2013, 'A', 'CD',
+	'Livro, giz e lousa.'
+);
+
+INSERT INTO PlanoDeEnsino_Recurso VALUES (
+	2, 2013, 'A', 'LCD',
+	'Computador, Projetor multimídia, Slides, Material multimídia, Quadro branco ou negro, Canetas ou giz, Laboratório contendo microcomputadores, kits didáticos, instrumentos de medição e softwares para simulação e implementação de sistemas digitais. 
+O ambiente Moodle será utilizado como apoio no desenvolvimento da disciplina para a distribuição de materiais, entrega de relatórios e comunicação entre docente e alunos. Internet.'
+);
+
+INSERT INTO PlanoDeEnsino_Atividades VALUES (
+	2, 2013, 'A', 'CD',
+	30,
+	1,
+	'São expectativas de comportamento associado ao aluno: 
+- participação efetiva nas aulas: acompanhando a exposição, gerando questionamentos diante de dúvidas, compondo observações em face de discordâncias e demandando informação para suprir curiosidades; 
+- empenho na resolução de exercícios propostos; 
+- preparação para as avaliações; 
+- dedicação ao estudo dos assuntos expostos em sala de aula, indivivualmente e/ou em grupo.'
+);
+ 
+INSERT INTO PlanoDeEnsino_Atividades VALUES (
+	1, 2013, 'A', 'CAP',
+	30,
+	2,
+	'Acompanhar as apresentações; Desenvolver soluções algorítmicas propostas pelo professor em sala de aula; Transcrever as soluções algorítmicas para programas computacionais, implementá-los e testa-los em laboratório; Utilizar o laboratório e a biblioteca para estudos fora do horário de aula para realizar tarefas extra-classe.'
+);
+
+INSERT INTO PlanoDeEnsino_Atividades VALUES (
+	2, 2013, 'A', 'PC',
+	30,
+	3,
+	'Resolver exercícios avaliativos utilizando a linguagem C++. 
+Participar das aulas e discutir os conceitos de orientação a objeto, com implementação em C++. '
+);
+
+INSERT INTO PlanoDeEnsino_Atividades VALUES (
+	1, 2013, 'A', 'IL',
+	30,
+	4,
+	'Estudos individuais e participação em discussões coletivas em sala de aula.'
+);
+
+INSERT INTO PlanoDeEnsino_Atividades VALUES (
+	2, 2013, 'A', 'LCD',
+	30,
+	5,
+	'- Presença e participação nas aulas em laboratório. 
+- Implementar circuitos digitais em protoboard. 
+- Implementar circuitos digitais em ambiente de programação. 
+- Desenvolver e implementar projetos. 
+- Elaborar trabalhos,escrever relatórios e realizar prova. 
+- Apresentação de relatórios e seminários.'
+);
+
+INSERT INTO PlanoDeEnsino_EAD VALUES (
+	1, 2013, 'A', 'CAP',
+	4,
+	'1. Introdução; manipulação básica de algoritmos'
+);
+INSERT INTO PlanoDeEnsino_EAD VALUES (
+	1, 2013, 'A', 'CAP',
+	4,
+	'2. Algoritmos de nível alto; formalização de algoritmos; refinamentos '
+);
+INSERT INTO PlanoDeEnsino_EAD VALUES (
+	1, 2013, 'A', 'CAP',
+	4,
+	'3. Algoritmos: condicionais '
+);
+INSERT INTO PlanoDeEnsino_EAD VALUES (
+	1, 2013, 'A', 'CAP',
+	4,
+	'4. Algoritmos: repetições '
+);
+INSERT INTO PlanoDeEnsino_EAD VALUES (
+	1, 2013, 'A', 'CAP',
+	4,
+	'11. Programação: SO, linguagens, codificação; compilação, variáveis, ES '
+);
+
+INSERT INTO PlanoDeEnsino_DistribHoras VALUES (
+	2, 2013, 'A', 'CD',
+	2,
+	'1) Introducao'
+);
+
+INSERT INTO PlanoDeEnsino_DistribHoras VALUES (
+	2, 2013, 'A', 'CD',
+	4,
+	'2) Sistemas numéricos, códigos e operações aritméticas'
+);
+
+INSERT INTO PlanoDeEnsino_DistribHoras VALUES (
+	2, 2013, 'A', 'CD',
+	2,
+	'3) Álgebra de Boole, portas lógicas básicas e síntese de circuitos combinatórios'
+);
+
+INSERT INTO PlanoDeEnsino_DistribHoras VALUES (
+	2, 2013, 'A', 'CD',
+	8,
+	'4) Minimização de circuitos digitais'
+);
+
+INSERT INTO PlanoDeEnsino_DistribHoras VALUES (
+	2, 2013, 'A', 'CD',
+	8,
+	'5) Elementos de estado (latches e flip-flops) e circuitos sequenciais'
+);
+
+INSERT INTO PlanoDeEnsino_BibliografiaBasica VALUES (
+	1, 2013, 'A', 'IL',
+	'A Cartilha da Lógica',
+	'Apontamentos - EDUFSCar', 2010, 'Prof. Maria do Carmo Nicoletti'
+);
+
+INSERT INTO PlanoDeEnsino_BibliografiaBasica VALUES (
+	1, 2013, 'A', 'CAP',
+	'Algoritmos',
+	'SeAD UFSCar', 2005, 'Moreira, J.'
+);
+
+INSERT INTO PlanoDeEnsino_BibliografiaBasica VALUES (
+	2, 2013, 'A', 'LCD',
+	'Rapid Prototyping of Digital Systems',
+	'Springer', 2008, 'Hamblen, J. O.; Hall, T. S.; Furman, M. D.'
+);
+
+INSERT INTO PlanoDeEnsino_BibliografiaBasica VALUES (
+	2, 2013, 'A', 'LCD',
+	'Digital Design and Implementation with Field Programmable Devices',
+	'Kap', 2005, 'Navabi, Z.'
+);
+
+INSERT INTO PlanoDeEnsino_BibliografiaBasica VALUES (
+	2, 2013, 'A', 'LCD',
+	'Sistemas Digitais - Princípios e Aplicações',
+	'Pearson, Prentice Hall', 2011, 'Tocci, R. J.'
+);
+
+INSERT INTO PlanoDeEnsino_BibliografiaComplementar VALUES (
+	2, 2013, 'A', 'LCD',
+	'Eletrônica Digital Moderna e VHDL',
+	'Campus', 2010, 'Pedroni, V. A.'
+);
+
+INSERT INTO PlanoDeEnsino_BibliografiaComplementar VALUES (
+	2, 2013, 'A', 'LCD',
+	'Elementos de Eletrônica Digital',
+	'Editora Érica', 2012, 'Capuano, F. G.; Idoeta, I. V.'
+);
+
+INSERT INTO PlanoDeEnsino_BibliografiaComplementar VALUES (
+	1, 2013, 'A', 'IL',
+	'Foundations of Logic Programming',
+	'Springer-Verlag', 1984, 'Lloyd, J.W.'
+);
+
+INSERT INTO PlanoDeEnsino_BibliografiaComplementar VALUES (
+	1, 2013, 'A', 'IL',
+	'Álgebra Booleana e Circuitos de Chaveamento',
+	'McGraw-Hill', 1977, 'Mendelson, E.'
+);
+
+INSERT INTO PlanoDeEnsino_BibliografiaComplementar VALUES (
+	1, 2013, 'A', 'IL',
+	'Logic for Problem Solving',
+	'North-Holland', 1979, 'Kowalski, R.'
+);
+
+INSERT INTO PlanoDeEnsino_BibliografiaComplementar VALUES (
+	1, 2013, 'A', 'IL',
+	'Álgebra Booleana e Circuitos de Chaveamento - Segunda Edição',
+	'McGraw-Hill', 1977, 'Mendelson, E.'
+);
+
+INSERT INTO PlanoDeEnsino_Topico VALUES (
+	1, 2013, 'A', 'IL',
+	20,
+	1,
+	'1. O cálculo proposicional: proposições atômicas, conectivos, proposições compostas, fórmulas bem formadas, linguagem proposicional, semântica (modelos), consequência lógica, equivalência lógica, métodos de minimização, minimização de expressões algébricas, dedução, formas normais, regras de inferência, argumentos, o princípio de resolução. (20 créditos)'
+);
+
+INSERT INTO PlanoDeEnsino_Topico VALUES (
+	1, 2013, 'A', 'IL',
+	20,
+	2,
+	'2. A lógica de primeira ordem: alfabetos de primeira ordem, termos, fórmulas bem formadas, linguagem de primeira ordem, escopo de quantificadores, variáveis livres e ligadas, semântica (modelos), consequência lógica, equivalência lógica, dedução, skolemização, formas normais, quantificação universal e notação clausal, cláusulas de horn. (20 créditos)'
+);
+
+INSERT INTO PlanoDeEnsino_Topico VALUES (
+	1, 2013, 'A', 'IL',
+	10,
+	3,
+	'3.Universo de herbrand, demonstração automática de teoremas por computador, substituição e unificação, unificadores mais gerais, o princípio de resolução. (10 créditos) '
+);
+
+INSERT INTO PlanoDeEnsino_Topico VALUES (
+	1, 2013, 'A', 'IL',
+	10,
+	4,
+	'4.Realização de avaliações individuais (10 créditos)'
+);
+
+INSERT INTO PlanoDeEnsino_Topico VALUES (
+	2, 2013, 'A', 'LCD',
+	14,
+	5,
+	'3- Experimentos com Circuitos Combinacionais (14 horas) 
+- Implementação de circuitos combinacionais por meio da técnica de descrição de projeto por diagramas esquemáticos no ambiente Quartus II da Altera. 
+- Implementação de circuito combinacional em proto-board para fins de comparação. 
+- Implementação de circuito combinacional utilizando HDLs (Verilog-HDL/VHDL) no ambiente Quartus II da Altera. 
+- Simulação no Kit DE1.'
+
+);
+
+INSERT INTO Licenca VALUES (
+	'000000001', '2016-02-01', '2016-02-11', '', 'Coordenador', 'LICENÇA PARA TRATAR DE INTERESSES PARTICULARES'
+);
+
+INSERT INTO Licenca VALUES (
+	'000000002', '2016-02-11', '2016-08-11', '', 'Coordenador', 'LICENÇA PATERNIDADE'
+);
+
+INSERT INTO Licenca VALUES (
+	'000000003', '2016-02-11', '2016-02-18', '', 'Coordenador', 'LICENÇA POR MOTIVO DE DOENÇA EM PESSOA DA FAMÍLIA'
+);
+
+INSERT INTO Licenca VALUES (
+	'000000004', '2016-02-11', '2016-03-11', '', 'Coordenador', 'LICENÇA SAÚDE'
+);
+
+INSERT INTO Licenca VALUES (
+	'000000005', '2016-02-11', '2017-02-11', '', 'Coordenador', 'LICENÇA GESTANTE'
+);
+
+/*INSERT INTO Reuniao VALUES (
+	'2016-02-11 13:23:44'
+);
+
+INSERT INTO Reuniao VALUES (
+	'2016-03-11 13:23:44'
+);
+
+INSERT INTO Reuniao VALUES (
+	'2016-04-11 13:23:44'
+);
+
+INSERT INTO Reuniao VALUES (
+	'2016-05-11 13:23:44'
+);
+
+INSERT INTO Reuniao VALUES (
+	'2016-06-11 13:23:44'
+);*/
+INSERT INTO Reuniao VALUES ('20160520 10:34:09 AM')
+INSERT INTO Reuniao VALUES ('20160618 12:30:00 AM')
+INSERT INTO Reuniao VALUES ('20160519 10:00:00 PM')
+INSERT INTO Reuniao VALUES ('20160418 10:30:00 PM')
+INSERT INTO Reuniao VALUES ('20160318 10:34:00 AM')
+
+INSERT INTO ItemDePauta VALUES (
+	1, '20160520 10:34:09 AM', 
+	'Analisar os Relatórios de afastamento de até 5 dias dos docentes de siape 000000001 e 000000002'
+);
+
+INSERT INTO ItemDePauta VALUES (
+	2, '20160520 10:34:09 AM', 
+	'Analisar o Relatório de afastamento para o exterior do docente de siape 000000003'
+);
+
+INSERT INTO ItemDePauta VALUES (
+	3, '20160520 10:34:09 AM', 
+	'Analisar o Relatório do Projeto de Evento Acadêmico MEETING 2015'
+);
+
+INSERT INTO ItemDePauta VALUES (
+	4, '20160520 10:34:09 AM', 
+	'Analisar o Relatório do Projeto de Evento Acadêmico XVII Jornada Multidisciplinar, “Diversidade, Acessibilidade e Direitos: Diálogos com a Comunicação”'
+);
+
+INSERT INTO ItemDePauta VALUES (
+	5, '20160520 10:34:09 AM', 
+	'Analisar solicitação de Estágio Docência dos aluno do programa de pós-graduação'
+);
+
+INSERT INTO DecisaoAprovada VALUES (
+	1, '20160520 10:34:09 AM', 
+	'Aprovado'
+);
+
+INSERT INTO DecisaoAprovada VALUES (
+	2, '20160520 10:34:09 AM', 
+	'Reprovado'
+);
+
+INSERT INTO DecisaoAprovada VALUES (
+	3, '20160520 10:34:09 AM', 
+	'Aprovado'
+);
+
+INSERT INTO DecisaoAprovada VALUES (
+	4, '20160520 10:34:09 AM', 
+	'Retirado de pauta'
+);
+
+INSERT INTO DecisaoAprovada VALUES (
+	5, '20160520 10:34:09 AM', 
+	'Aprovado todos alunos'
+);
+
+
+-- Lucas
+
+INSERT INTO Matricula VALUES ('BCC', 1, '20100310', '20150130')
+INSERT INTO Matricula VALUES ('ENC', 2, '20110310', '20170130')
+INSERT INTO Matricula VALUES ('EM',  3, '20120310', '20170130')
+INSERT INTO Matricula VALUES ('EP',  4, '20100310', '20150130')
+INSERT INTO Matricula VALUES ('BCC', 5, '20130310', '20170130')
+
+INSERT INTO MembroNucleoDocenteEstruturante VALUES ('000000001', 'BCC', '20120117', '')
+INSERT INTO MembroNucleoDocenteEstruturante VALUES ('000000002', 'EP' , '20120120', '')
+INSERT INTO MembroNucleoDocenteEstruturante VALUES ('000000003', 'ENC', '20110130', '')
+INSERT INTO MembroNucleoDocenteEstruturante VALUES ('000000004', 'EP' , '20120122', '')
+INSERT INTO MembroNucleoDocenteEstruturante VALUES ('000000005', 'BCC', '20150130', '')
+
+
+INSERT INTO ReuniaoNucleoDocenteEstruturante VALUES ('20160520 10:34:09 AM', 'BCC')
+INSERT INTO ReuniaoNucleoDocenteEstruturante VALUES ('20160618 12:30:00 AM', 'BCC')
+INSERT INTO ReuniaoNucleoDocenteEstruturante VALUES ('20160519 10:00:00 PM', 'ENC')
+INSERT INTO ReuniaoNucleoDocenteEstruturante VALUES ('20160418 10:30:00 PM', 'ENC')
+INSERT INTO ReuniaoNucleoDocenteEstruturante VALUES ('20160318 10:34:00 AM', 'BCC')
+
+INSERT INTO ParticipaReuniaoNucleo VALUES ('000000001', 'BCC', '20160520 10:34:09 AM')
+INSERT INTO ParticipaReuniaoNucleo VALUES ('000000003', 'ENC', '20160519 10:00:00 PM')
+INSERT INTO ParticipaReuniaoNucleo VALUES ('000000001', 'BCC', '20160618 12:30:00 AM')
+INSERT INTO ParticipaReuniaoNucleo VALUES ('000000005', 'BCC', '20160318 10:34:00 AM')
+INSERT INTO ParticipaReuniaoNucleo VALUES ('000000005', 'BCC', '20160520 10:34:09 AM')
+
+INSERT INTO PropoeItemReuniaoNucleoDocenteEstruturante VALUES ('000000001', 'BCC', 1, '20160520 10:34:09 AM')
+INSERT INTO PropoeItemReuniaoNucleoDocenteEstruturante VALUES ('000000003', 'ENC', 2, '20160520 10:34:09 AM')
+INSERT INTO PropoeItemReuniaoNucleoDocenteEstruturante VALUES ('000000001', 'BCC', 3, '20160520 10:34:09 AM')
+INSERT INTO PropoeItemReuniaoNucleoDocenteEstruturante VALUES ('000000005', 'BCC', 4, '20160520 10:34:09 AM')
+INSERT INTO PropoeItemReuniaoNucleoDocenteEstruturante VALUES ('000000005', 'BCC', 5, '20160520 10:34:09 AM')
+
+INSERT INTO ComunicadoNucleoDocenteEstruturante VALUES ('000000001', 'BCC', 1, '20160520 10:34:09 AM', 1, '')
+INSERT INTO ComunicadoNucleoDocenteEstruturante VALUES ('000000003', 'ENC', 2, '20160520 10:34:09 AM', 2, '')
+INSERT INTO ComunicadoNucleoDocenteEstruturante VALUES ('000000001', 'BCC', 3, '20160520 10:34:09 AM', 3, '')
+INSERT INTO ComunicadoNucleoDocenteEstruturante VALUES ('000000005', 'BCC', 4, '20160520 10:34:09 AM', 4, '')
+INSERT INTO ComunicadoNucleoDocenteEstruturante VALUES ('000000005', 'BCC', 5, '20160520 10:34:09 AM', 5, '')
+
+INSERT INTO PropostaIntervencaoNucleoDocenteEstruturante VALUES ('000000001', 'BCC', 1, '20160520 10:34:09 AM', 1, '')
+INSERT INTO PropostaIntervencaoNucleoDocenteEstruturante VALUES ('000000003', 'ENC', 2, '20160520 10:34:09 AM', 2, '')
+INSERT INTO PropostaIntervencaoNucleoDocenteEstruturante VALUES ('000000001', 'BCC', 3, '20160520 10:34:09 AM', 3, '')
+INSERT INTO PropostaIntervencaoNucleoDocenteEstruturante VALUES ('000000005', 'BCC', 4, '20160520 10:34:09 AM', 4, '')
+INSERT INTO PropostaIntervencaoNucleoDocenteEstruturante VALUES ('000000005', 'BCC', 5, '20160520 10:34:09 AM', 5, '')
+
+
+INSERT INTO ConselhoCoordenacao VALUES ('BCC', '19720520 10:34:09 AM')
+INSERT INTO ConselhoCoordenacao VALUES ('ENC', '19730520 10:34:09 AM')
+INSERT INTO ConselhoCoordenacao VALUES ('EP',  '19800520 10:34:09 AM')
+INSERT INTO ConselhoCoordenacao VALUES ('EM',  '19710520 10:34:09 AM')
+INSERT INTO ConselhoCoordenacao VALUES ('EF',  '19720520 10:34:09 AM')
+
+INSERT INTO MembroConsehoCoordenacao VALUES ('11100000001', 'BCC', '19720520 10:34:09 AM', '20160510', '')
+INSERT INTO MembroConsehoCoordenacao VALUES ('11100000002', 'BCC', '19720520 10:34:09 AM', '20160511', '')
+INSERT INTO MembroConsehoCoordenacao VALUES ('11100000003', 'BCC', '19720520 10:34:09 AM', '20160512', '')
+INSERT INTO MembroConsehoCoordenacao VALUES ('11100000004', 'EP',  '19800520 10:34:09 AM', '20160513', '')
+INSERT INTO MembroConsehoCoordenacao VALUES ('11100000005', 'EM',  '19710520 10:34:09 AM', '20160514', '')
+
+INSERT INTO ReuniaoConselhoCoordenacaoCurso VALUES ('20160520 10:34:09 AM', 'BCC', '19720520 10:34:09 AM')
+INSERT INTO ReuniaoConselhoCoordenacaoCurso VALUES ('20160520 10:34:09 AM', 'ENC', '19730520 10:34:09 AM')
+INSERT INTO ReuniaoConselhoCoordenacaoCurso VALUES ('20160520 10:34:09 AM', 'EP',  '19800520 10:34:09 AM')
+INSERT INTO ReuniaoConselhoCoordenacaoCurso VALUES ('20160520 10:34:09 AM', 'EM', '19710520 10:34:09 AM')
+INSERT INTO ReuniaoConselhoCoordenacaoCurso VALUES ('20160520 10:34:09 AM', 'EF', '19720520 10:34:09 AM')
