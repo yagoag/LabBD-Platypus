@@ -250,7 +250,6 @@ CREATE TABLE CursoSolicitaReconhecimento (
   fase              INT,
   idReconhecimento  INT,
   data              DATE,
-
   PRIMARY KEY (fase),
   FOREIGN KEY (idReconhecimento) REFERENCES Reconhecimento (idReconhecimento) 
 );
@@ -476,7 +475,7 @@ CREATE TABLE MembroNucleoDocenteEstruturante(
     siapeDocente CHAR(9),
     siglaCurso VARCHAR(5),
     dataPosse DATE,
-    portaria VARCHAR(max)
+    portaria VARCHAR(max),
     PRIMARY KEY (siapeDocente, siglaCurso),
     FOREIGN KEY (siapeDocente) REFERENCES Docente (siape),
     FOREIGN KEY (siglaCurso) REFERENCES Curso (sigla)
@@ -503,7 +502,7 @@ CREATE TABLE PropoeItemReuniaoNucleoDocenteEstruturante(
 		siapeDocente CHAR(9),
 		siglaCurso VARCHAR(5),
 		idIP int,
-		dataHora datetime
+		dataHora datetime,
     PRIMARY KEY (siapeDocente, siglaCurso, idIP, dataHora),
     FOREIGN KEY (siapeDocente, siglaCurso) REFERENCES MembroNucleoDocenteEstruturante (siapeDocente, siglaCurso),
     FOREIGN KEY (idIP, dataHora) REFERENCES ItemdePauta (idIP, dataHora)
