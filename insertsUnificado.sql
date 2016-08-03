@@ -615,7 +615,6 @@ INSERT INTO MembroNucleoDocenteEstruturante VALUES ('000000003', 'ENC', '2011013
 INSERT INTO MembroNucleoDocenteEstruturante VALUES ('000000004', 'EP' , '20120122', '')
 INSERT INTO MembroNucleoDocenteEstruturante VALUES ('000000005', 'BCC', '20150130', '')
 
-
 INSERT INTO ReuniaoNucleoDocenteEstruturante VALUES ('20160520 10:34:09 AM', 'BCC')
 INSERT INTO ReuniaoNucleoDocenteEstruturante VALUES ('20160618 12:30:00 AM', 'BCC')
 INSERT INTO ReuniaoNucleoDocenteEstruturante VALUES ('20160519 10:00:00 PM', 'ENC')
@@ -664,3 +663,15 @@ INSERT INTO ReuniaoConselhoCoordenacaoCurso VALUES ('20160520 10:34:09 AM', 'ENC
 INSERT INTO ReuniaoConselhoCoordenacaoCurso VALUES ('20160520 10:34:09 AM', 'EP',  '19800520 10:34:09 AM')
 INSERT INTO ReuniaoConselhoCoordenacaoCurso VALUES ('20160520 10:34:09 AM', 'EM', '19710520 10:34:09 AM')
 INSERT INTO ReuniaoConselhoCoordenacaoCurso VALUES ('20160520 10:34:09 AM', 'EF', '19720520 10:34:09 AM')
+
+INSERT INTO ParticipaReuniaoConselhoCoordenacao VALUES ('11100000001', 'BCC', '19720520 10:34:09 AM', '20160520 10:34:09 AM', 'BCC', '19720520')
+INSERT INTO ParticipaReuniaoConselhoCoordenacao VALUES ('11100000002', 'BCC', '19720520 10:34:09 AM', '20160520 10:34:09 AM', 'BCC', '19720520')
+INSERT INTO ParticipaReuniaoConselhoCoordenacao VALUES ('11100000003', 'BCC', '19720520 10:34:09 AM', '20160520 10:34:09 AM', 'BCC', '19720520')
+INSERT INTO ParticipaReuniaoConselhoCoordenacao VALUES ('11100000004', 'EP',  '19800520 10:34:09 AM', '20160520 10:34:09 AM', 'EP',  '19800520')
+INSERT INTO ParticipaReuniaoConselhoCoordenacao VALUES ('11100000005', 'EM',  '19710520 10:34:09 AM', '20160520 10:34:09 AM', 'EM', '19710520')
+
+INSERT INTO PropoeItemReuniaoConselhoDeCoordenacao VALUES ('11100000001', 'BCC', '19720520 10:34:09 AM', 1, '20160520 10:34:09 AM')
+INSERT INTO PropoeItemReuniaoConselhoDeCoordenacao VALUES ('11100000002', 'BCC', '19720520 10:34:09 AM', 2, '20160520 10:34:09 AM')
+INSERT INTO PropoeItemReuniaoConselhoDeCoordenacao VALUES ('11100000003', 'BCC', '19720520 10:34:09 AM', 3, '20160520 10:34:09 AM')
+INSERT INTO PropoeItemReuniaoConselhoDeCoordenacao VALUES ('11100000004', 'EP',  '19800520 10:34:09 AM', 4, '20160520 10:34:09 AM')
+INSERT INTO PropoeItemReuniaoConselhoDeCoordenacao VALUES ('11100000005', 'EM',  '19710520 10:34:09 AM', 5, '20160520 10:34:09 AM')
