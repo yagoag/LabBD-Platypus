@@ -1,3 +1,19 @@
+IF OBJECT_ID('Matricula', 'U') IS NOT NULL
+  DROP TABLE Matricula;
+IF OBJECT_ID('ParticipaReuniaoNucleo', 'U') IS NOT NULL
+  DROP TABLE MembroNucleoDocenteEstruturante;
+IF OBJECT_ID('PropoeItemReuniaoNucleoDocenteEstruturante', 'U') IS NOT NULL
+  DROP TABLE MembroNucleoDocenteEstruturante;
+IF OBJECT_ID('ComunicadoNucleoDocenteEstruturante', 'U') IS NOT NULL
+  DROP TABLE ReuniaoNucleoDocenteEstruturante;
+IF OBJECT_ID('PropostaIntervencaoNucleoDocenteEstruturante', 'U') IS NOT NULL
+  DROP TABLE MembroNucleoDocenteEstruturante;
+IF OBJECT_ID('ConselhoCoordenacao', 'U') IS NOT NULL
+  DROP TABLE MembroNucleoDocenteEstruturante;
+IF OBJECT_ID('MembroConsehoCoordenacao', 'U') IS NOT NULL
+  DROP TABLE MembroNucleoDocenteEstruturante;
+IF OBJECT_ID('ReuniaoConselhoCoordenacaoCurso', 'U') IS NOT NULL
+  DROP TABLE MembroNucleoDocenteEstruturante;
 IF OBJECT_ID('Licenca', 'U') IS NOT NULL
     DROP TABLE Licenca;
 IF OBJECT_ID('DecisaoAprovada', 'U') IS NOT NULL
@@ -74,6 +90,10 @@ IF OBJECT_ID('ComiteReconhecimento', 'U') IS NOT NULL
   DROP TABLE ComiteReconhecimento;
 IF OBJECT_ID('Reconhecimento', 'U') IS NOT NULL
   DROP TABLE Reconhecimento;
+IF OBJECT_ID('ReuniaoNucleoDocenteEstruturante', 'U') IS NOT NULL
+    DROP TABLE ReuniaoNucleoDocenteEstruturante;
+IF OBJECT_ID('MembroNucleoDocenteEstruturante', 'U') IS NOT NULL
+    DROP TABLE MembroNucleoDocenteEstruturante;
 IF OBJECT_ID('Curso', 'U') IS NOT NULL
   DROP TABLE Curso;
 IF OBJECT_ID('Funcionario', 'U') IS NOT NULL
@@ -81,6 +101,6 @@ IF OBJECT_ID('Funcionario', 'U') IS NOT NULL
 IF OBJECT_ID('Aluno', 'U') IS NOT NULL
   DROP TABLE Aluno;
 IF OBJECT_ID('Pessoa', 'U') IS NOT NULL
-    DROP TABLE Pessoa; 
+    DROP TABLE Pessoa;
 
--- Faltam: Alexandre, Lucas, Aquino, Wilton, Galo
+-- Faltam: Alexandre, Aquino, Wilton, Galo

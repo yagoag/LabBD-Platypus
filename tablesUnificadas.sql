@@ -462,3 +462,98 @@ CREATE TABLE TurmaAtribuicaoLocal (
   FOREIGN KEY (semestre, ano, siglaTurma, siglaDisciplina) REFERENCES Turma (semestre, ano, siglaTurma, siglaDisciplina),
   FOREIGN KEY (predio, nroSala) REFERENCES Local (predio, nroSala)
 );
+
+CREATE TABLE Matricula(
+  siglaCurso VARCHAR(5),
+  ra INTEGER,
+  dataIngresso DATE,
+  dataSaida DATE,
+  PRIMARY KEY (siglaCurso, ra),
+  FOREIGN KEY (siglaCurso) REFERENCES Curso (sigla)
+);
+
+CREATE TABLE MembroNucleoDocenteEstruturante(
+    siapeDocente CHAR(9),
+    siglaCurso VARCHAR(5),
+    dataPosse DATE,
+    portaria VARCHAR(max)
+    PRIMARY KEY (siapeDocente, siglaCurso),
+    FOREIGN KEY (siapeDocente) REFERENCES Docente (siape),
+    FOREIGN KEY (siglaCurso) REFERENCES Curso (sigla)
+);
+
+CREATE TABLE ReuniaoNucleoDocenteEstruturante(
+    dataHora datetime,
+    siglaCurso varchar(5)
+    PRIMARY KEY (dataHora),
+    FOREIGN KEY (dataHora) REFERENCES Reuniao (dataHora),
+    FOREIGN KEY (siglaCurso) REFERENCES NucleoDocenteEstruturante (siglaCurso)
+)
+
+CREATE TABLE ParticipaReuniaoNucleo(
+	siapeDocente char(9),
+    siglaCurso VARCHAR(5),
+	dataHoraReuniao datetime,
+	PRIMARY KEY (siapeDocente, siglaCurso, dataHoraReuniao),
+  FOREIGN KEY (siapeDocente, siglaCurso) REFERENCES MembroNucleoDocenteEstruturante (siapeDocente, siglaCurso),
+  FOREIGN KEY (dataHoraReuniao) REFERENCES ReuniaoNucleoDocenteEstruturante (dataHora)
+);
+
+CREATE TABLE PropoeItemReuniaoNucleoDocenteEstruturante(
+		siapeDocente CHAR(9),
+		siglaCurso VARCHAR(5),
+		idIP int,
+		dataHora datetime
+    PRIMARY KEY (siapeDocente, siglaCurso, idIP, dataHora),
+    FOREIGN KEY (siapeDocente, siglaCurso) REFERENCES MembroNucleoDocenteEstruturante (siapeDocente, siglaCurso),
+    FOREIGN KEY (idIP, dataHora) REFERENCES ItemdePauta (idIP, dataHora)
+);
+
+CREATE TABLE ComunicadoNucleoDocenteEstruturante(
+  siapeDocente CHAR(9),
+  siglaCurso VARCHAR(5),
+  idIP int,
+  dataHora datetime,
+	idCNDE int,
+	comunicado varchar(max),
+  PRIMARY KEY (siapeDocente, siglaCurso, idIP, dataHora, IdCNDE),
+  FOREIGN KEY (siapeDocente, siglaCurso, idIP, dataHora) REFERENCES PropoeItemReuniaoNucleoDocenteEstruturante (siapeDocente, siglaCurso, idIP, dataHora)
+);
+
+CREATE TABLE PropostaIntervencaoNucleoDocenteEstruturante(
+		siape char(9),
+		siglaCurso varchar(5),
+		idIP int,
+    dataHora datetime,
+		idPINDE int,
+    propostaIntervencao varchar(max),
+    PRIMARY KEY (siape, siglaCurso, idIP, dataHora, idPINDE),
+    FOREIGN KEY (siape, siglaCurso, idIP, dataHora) REFERENCES PropoeItemReuniaoNucleoDocenteEstruturante (siapeDocente, siglaCurso, idIP, dataHora)
+);
+
+CREATE TABLE ConselhoCoordenacao(
+		siglaCurso varchar(5),
+    dataCriacao date,
+    PRIMARY KEY (siglaCurso, dataCriacao),
+    FOREIGN KEY (siglaCurso) REFERENCES Curso (sigla)
+);
+
+CREATE TABLE MembroConsehoCoordenacao(
+  cpf char(11),
+  siglaCurso varchar(5),
+  dataCriacao date,
+  dataPosse date,
+  portaria varchar(max)
+  PRIMARY KEY (cpf, siglaCurso, dataCriacao),
+  FOREIGN KEY (cpf) REFERENCES Pessoa (cpf),
+  FOREIGN KEY (siglaCurso, dataCriacao) REFERENCES ConselhoCoordenacao (siglaCurso, dataCriacao)
+
+);
+
+CREATE TABLE ReuniaoConselhoCoordenacaoCurso(
+	  dataHora datetime,
+		siglaCurso varchar(5),
+	  dataCriacao date,
+    PRIMARY KEY (dataHora, siglaCurso, dataCriacao),
+    FOREIGN KEY (siglaCurso, dataCriacao) REFERENCES ConselhoCoordenacao (siglaCurso, dataCriacao)
+);
