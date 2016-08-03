@@ -1,3 +1,7 @@
+IF OBJECT_ID('PropoeItemReuniaoConselhoDeCoordenacao', 'U') IS NOT NULL
+  DROP TABLE PropoeItemReuniaoConselhoDeCoordenacao;
+IF OBJECT_ID('ParticipaReuniaoConselhoCoordenacao', 'U') IS NOT NULL
+  DROP TABLE ParticipaReuniaoConselhoCoordenacao;
 IF OBJECT_ID('TelefoneDocente', 'U') IS NOT NULL
   DROP TABLE TelefoneDocente;
 IF OBJECT_ID('EmailDocente', 'U') IS NOT NULL
@@ -122,5 +126,3 @@ IF OBJECT_ID('Aluno', 'U') IS NOT NULL
   DROP TABLE Aluno;
 IF OBJECT_ID('Pessoa', 'U') IS NOT NULL
     DROP TABLE Pessoa;
-
--- Faltam: Alexandre, Aquino, Wilton, Galo

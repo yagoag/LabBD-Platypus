@@ -685,3 +685,28 @@ CREATE TABLE TelefoneDocente
 		
 	CONSTRAINT PK_TelefoneDocente PRIMARY KEY (ddd, numero, siape)
 )
+
+CREATE TABLE ParticipaReuniaoConselhoCoordenacao(
+	cpfMCC CHAR(11),
+	siglaCursoMCC VARCHAR(5),
+	dataCriacaoMCC DATE,
+	dataHoraRCCC DATETIME,
+	siglaCursoRCCC VARCHAR(5),
+	dataCriacaoRCCC DATE,
+
+	PRIMARY KEY (cpfMCC, siglaCursoMCC, dataCriacaoMCC, dataHoraRCCC, siglaCursoRCCC, dataCriacaoRCCC),
+	FOREIGN KEY (cpfMCC, siglaCursoMCC, dataCriacaoMCC) REFERENCES MembroConsehoCoordenacao (cpf, siglaCurso, dataCriacao),
+	FOREIGN KEY (dataHoraRCCC, siglaCursoRCCC, dataCriacaoRCCC) REFERENCES ReuniaoConselhoCoordenacaoCurso (dataHora, siglaCurso, dataCriacao)
+);
+
+CREATE TABLE PropoeItemReuniaoConselhoDeCoordenacao(
+	cpf CHAR(11),
+	siglaCurso VARCHAR(5),
+	dataCriacao DATE,
+	idIP INT,
+	dataHora DATETIME,
+
+	PRIMARY KEY (cpf, siglaCurso, dataCriacao, idIP, dataHora),
+	FOREIGN KEY (cpf, siglaCurso, dataCriacao) REFERENCES MembroConsehoCoordenacao (cpf, siglaCurso, dataCriacao),
+	FOREIGN KEY (idIP, dataHora) REFERENCES ItemDePauta (idIP, dataHora)
+);
