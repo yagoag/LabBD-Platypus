@@ -1,3 +1,23 @@
+IF OBJECT_ID('TelefoneDocente', 'U') IS NOT NULL
+  DROP TABLE TelefoneDocente;
+IF OBJECT_ID('EmailDocente', 'U') IS NOT NULL
+  DROP TABLE EmailDocente;
+IF OBJECT_ID('AlunoMatriculadoCurso', 'U') IS NOT NULL
+  DROP TABLE AlunoMatriculadoCurso;
+IF OBJECT_ID('EmailAluno', 'U') IS NOT NULL
+  DROP TABLE EmailAluno;
+IF OBJECT_ID('Email', 'U') IS NOT NULL
+  DROP TABLE Email;
+IF OBJECT_ID('DocenteTemCargoAdministrativo', 'U') IS NOT NULL
+  DROP TABLE DocenteTemCargoAdministrativo;
+IF OBJECT_ID('AlunoInscreveTurma', 'U') IS NOT NULL
+  DROP TABLE AlunoInscreveTurma;
+IF OBJECT_ID('TemPrioridadeDocente', 'U') IS NOT NULL
+  DROP TABLE TemPrioridadeDocente;
+IF OBJECT_ID('ListaDocenteTurma', 'U') IS NOT NULL
+  DROP TABLE ListaDocenteTurma;
+IF OBJECT_ID('EquipeDeApoio', 'U') IS NOT NULL
+  DROP TABLE EquipeDeApoio;
 IF OBJECT_ID('Matricula', 'U') IS NOT NULL
   DROP TABLE Matricula;
 IF OBJECT_ID('ParticipaReuniaoNucleo', 'U') IS NOT NULL

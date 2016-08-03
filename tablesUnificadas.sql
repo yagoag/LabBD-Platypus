@@ -558,3 +558,130 @@ CREATE TABLE ReuniaoConselhoCoordenacaoCurso(
     PRIMARY KEY (dataHora, siglaCurso, dataCriacao),
     FOREIGN KEY (siglaCurso, dataCriacao) REFERENCES ConselhoCoordenacao (siglaCurso, dataCriacao)
 );
+
+CREATE TABLE EquipeDeApoio
+(
+	siglaDisciplina varchar(5) NOT NULL,
+	siglaTurma varchar(5) NOT NULL,
+    ano int NOT NULL,
+    semestre int NOT NULL,
+	cpf char(11) NOT NULL,
+	siape char(9) NOT NULL,
+	descricao varchar(200) NOT NULL,
+	
+	FOREIGN KEY (cpf) REFERENCES Pessoa (cpf), 
+	FOREIGN KEY (siape) REFERENCES Tecnico (siape), 
+	
+	CONSTRAINT PK_EQUIPEDEAPOIO PRIMARY KEY (siglaDisciplina, siglaTurma, ano, semestre)
+)
+
+CREATE TABLE ListaDocenteTurma 
+(
+	siape char(9) NOT NULL,
+	semestre tinyint NOT NULL, 
+	ano int NOT NULL, 
+    siglaTurma varchar(5) NOT NULL, 
+    siglaDisciplina varchar(5) NOT NULL, 
+	
+	FOREIGN KEY (siape) REFERENCES Docente (siape),
+	FOREIGN KEY (semestre, ano, siglaTurma, siglaDisciplina) REFERENCES Turma (semestre, ano, siglaTurma, siglaDisciplina),
+	
+	CONSTRAINT PK_LISTADOCENTETURMA PRIMARY KEY (siape, semestre, ano, siglaTurma, siglaDisciplina)
+)
+
+CREATE TABLE TemPrioridadeDocente 
+(
+	siglaDisciplina varchar(5) NOT NULL,
+	siape char(9) NOT NULL,
+	grau tinyint NOT NULL,
+		
+	FOREIGN KEY (siglaDisciplina) REFERENCES Disciplina (sigla),
+	FOREIGN KEY (siape) REFERENCES Docente (siape),
+	
+	CONSTRAINT PK_TemPrioridadeDocente PRIMARY KEY (siglaDisciplina, siape)
+)
+
+CREATE TABLE AlunoInscreveTurma 
+(
+	ra int NOT NULL,
+	semestre tinyint NOT NULL, 
+	ano int NOT NULL, 
+    siglaTurma varchar(5) NOT NULL, 
+    siglaDisciplina varchar(5) NOT NULL, 
+	situacao varchar(30), 
+	motivo varchar(30),
+		
+	FOREIGN KEY (ra) REFERENCES Aluno (ra),
+	FOREIGN KEY (semestre, ano, siglaTurma, siglaDisciplina) REFERENCES Turma (semestre, ano, siglaTurma, siglaDisciplina),
+	
+	CONSTRAINT PK_AlunoInscreveTurma PRIMARY KEY (ra, semestre, ano, siglaTurma, siglaDisciplina)
+)
+
+CREATE TABLE DocenteTemCargoAdministrativo 
+(
+	siape char(9) NOT NULL, 
+	nomeCargo varchar(30) NOT NULL, 
+	dataInicio date NOT NULL,
+	dataFim date,
+	
+	FOREIGN KEY (siape) REFERENCES Docente (siape),
+	FOREIGN KEY (nomeCargo) REFERENCES CargoAdministrativo (nomeCargo),
+	
+	CONSTRAINT PK_DocenteTemCargoAdministrativo PRIMARY KEY (siape, nomeCargo)
+)
+
+CREATE TABLE Email 
+(
+	provedor varchar(20) NOT NULL,
+	endereco varchar(30) NOT NULL,  
+		
+	CONSTRAINT PK_Email PRIMARY KEY (provedor, endereco)
+)
+
+CREATE TABLE EmailAluno 
+(
+	ra int NOT NULL, 
+	provedor varchar(20) NOT NULL,
+	endereco varchar(30) NOT NULL, 
+	
+	FOREIGN KEY (ra) REFERENCES Aluno (ra),
+	FOREIGN KEY (provedor, endereco) REFERENCES Email (provedor, endereco),
+	CONSTRAINT PK_EmailAluno PRIMARY KEY (ra, provedor, endereco)
+)
+
+CREATE TABLE AlunoMatriculadoCurso 
+(
+	ra int NOT NULL, 
+	siglaCurso varchar(5) NOT NULL,
+	dataIngresso date NOT NULL,
+	dataSaida date	NOT NULL, 
+	
+	FOREIGN KEY (ra) REFERENCES Aluno (ra),
+	FOREIGN KEY (siglaCurso) REFERENCES Curso (sigla),
+	
+	CONSTRAINT PK_AlunoMatriculadoCurso PRIMARY KEY (ra, siglaCurso)
+)
+
+CREATE TABLE EmailDocente 
+(
+	siape char(9) NOT NULL, 
+	provedor varchar(20) NOT NULL,
+	endereco varchar(30) NOT NULL,  
+	
+	FOREIGN KEY (siape) REFERENCES Docente (siape),
+	FOREIGN KEY (provedor, endereco) REFERENCES Email (provedor, endereco),
+	
+	CONSTRAINT PK_EmailDocente PRIMARY KEY (siape, provedor, endereco)
+)
+
+CREATE TABLE TelefoneDocente 
+(
+	siape char(9) NOT NULL, 
+	ddd char(2) NOT NULL, 
+	numero varchar(9) NOT NULL,
+	ddi varchar(3) NOT NULL,
+	
+	FOREIGN KEY (siape) REFERENCES Docente (siape),
+		
+	CONSTRAINT PK_TelefoneDocente PRIMARY KEY (ddd, numero, siape)
+)
