@@ -267,7 +267,6 @@ CREATE TABLE AlunoRealizaEnade(
     PRIMARY KEY (ra, anoEnade, siglaCursoEnade)    
 );
 
--- Guilhermo programou licenca, nao fez os inserts - fiz os inserts - corrigi referencia chave estrangeira 
 CREATE TABLE Licenca (
     siape       CHAR(9),
     dataInicio  DATE,
