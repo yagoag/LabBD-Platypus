@@ -45,3 +45,50 @@ BEGIN
 	END
 END
 GO
+
+CREATE PROCEDURE adicionaTurma (@semestre tinyint, @ano int, @siglaTurma varchar(5), @siglaDisciplina varchar(5), @valida bit, @vagas int, @inscricaoMin int, @inscricaoMax int)
+AS
+BEGIN
+    DECLARE @discExiste varchar(5);
+
+    IF @inscricaoMin <= @inscricaoMax
+    BEGIN
+        SELECT @discExiste = sigla FROM Disciplina WHERE sigla = @siglaDisciplina;
+        IF @discExiste IS NOT NULL
+        BEGIN
+            INSERT INTO Turma VALUES (@semestre, @ano, @siglaTurma, @siglaDisciplina, @valida, @vagas, @inscricaoMin, @inscricaoMax);
+        END
+    END
+END
+GO
+
+CREATE PROCEDURE apagaTurma (@semestre tinyint, @ano int, @siglaTurma varchar(5), @siglaDisciplina varchar(5))
+AS
+BEGIN
+    DECLARE @turmaExiste tinyint;
+    
+	SELECT @turmaExiste = semestre FROM Turma WHERE semestre = @semestre AND ano = @ano AND siglaTurma = @siglaTurma AND siglaDisciplina = @siglaDisciplina;
+	IF @turmaExiste IS NOT NULL
+    BEGIN
+        DELETE FROM Turma WHERE semestre = @semestre AND ano = @ano AND siglaTurma = @siglaTurma AND siglaDisciplina = @siglaDisciplina;
+    END
+END
+GO
+
+CREATE PROCEDURE atualizaTurma (@semestre tinyint, @ano int, @siglaTurma varchar(5), @siglaDisciplina varchar(5), @valida bit, @vagas int, @inscricaoMin int, @inscricaoMax int)
+AS
+BEGIN
+    DECLARE @turmaExiste tinyint;
+    
+	SELECT @turmaExiste = semestre FROM Turma WHERE semestre = @semestre AND ano = @ano AND siglaTurma = @siglaTurma AND siglaDisciplina = @siglaDisciplina;
+	IF @turmaExiste IS NOT NULL
+	BEGIN
+		IF @inscricaoMin <= @inscricaoMax
+		BEGIN
+			UPDATE Turma
+				SET valida = @valida, vagas = @vagas, inscricaoMin = @inscricaoMin, inscricaoMax = @inscricaoMax
+				WHERE semestre = @semestre AND ano = @ano AND siglaTurma = @siglaTurma AND siglaDisciplina = @siglaDisciplina;
+		END
+	END
+END
+GO
