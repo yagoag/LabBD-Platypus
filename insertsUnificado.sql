@@ -675,3 +675,104 @@ INSERT INTO PropoeItemReuniaoConselhoDeCoordenacao VALUES ('11100000002', 'BCC',
 INSERT INTO PropoeItemReuniaoConselhoDeCoordenacao VALUES ('11100000003', 'BCC', '19720520 10:34:09 AM', 3, '20160520 10:34:09 AM')
 INSERT INTO PropoeItemReuniaoConselhoDeCoordenacao VALUES ('11100000004', 'EP',  '19800520 10:34:09 AM', 4, '20160520 10:34:09 AM')
 INSERT INTO PropoeItemReuniaoConselhoDeCoordenacao VALUES ('11100000005', 'EM',  '19710520 10:34:09 AM', 5, '20160520 10:34:09 AM')
+
+-- Aquino
+INSERT INTO EquipeDeApoio VALUES (2, 2013, 'A', 'PC', '33300000001', '100000001', 'Revisor de plano de ensino');
+INSERT INTO EquipeDeApoio VALUES (2, 2013, 'A', 'PC', '33300000002', '100000002', 'Co-Autor do plano de ensino');
+INSERT INTO EquipeDeApoio VALUES (2, 2013, 'A', 'LCD', '33300000003', '100000003', 'Revisor de plano de ensino');
+INSERT INTO EquipeDeApoio VALUES (2, 2013, 'A', 'LCD', '33300000004', '100000004', 'Co-Autor do plano de ensino');
+INSERT INTO EquipeDeApoio VALUES (2, 2013, 'A', 'PC', '33300000005', '100000005', 'Revisor de plano de ensino');
+INSERT INTO EquipeDeApoio VALUES (1, 2013, 'A', 'CAP', '33300000001', '100000001', 'Revisor de plano de ensino');
+INSERT INTO EquipeDeApoio VALUES (1, 2013, 'A', 'CAP', '33300000004', '100000004', 'Co-Autor do plano de ensino');
+INSERT INTO EquipeDeApoio VALUES (1, 2013, 'A', 'IL', '33300000003', '100000003', 'Revisor de plano de ensino');
+INSERT INTO EquipeDeApoio VALUES (1, 2013, 'A', 'IL', '33300000002', '100000002', 'Co-Autor do plano de ensino');
+
+INSERT INTO ListaDocenteTurma VALUES ('000000001' , 1, 2013, 'A', 'CAP');
+INSERT INTO ListaDocenteTurma VALUES ('000000003' , 1, 2013, 'A', 'CAP');
+INSERT INTO ListaDocenteTurma VALUES ('000000002' , 2, 2013, 'A', 'PC');
+INSERT INTO ListaDocenteTurma VALUES ('000000003' ,1, 2013, 'A', 'IL');
+INSERT INTO ListaDocenteTurma VALUES ('000000004' ,2, 2013, 'A', 'CD');
+INSERT INTO ListaDocenteTurma VALUES ('000000002' ,2, 2013, 'A', 'CD');
+INSERT INTO ListaDocenteTurma VALUES ('000000005' ,2, 2013, 'A', 'LCD');
+
+INSERT INTO TemPrioridadeDocente VALUES ('CAP', '000000001' , 1);
+INSERT INTO TemPrioridadeDocente VALUES ('PC', '000000001' , 2);
+INSERT INTO TemPrioridadeDocente VALUES ('PC' , '000000002' , 1);
+INSERT INTO TemPrioridadeDocente VALUES ('ARQ2' , '000000002' , 2);
+INSERT INTO TemPrioridadeDocente VALUES ('LARQ2', '000000003' , 3);
+INSERT INTO TemPrioridadeDocente VALUES ('CAP', '000000003' , 2);
+INSERT INTO TemPrioridadeDocente VALUES ('IL' , '000000003' , 1);
+INSERT INTO TemPrioridadeDocente VALUES ('CD' , '000000004' , 1);
+INSERT INTO TemPrioridadeDocente VALUES ('LCD' , '000000004' , 2);
+INSERT INTO TemPrioridadeDocente VALUES ('ARQ1', '000000005' , 2);
+INSERT INTO TemPrioridadeDocente VALUES ('LCD', '000000005' , 1);
+
+INSERT INTO AlunoInscreveTurma VALUES (1, 1, 2013, 'A', 'CAP', 'Aceito', 'Vagas Suficientes');
+INSERT INTO AlunoInscreveTurma VALUES (1, 1, 2013, 'A', 'IL','Recusado', 'Falta Vagas');
+INSERT INTO AlunoInscreveTurma VALUES (3, 1, 2013, 'A', 'CAP', 'Aceito', 'Vagas Suficientes');
+INSERT INTO AlunoInscreveTurma VALUES (3, 1, 2013, 'A', 'IL','Aceito', 'Vagas Suficientes');
+INSERT INTO AlunoInscreveTurma VALUES (2, 1, 2013, 'A', 'CAP', 'Aceito', 'Vagas Suficientes');
+INSERT INTO AlunoInscreveTurma VALUES (2, 1, 2013, 'A', 'IL','Aceito', 'Vagas Suficientes');
+INSERT INTO AlunoInscreveTurma VALUES (4, 1, 2013, 'A', 'CAP', 'Aceito', 'Vagas Suficientes');
+INSERT INTO AlunoInscreveTurma VALUES (4, 1, 2013, 'A', 'IL','Aceito', 'Vagas Suficientes');
+INSERT INTO AlunoInscreveTurma VALUES (5, 1, 2013, 'A', 'CAP', 'Aceito', 'Vagas Suficientes');
+INSERT INTO AlunoInscreveTurma VALUES (5, 1, 2013, 'A', 'IL','Aceito', 'Vagas Suficientes');
+INSERT INTO AlunoInscreveTurma VALUES (2, 2, 2013, 'A', 'PC','Aceito', 'Vagas Suficientes');
+INSERT INTO AlunoInscreveTurma VALUES (2, 2, 2013, 'A', 'CD', 'Aceito', 'Vagas Suficientes');
+INSERT INTO AlunoInscreveTurma VALUES (2, 2, 2013, 'A', 'LCD','Recusado', 'Falta Vagas');
+INSERT INTO AlunoInscreveTurma VALUES (3, 2, 2013, 'A', 'PC','Aceito', 'Vagas Suficientes');
+INSERT INTO AlunoInscreveTurma VALUES (3, 2, 2013, 'A', 'CD', 'Aceito', 'Vagas Suficientes');
+INSERT INTO AlunoInscreveTurma VALUES (3, 2, 2013, 'A', 'LCD','Recusado', 'Falta Vagas');
+INSERT INTO AlunoInscreveTurma VALUES (4, 2, 2013, 'A', 'PC','Aceito', 'Vagas Suficientes');
+INSERT INTO AlunoInscreveTurma VALUES (4, 2, 2013, 'A', 'CD', 'Aceito', 'Vagas Suficientes');
+INSERT INTO AlunoInscreveTurma VALUES (4, 2, 2013, 'A', 'LCD','Aceito', 'Vagas Suficientes');
+INSERT INTO AlunoInscreveTurma VALUES (5, 2, 2013, 'A', 'PC','Aceito', 'Vagas Suficientes');
+INSERT INTO AlunoInscreveTurma VALUES (5, 2, 2013, 'A', 'CD', 'Aceito', 'Vagas Suficientes');
+INSERT INTO AlunoInscreveTurma VALUES (5, 2, 2013, 'A', 'LCD','Aceito', 'Vagas Suficientes');
+INSERT INTO AlunoInscreveTurma VALUES (1, 2, 2013, 'A', 'PC','Aceito', 'Vagas Suficientes');
+INSERT INTO AlunoInscreveTurma VALUES (1, 2, 2013, 'A', 'CD','Aceito', 'Vagas Suficientes');
+INSERT INTO AlunoInscreveTurma VALUES (1, 2, 2013, 'A', 'LCD', 'Aceito', 'Vagas Suficientes');
+
+INSERT INTO DocenteTemCargoAdministrativo VALUES ('000000001', 'Secretario de Graduação', '2012-3-1', '2013-3-1' );
+INSERT INTO DocenteTemCargoAdministrativo VALUES ('000000002', 'Chefe de  Departamento', '2013-5-9', '2014-9-10' );
+INSERT INTO DocenteTemCargoAdministrativo VALUES ('000000003', 'Secretario de Pós-Graduação', '2013-5-10', '2015-12-10' );
+INSERT INTO DocenteTemCargoAdministrativo VALUES ('000000004', 'Coordenador de Pós-Graduação', '2015-3-2', '2016-3-7' );
+INSERT INTO DocenteTemCargoAdministrativo VALUES ('000000005', 'Coordenador de Graduação', '2015-3-11', '2016-8-7' );
+
+INSERT INTO Email VALUES ('marciosantos', 'gmail');
+INSERT INTO Email VALUES ('souzamar', 'outlook');
+INSERT INTO Email VALUES ('silmaria', 'hotmail');
+INSERT INTO Email VALUES ('matsalgado', 'globo');
+INSERT INTO Email VALUES ('ccasto', 'gmail');
+INSERT INTO Email VALUES ('globo', 'cascelia');
+INSERT INTO Email VALUES ('hotmail', 'cachocaua');
+INSERT INTO Email VALUES ('outlook', 'claudiacaetano');
+INSERT INTO Email VALUES ('dc', 'cardosocarlos');
+INSERT INTO Email VALUES ('hotmail', 'caiocruz');
+
+INSERT INTO EmailAluno VALUES (1, 'marciosantos', 'gmail');
+INSERT INTO EmailAluno VALUES (2, 'souzamar', 'outlook');
+INSERT INTO EmailAluno VALUES (3, 'silmaria', 'hotmail');
+INSERT INTO EmailAluno VALUES (4, 'matsalgado', 'globo');
+INSERT INTO EmailAluno VALUES (5, 'ccasto', 'gmail');
+
+INSERT INTO EmailDocente VALUES ('000000001', 'globo', 'cascelia');
+INSERT INTO EmailDocente VALUES ('000000002', 'hotmail', 'cachocaua');
+INSERT INTO EmailDocente VALUES ('000000003', 'outlook', 'claudiacaetano');
+INSERT INTO EmailDocente VALUES ('000000004', 'dc', 'cardosocarlos');
+INSERT INTO EmailDocente VALUES ('000000005', 'hotmail', 'caiocruz');
+
+INSERT INTO AlunoMatriculadoCurso VALUES ('1', 'BCC', '2014-3-10', null);
+INSERT INTO AlunoMatriculadoCurso VALUES ('2', 'ENC', '2013-3-14', null);
+INSERT INTO AlunoMatriculadoCurso VALUES ('3', 'EM', '2011-3-7', '2015-8-1');
+INSERT INTO AlunoMatriculadoCurso VALUES ('4', 'EP', '2015-3-5', null);
+INSERT INTO AlunoMatriculadoCurso VALUES ('5', 'EF', '2016-3-10', null);
+
+INSERT INTO TelefoneDocente VALUES ('000000001', '11', '45699863', '55');
+INSERT INTO TelefoneDocente VALUES ('000000001', '16', '49233218', '55');
+INSERT INTO TelefoneDocente VALUES ('000000001', '16', '74837847', '55');
+INSERT INTO TelefoneDocente VALUES ('000000001', '14', '81628384', '55');
+INSERT INTO TelefoneDocente VALUES ('000000001', '16', '91736482', '55');
+INSERT INTO TelefoneDocente VALUES ('000000001', '15', '67463289', '55');
+INSERT INTO TelefoneDocente VALUES ('000000001', '17', '48947321', '55');
+INSERT INTO TelefoneDocente VALUES ('000000001', '18', '12873824', '55');
