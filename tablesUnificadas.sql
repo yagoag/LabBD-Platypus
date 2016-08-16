@@ -712,3 +712,15 @@ CREATE TABLE PropoeItemReuniaoConselhoDeCoordenacao(
 	FOREIGN KEY (cpf, siglaCurso, dataCriacao) REFERENCES MembroConsehoCoordenacao (cpf, siglaCurso, dataCriacao),
 	FOREIGN KEY (idIP, dataHora) REFERENCES ItemDePauta (idIP, dataHora)
 );
+
+CREATE TABLE PropostaIntervencaoConselhoDeCoordenacao(
+    cpf char(11),
+    siglaCurso varchar(5),
+    idIP int,
+    dataHora DATETIME,
+    dataCriacao DATE,
+    idPICC int,
+    propostaIntervencao varchar(max),
+    PRIMARY KEY (cpf, siglaCurso, idIP, dataHora, dataCriacao, idPICC),
+    FOREIGN KEY (cpf, siglaCurso, dataCriacao, idIP, dataHora) REFERENCES PropoeItemReuniaoConselhoDeCoordenacao (cpf, siglaCurso, dataCriacao, idIP, dataHora)
+);
