@@ -142,6 +142,8 @@ CREATE TABLE AlunoCursaTurma (
   siglaDisciplina varchar(5),
   mediaFinal      real,
   ira             int,
+  frequencia      real,
+  aprovado        bit default null,
 
   PRIMARY KEY (ra, semestre, ano, siglaTurma, siglaDisciplina),
   FOREIGN KEY (ra) REFERENCES Aluno(ra),

@@ -82,11 +82,11 @@ INSERT INTO CargoAdministrativo VALUES ('Coordenador de Graduação','DF',40);
 INSERT INTO CargoAdministrativo VALUES ('Coordenador de Pós-Graduação','DSo',40);
 INSERT INTO CargoAdministrativo VALUES ('Chefe de  Departamento','DMa',40);
 
-INSERT INTO AlunoCursaTurma VALUES (1, 1, 2013, 'A', 'CAP', 10 , 20000);
-INSERT INTO AlunoCursaTurma VALUES (2, 1, 2013, 'A', 'CAP', 8  , 16000);
-INSERT INTO AlunoCursaTurma VALUES (3, 1, 2013, 'A', 'CAP', 9.5, 19000);
-INSERT INTO AlunoCursaTurma VALUES (4, 1, 2013, 'A', 'CAP', 9  , 18000);
-INSERT INTO AlunoCursaTurma VALUES (5, 1, 2013, 'A', 'CAP', 8.5, 17000);
+INSERT INTO AlunoCursaTurma VALUES (1, 1, 2013, 'A', 'CAP', 10 , 20000, 0.75, 1);
+INSERT INTO AlunoCursaTurma VALUES (2, 1, 2013, 'A', 'CAP', 8  , 16000, 0.66, 0);
+INSERT INTO AlunoCursaTurma VALUES (3, 1, 2013, 'A', 'CAP', 9.5, 19000, 1, 1);
+INSERT INTO AlunoCursaTurma VALUES (4, 1, 2013, 'A', 'CAP', 9  , 18000, 0.8, 1);
+INSERT INTO AlunoCursaTurma VALUES (5, 1, 2013, 'A', 'CAP', 5.5, 17000, 0.75, null);
 
 INSERT INTO Nota VALUES ( 1, 1, 2013, 'A', 'CAP', 'P1', 10);
 INSERT INTO Nota VALUES ( 2, 1, 2013, 'A', 'CAP', 'P1', 8);
