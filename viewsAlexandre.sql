@@ -6,7 +6,7 @@ CREATE VIEW InfoPessoal_Aluno AS
 SELECT	  
 		  P.preNome        ,
 		  P.sobreNome      ,
-		  ra  			   ,
+		  ra  		   ,
 		  sexoDoc          ,
 		  sexoDesc         ,
 		  sexoNome         ,
@@ -37,8 +37,8 @@ SELECT
 			I.ra           ,
 			semestre       , 
 			ano            , 
-    		siglaTurma     , 
-    		siglaDisciplina, 
+    		        siglaTurma     , 
+    		        siglaDisciplina, 
 			situacao       , 
 			motivo
 
@@ -54,7 +54,7 @@ View: Aluno visualizar lista com todas as disciplinas
 */
 
 CREATE VIEW listaDeDisciplinas AS
-	SELECT  D.sigla               ,
+	SELECT          D.sigla               ,
   			D.nome                ,
   			D.numCreditosPraticos ,
   			D.numCreditosTeoricos ,
@@ -88,7 +88,7 @@ View: Aluno visualizar seu historico
 */
 
 CREATE VIEW Historico AS
-	SELECT  A.ra                  , 
+	SELECT          A.ra                  , 
  			D.nome                ,
   			D.numCreditosTeoricos ,
   			D.numCreditosPraticos ,
@@ -110,7 +110,7 @@ View: Aluno visualizar um plano de Ensino
 */
 
 CREATE VIEW vPlanoDeEnsino AS
-	SELECT 	semestre             ,
+	SELECT      semestre             ,
 		    ano                  ,
 		    nome                 , 
 		    siglaTurma           ,
@@ -131,7 +131,7 @@ View: Aluno visualizar seus deferimentos
 */
 
 CREATE VIEW Deferimento AS
-	SELECT  A.ra              ,
+	SELECT      A.ra              ,
 		    D.nome            ,
 		    D.sigla           ,
 		    I.siglaTurma      ,
@@ -147,8 +147,8 @@ CREATE VIEW Deferimento AS
 	      AND I.ra = A.ra
 	      AND ( T.semestre        = I.semestre   AND
 	      	    T.ano             = I.ano        AND
-	      		T.siglaTurma      = I.siglaTurma AND
-	      		T.siglaDisciplina = I.siglaDisciplina)
+	      	    T.siglaTurma      = I.siglaTurma AND
+	      	    T.siglaDisciplina = I.siglaDisciplina)
 
 GO
 
