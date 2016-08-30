@@ -1,3 +1,9 @@
+IF OBJECT_ID('PropostaIntervencaoConselhoDeCoordenacao') IS NOT NULL
+  DROP TABLE PropostaIntervencaoConselhoDeCoordenacao;
+IF OBJECT_ID('ComunicadoNucleoDocenteEstruturante', 'U') IS NOT NULL
+  DROP TABLE ComunicadoNucleoDocenteEstruturante;
+IF OBJECT_ID('PropostaIntervencaoNucleoDocenteEstruturante', 'U') IS NOT NULL
+  DROP TABLE PropostaIntervencaoNucleoDocenteEstruturante;
 IF OBJECT_ID('PropoeItemReuniaoConselhoDeCoordenacao', 'U') IS NOT NULL
   DROP TABLE PropoeItemReuniaoConselhoDeCoordenacao;
 IF OBJECT_ID('ParticipaReuniaoConselhoCoordenacao', 'U') IS NOT NULL
@@ -26,10 +32,6 @@ IF OBJECT_ID('Matricula', 'U') IS NOT NULL
   DROP TABLE Matricula;
 IF OBJECT_ID('ParticipaReuniaoNucleo', 'U') IS NOT NULL
   DROP TABLE ParticipaReuniaoNucleo;
-IF OBJECT_ID('ComunicadoNucleoDocenteEstruturante', 'U') IS NOT NULL
-  DROP TABLE ComunicadoNucleoDocenteEstruturante;
-IF OBJECT_ID('PropostaIntervencaoNucleoDocenteEstruturante', 'U') IS NOT NULL
-  DROP TABLE PropostaIntervencaoNucleoDocenteEstruturante;
 IF OBJECT_ID('PropoeItemReuniaoNucleoDocenteEstruturante', 'U') IS NOT NULL
   DROP TABLE PropoeItemReuniaoNucleoDocenteEstruturante;
 IF OBJECT_ID('MembroNucleoDocenteEstruturante', 'U') IS NOT NULL
