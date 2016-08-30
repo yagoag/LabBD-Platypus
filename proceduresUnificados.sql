@@ -96,7 +96,6 @@ GO
 
 -- Guilhermo
 
-
 CREATE PROCEDURE adicionaPessoa (
     @cpf char(11),
     @senha varchar(30),
@@ -156,6 +155,95 @@ BEGIN
 		UPDATE Pessoa
 			SET senha = @senha, sobreNome = @sobreNome, preNome = @preNome, rgCod = @rgCod, rgOrg = @rgOrg, endLog = @endLog, endNum = @endNum, endCid = @endCid, endBai = @endBai, endCEP = @endCEP
 			WHERE cpf = @cpf;
+	END
+END
+GO
+
+CREATE PROCEDURE adicionaFuncionario (
+    @siape char(9),
+	@cpf   char(11))
+AS
+BEGIN
+    DECLARE @FuncionarioExiste varchar(11);
+
+    SELECT @FuncionarioExiste = cpf FROM Funcionario WHERE cpf = @cpf;
+    IF @FuncionarioExiste IS NULL
+    BEGIN
+    	SELECT @FuncionarioExiste = cpf FROM Pessoa WHERE cpf = @cpf;
+    	IF @FuncionarioExiste IS NOT NULL
+    	BEGIN
+        	INSERT INTO Funcionario VALUES (@siape, @cpf);
+        END
+    END
+END
+GO
+
+CREATE PROCEDURE apagaFuncionario (@siape CHAR(9))
+AS
+BEGIN
+    DECLARE @FuncionarioExiste varchar(9);
+
+    SELECT @FuncionarioExiste = siape FROM Funcionario WHERE siape = @siape;
+    IF @FuncionarioExiste IS NOT NULL
+    BEGIN
+        DELETE FROM Funcionario WHERE siape = @siape;
+    END
+END
+GO
+
+CREATE PROCEDURE adicionaDocente (
+    @siape	char(9),
+    @gabineteLocal	varchar(30),
+    @gabineteTelDDD char(2),
+    @gabineteTelSufixo char(4),
+    @gabineteTelPrefixo varchar(5))
+AS
+BEGIN
+    DECLARE @DocenteExiste varchar(9);
+
+
+    SELECT @DocenteExiste = siape FROM Docente WHERE siape = @siape;
+    IF @DocenteExiste IS NULL
+    BEGIN
+    	SELECT @DocenteExiste = siape FROM Funcionario WHERE siape = @siape;
+    	IF @DocenteExiste IS NOT NULL
+    	BEGIN
+        	INSERT INTO Docente VALUES (@siape, @gabineteLocal, @gabineteTelDDD, @gabineteTelSufixo, @gabineteTelPrefixo);
+        END
+    END
+END
+GO
+
+CREATE PROCEDURE apagaDocente (@siape CHAR(11))
+AS
+BEGIN
+    DECLARE @DocenteExiste varchar(11);
+
+    SELECT @DocenteExiste = siape FROM Docente WHERE siape = @siape;
+    IF @DocenteExiste IS NOT NULL
+    BEGIN
+        DELETE FROM Docente WHERE siape = @siape;
+    END
+END
+GO
+
+CREATE PROCEDURE atualizaDocente (
+    @siape	char(9),
+    @gabineteLocal	varchar(30),
+    @gabineteTelDDD char(2),
+    @gabineteTelSufixo char(4),
+    @gabineteTelPrefixo varchar(5)
+    )
+AS
+BEGIN
+    DECLARE @DocenteExiste char(9);
+    
+	SELECT @DocenteExiste = siape FROM Docente WHERE siape = @siape;
+	IF @DocenteExiste IS NOT NULL
+	BEGIN
+		UPDATE Docente
+			SET @gabineteLocal = gabineteLocal, @gabineteTelDDD = gabineteTelDDD, @gabineteTelSufixo = gabineteTelSufixo, @gabineteTelSufixo = gabineteTelSufixo
+			WHERE siape = @siape;
 	END
 END
 GO
@@ -649,8 +737,3 @@ BEGIN
     END
 END
 GO
-
-
-
-
-
