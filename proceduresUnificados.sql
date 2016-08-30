@@ -114,7 +114,7 @@ BEGIN
     DECLARE @pessoaExiste varchar(11);
 
     SELECT @pessoaExiste = cpf FROM Pessoa WHERE cpf = @cpf;
-    IF @pessoaExiste IS NOT NULL
+    IF @pessoaExiste IS NULL
     BEGIN
         INSERT INTO Pessoa VALUES (@cpf, @senha, @sobreNome, @preNome, @rgCod, @rgOrg, @endLog, @endNum, @endCid, @endBai, @endCEP);
     END
@@ -133,7 +133,6 @@ BEGIN
     END
 END
 GO
--- OBS: table Pessoa deve ter ON DELETE CASCADE
 
 CREATE PROCEDURE atualizaPessoa (
 	@cpf       CHAR(11),
@@ -176,7 +175,7 @@ BEGIN
     DECLARE @planoExiste varchar(5);
 
     SELECT @planoExiste = siglaTurma FROM PlanoDeEnsino WHERE semestre = @semestre AND ano = @ano AND  siglaTurma = @siglaTurma AND siglaDisciplina = @siglaDisciplina;
-    IF @planoExiste IS NOT NULL
+    IF @planoExiste IS NULL
     BEGIN
         INSERT INTO PlanoDeEnsino VALUES (@semestre, @ano, @siglaTurma, @siglaDisciplina, @siape, @ementa, @estrategia, @objetivosEspecificos, @objetivosGerais);
     END
@@ -235,7 +234,7 @@ BEGIN
     DECLARE @planoExiste varchar(5);
 
     SELECT @planoExiste = siglaTurma FROM PlanoDeEnsino_Recurso WHERE semestre = @semestre AND ano = @ano AND  siglaTurma = @siglaTurma AND siglaDisciplina = @siglaDisciplina AND recurso = @recurso;
-    IF @planoExiste IS NOT NULL
+    IF @planoExiste IS NULL
     BEGIN
         INSERT INTO PlanoDeEnsino_Recurso VALUES (@semestre, @ano, @siglaTurma, @siglaDisciplina, @recurso);
     END
@@ -281,9 +280,6 @@ END
 GO
 
 
-
-
-
 CREATE PROCEDURE adicionaPlanoDeEnsinoAtividades (
     @semestre             tinyint,
     @ano                  INT,
@@ -297,7 +293,7 @@ BEGIN
     DECLARE @planoExiste varchar(5);
 
     SELECT @planoExiste = siglaTurma FROM PlanoDeEnsino_Atividades WHERE semestre = @semestre AND ano = @ano AND  siglaTurma = @siglaTurma AND siglaDisciplina = @siglaDisciplina AND horas = @horas AND id = @id;
-    IF @planoExiste IS NOT NULL
+    IF @planoExiste IS NULL
     BEGIN
         INSERT INTO PlanoDeEnsino_Atividades VALUES (@semestre, @ano, @siglaTurma, @siglaDisciplina, @horas, @id, @atividade);
     END
@@ -345,10 +341,6 @@ BEGIN
 END
 GO
 
-
-
-
-
 CREATE PROCEDURE adicionaPlanoDeEnsinoEAD (
     @semestre             tinyint,
     @ano                  INT,
@@ -361,7 +353,7 @@ BEGIN
     DECLARE @planoExiste varchar(5);
 
     SELECT @planoExiste = siglaTurma FROM PlanoDeEnsino_EAD WHERE semestre = @semestre AND ano = @ano AND  siglaTurma = @siglaTurma AND siglaDisciplina = @siglaDisciplina AND horas = @horas AND atividade = @atividade;
-    IF @planoExiste IS NOT NULL
+    IF @planoExiste IS NULL
     BEGIN
         INSERT INTO PlanoDeEnsino_EAD VALUES (@semestre, @ano, @siglaTurma, @siglaDisciplina, @horas, @atividade);
     END
@@ -420,7 +412,7 @@ BEGIN
     DECLARE @planoExiste varchar(5);
 
     SELECT @planoExiste = siglaTurma FROM PlanoDeEnsino_DistribHoras WHERE semestre = @semestre AND ano = @ano AND  siglaTurma = @siglaTurma AND siglaDisciplina = @siglaDisciplina AND horas = @horas AND atividade = @atividade;
-    IF @planoExiste IS NOT NULL
+    IF @planoExiste IS NULL
     BEGIN
         INSERT INTO PlanoDeEnsino_DistribHoras VALUES (@semestre, @ano, @siglaTurma, @siglaDisciplina, @horas, @atividade);
     END
@@ -467,12 +459,6 @@ BEGIN
 END
 GO
 
-
-
-
-
-
-
 CREATE PROCEDURE adicionaPlanoDeEnsinoBibliografiaBasica (
     @semestre             tinyint,
     @ano                  INT,
@@ -487,7 +473,7 @@ BEGIN
     DECLARE @planoExiste varchar(5);
 
     SELECT @planoExiste = siglaTurma FROM PlanoDeEnsino_BibliografiaBasica WHERE semestre = @semestre AND ano = @ano AND  siglaTurma = @siglaTurma AND siglaDisciplina = @siglaDisciplina AND titulo = @titulo AND editor = @editor AND bibAno = @bibAno AND autor = @autor;
-    IF @planoExiste IS NOT NULL
+    IF @planoExiste IS NULL
     BEGIN
         INSERT INTO PlanoDeEnsino_BibliografiaBasica VALUES (@semestre, @ano, @siglaTurma, @siglaDisciplina, @titulo, @editor, @bibAno, @autor);
     END
@@ -538,15 +524,6 @@ BEGIN
 END
 GO
 
-
-
-
-
-
-
-
-
-
 CREATE PROCEDURE adicionaPlanoDeEnsinoBibliografiaComplementar (
     @semestre             tinyint,
     @ano                  INT,
@@ -561,7 +538,7 @@ BEGIN
     DECLARE @planoExiste varchar(5);
 
     SELECT @planoExiste = siglaTurma FROM PlanoDeEnsino_BibliografiaComplementar WHERE semestre = @semestre AND ano = @ano AND  siglaTurma = @siglaTurma AND siglaDisciplina = @siglaDisciplina AND titulo = @titulo AND editor = @editor AND bibAno = @bibAno AND autor = @autor;
-    IF @planoExiste IS NOT NULL
+    IF @planoExiste IS  NULL
     BEGIN
         INSERT INTO PlanoDeEnsino_BibliografiaComplementar VALUES (@semestre, @ano, @siglaTurma, @siglaDisciplina, @titulo, @editor, @bibAno, @autor);
     END
@@ -625,7 +602,7 @@ BEGIN
     DECLARE @planoExiste varchar(5);
 
     SELECT @planoExiste = siglaTurma FROM PlanoDeEnsino_Topico WHERE semestre = @semestre AND ano = @ano AND  siglaTurma = @siglaTurma AND siglaDisciplina = @siglaDisciplina AND horas = @horas AND id = @id;
-    IF @planoExiste IS NOT NULL
+    IF @planoExiste IS NULL
     BEGIN
         INSERT INTO PlanoDeEnsino_Topico VALUES (@semestre, @ano, @siglaTurma, @siglaDisciplina, @horas, @id, @topico);
     END
@@ -672,5 +649,8 @@ BEGIN
     END
 END
 GO
+
+
+
 
 
