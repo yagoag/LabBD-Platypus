@@ -10,3 +10,62 @@ CREATE VIEW licencas_ChefeDepto AS
 	FROM Licenca L, Funcionario F, Pessoa P
 	WHERE L.siape = F.siape AND F.cpf = P.cpf;
 GO
+
+-- Marcos
+CREATE VIEW InfoPessoalDocente AS
+	SELECT p.*, d.siape
+	FROM Pessoa p, Funcionario f, Docente d 
+	WHERE d.siape = f.siape
+	AND f.cpf = p.cpf
+GO
+
+CREATE VIEW PlanoEnsinoDocente AS
+	SELECT p.*, pe.preNome, pe.sobreNome
+	FROM PlanoDeEnsino p, Docente d, Pessoa pe, Funcionario f
+	WHERE p.siape = d.siape
+	AND f.siape = d.siape
+	AND pe.cpf = f.cpf
+GO
+
+CREATE VIEW PrioridadeDocente AS
+	SELECT p.*, pe.preNome, pe.sobreNome
+	FROM TemPrioridadeDocente p, Docente d, Pessoa pe, Funcionario f
+	WHERE p.siape = d.siape
+	AND f.siape = d.siape
+	AND pe.cpf = f.cpf
+GO
+
+CREATE VIEW PropostasDocente AS
+	SELECT p.*
+	FROM PropoeItemReuniaoNucleoDocenteEstruturante p, Docente d
+	WHERE d.siape = p.siapeDocente
+GO
+
+CREATE VIEW RegimentoDocente AS
+	SELECT nde.regimento, d.siape
+	FROM NucleoDocenteEstruturante nde, Docente d, MembroNucleoDocenteEstruturante mnde
+	WHERE d.siape = mnde.siapeDocente
+	AND mnde.siglaCurso = nde.siglaCurso
+GO
+
+CREATE VIEW TurmaSemestre AS
+	SELECT t.siglaTurma, t.siglaDisciplina, pdea.horas, t.semestre, l.predio, l.nroSala, l.diaSemana
+	FROM TurmaAtribuicaoLocal l, Turma t, PlanoDeEnsino_Atividades pdea
+	WHERE t.siglaTurma = l.siglaTurma
+	AND t.semestre = l.semestre
+	AND t.siglaTurma = pdea.siglaTurma
+GO
+
+-- Wilton
+CREATE VIEW TecnicoEquipesApoioView AS
+	SELECT T.siape, E.descricao 
+	FROM Tecnico T, EquipeDeApoio E, PlanoDeEnsino P 
+	WHERE (T.siape=E.siape AND E.siglaDisciplina=P.siglaDisciplina AND E.siglaTurma=P.siglaTurma
+	       AND E.ano=P.ano AND E.semestre=P.semestre)
+GO
+
+CREATE VIEW PlanoDeEnsinoView AS
+	SELECT P.siglaDisciplina, P.siglaTurma, P.ano, P.semestre, P.ementa, P.estrategia, P.objetivosEspecificos, P.objetivosGerais
+	FROM PlanoDeEnsino P, Turma T, Disciplina D
+	WHERE (T.siglaTurma=P.siglaTurma AND T.ano=P.ano AND T.semestre=P.semestre AND T.siglaDisciplina=D.sigla);
+GO
