@@ -21,15 +21,15 @@ BEGIN
       IF EXISTS(SELECT * FROM deleted)
       BEGIN
           -- Update
-          DECLARE cur CURSOR FOR SELECT siape, dataInicio, dataTermino, documento, indicacao, motivo FROM inserted;
+          DECLARE cur CURSOR FOR SELECT dataInicio, dataTermino, siape, documento, indicacao, motivo FROM inserted;
 
           OPEN cur;
-          FETCH NEXT FROM cur INTO @siape, @dataInicio, @dataTermino, @documento, @indicacao, @motivo;
+          FETCH NEXT FROM cur INTO @dataInicio, @dataTermino, @siape, @documento, @indicacao, @motivo;
 
           WHILE @@FETCH_STATUS = 0
           BEGIN
-              EXEC atualizaLicenca @siape, @dataInicio, @dataTermino, @documento, @indicacao, @motivo;
-              FETCH NEXT FROM cur INTO @siape, @dataInicio, @dataTermino, @documento, @indicacao, @motivo;
+              EXEC atualizaLicenca @dataInicio, @dataTermino, @siape, @documento, @indicacao, @motivo;
+              FETCH NEXT FROM cur INTO @dataInicio, @dataTermino, @siape, @documento, @indicacao, @motivo;
           END
 
           CLOSE cur;
@@ -37,15 +37,15 @@ BEGIN
       ELSE
       BEGIN
          -- Insert
-         DECLARE cur CURSOR FOR SELECT siape, dataInicio, dataTermino, documento, indicacao, motivo FROM inserted;
+         DECLARE cur CURSOR FOR SELECT dataInicio, dataTermino, siape, documento, indicacao, motivo FROM inserted;
 
           OPEN cur;
-          FETCH NEXT FROM cur INTO @siape, @dataInicio, @dataTermino, @documento, @indicacao, @motivo;
+          FETCH NEXT FROM cur INTO @dataInicio, @dataTermino, @siape, @documento, @indicacao, @motivo;
 
           WHILE @@FETCH_STATUS = 0
           BEGIN
-              EXEC adicionaLicenca @siape, @dataInicio, @dataTermino, @documento, @indicacao, @motivo;
-              FETCH NEXT FROM cur INTO @siape, @dataInicio, @dataTermino, @documento, @indicacao, @motivo;
+              EXEC adicionaLicenca @dataInicio, @dataTermino, @siape, @documento, @indicacao, @motivo;
+              FETCH NEXT FROM cur INTO @dataInicio, @dataTermino, @siape, @documento, @indicacao, @motivo;
           END
 
           CLOSE cur;
@@ -54,15 +54,15 @@ BEGIN
     ELSE
     BEGIN
       -- Delete
-      DECLARE cur CURSOR FOR SELECT siape, dataInicio, dataTermino FROM deleted;
+      DECLARE cur CURSOR FOR SELECT dataInicio, dataTermino, siape FROM deleted;
 
       OPEN cur;
-      FETCH NEXT FROM cur INTO @siape, @dataInicio, @dataTermino;
+      FETCH NEXT FROM cur INTO @dataInicio, @dataTermino, @siape;
 
       WHILE @@FETCH_STATUS = 0
       BEGIN
-          EXEC apagaLicenca @siape, @dataInicio, @dataTermino;
-          FETCH NEXT FROM cur INTO @siape, @dataInicio, @dataTermino;
+          EXEC apagaLicenca @dataInicio, @dataTermino, @siape;
+          FETCH NEXT FROM cur INTO @dataInicio, @dataTermino, @siape;
       END
 
       CLOSE cur;

@@ -1,5 +1,5 @@
 -- Yago
-CREATE PROCEDURE adicionaLicenca (@siape char(9), @dataInicio date, @dataTermino date, @documento varchar(500), @indicacao varchar(200), @motivo varchar(200))
+CREATE PROCEDURE adicionaLicenca (@dataInicio date, @dataTermino date, @siape char(9), @documento varchar(500), @indicacao varchar(200), @motivo varchar(200))
 AS
 BEGIN
     DECLARE @funcionarioExiste char(11);
@@ -15,7 +15,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE apagaLicenca (@siape char(9), @dataInicio date, @dataTermino date)
+CREATE PROCEDURE apagaLicenca (@dataInicio date, @dataTermino date, @siape char(9))
 AS
 BEGIN
     DECLARE @licencaExiste char(9);
@@ -28,7 +28,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE atualizaLicenca (@siape char(9), @dataInicio date, @dataTermino date, @documento varchar(500), @indicacao varchar(200), @motivo varchar(200))
+CREATE PROCEDURE atualizaLicenca (@dataInicio date, @dataTermino date, @siape char(9), @documento varchar(500), @indicacao varchar(200), @motivo varchar(200))
 AS
 BEGIN
     DECLARE @licencaExiste char(9);
