@@ -1,12 +1,22 @@
 /*
 View Aluno editar informações pessoais:
-
+- Mostra todas as informações do aluno,
+  tanto como pessoa e aluno
 */
-CREATE VIEW InfoPessoal_Aluno AS
+CREATE VIEW vInfoPessoalAluno AS
 SELECT	  
 		  P.preNome        ,
 		  P.sobreNome      ,
-		  ra  		   ,
+		  P.cpf            ,
+		  P.rgCod          ,
+		  P.rgOrg          ,
+		  P.endLog         ,
+		  P.endNum         ,
+		  P.endCid         ,
+		  P.endBai         ,
+		  P.endCEP         ,
+		  P.senha          ,
+		  ra  			   ,
 		  sexoDoc          ,
 		  sexoDesc         ,
 		  sexoNome         ,
@@ -29,32 +39,47 @@ GO
 
 /*
 View Aluno editar Inscrições em turmas:
+- Dado o RA de um aluno, essa view mostra
+  as turmas em qual o mesmo esta inscrevendo,
+  as disciplinas correspondentes a essa turma
+  e a situação da inscrição.
 
 */
 
-CREATE VIEW InscriçõesEmTurma AS
+CREATE VIEW vInscriçõesEmTurma AS
 SELECT
-			I.ra           ,
-			semestre       , 
-			ano            , 
-    		        siglaTurma     , 
-    		        siglaDisciplina, 
-			situacao       , 
-			motivo
+			I.ra                  ,
+			D.nome as 'Disciplina',
+			D.numCreditosPraticos ,
+			D.numCreditosTeoricos ,
+    		I.siglaTurma          , 
+			I.ano                 , 
+			I.semestre            ,
+			T.vagas               ,
+			T.inscricaoMin        ,
+			T.inscricaoMax        , 
+			I.situacao            , 
+			I.motivo
 
-FROM AlunoInscreveTurma I, Aluno A 
-WHERE I.ra = A.ra
+FROM AlunoInscreveTurma I, Aluno A, Turma T, Disciplina D 
+WHERE I.ra = A.ra AND I.siglaDisciplina = D.sigla 
+	  AND (T.semestre        = I.semestre        AND
+	  	   T.ano             = I.ano             AND 
+	  	   T.siglaTurma      = I.siglaTurma      AND
+	  	   T.siglaDisciplina = I.siglaDisciplina) 
 
 GO
 
 /*
 View: Aluno visualizar lista com todas as disciplinas
- (selecionar semestre, mostrar as turmas e locais, link p/ plano de ensino) 
+- Essa view mostra todas as disciplinas já ofertadas, 
+  com suas respectivas turmas e seus respectivos locais, além
+  de informações do plano de ensino de cada disciplina. 
 
 */
 
-CREATE VIEW listaDeDisciplinas AS
-	SELECT          D.sigla               ,
+CREATE VIEW vlistaDeDisciplinas AS
+	SELECT  D.sigla               ,
   			D.nome                ,
   			D.numCreditosPraticos ,
   			D.numCreditosTeoricos ,
@@ -84,11 +109,16 @@ GO
 
 /*
 View: Aluno visualizar seu historico
+- Essa view, a partir do RA de um aluno, mostra
+  todas as disciplinas que o mesmo ja cursou, 
+  englobando informações de frequencia e media final
+  na disciplina, o ano em que a mesma foi cursada e ira
+  atual do aluno. 
 
 */
 
-CREATE VIEW Historico AS
-	SELECT          A.ra                  , 
+CREATE VIEW vHistorico AS
+	SELECT  A.ra                  , 
  			D.nome                ,
   			D.numCreditosTeoricos ,
   			D.numCreditosPraticos ,
@@ -106,11 +136,13 @@ GO
 
 /*
 View: Aluno visualizar um plano de Ensino
-
+- Essa view exibe o plano de ensino de cada
+  disciplina. A diferença para table PlanoDeEnsino
+  eh que na view também se exibe o nome da disciplina.
 */
 
 CREATE VIEW vPlanoDeEnsino AS
-	SELECT      semestre             ,
+	SELECT 	semestre             ,
 		    ano                  ,
 		    nome                 , 
 		    siglaTurma           ,
@@ -127,11 +159,16 @@ GO
 
 /*
 View: Aluno visualizar seus deferimentos
-
+- Essa view contém os deferimentos de todos 
+  os alunos.
 */
+IF EXISTS (SELECT TABLE_NAME FROM INFORMATION_SCHEMA.VIEWS
+	       WHERE TABLE_NAME = 'vDeferimento')
+    DROP VIEW vDeferimento
+GO
 
-CREATE VIEW Deferimento AS
-	SELECT      A.ra              ,
+CREATE VIEW vDeferimento AS
+	SELECT  A.ra              ,
 		    D.nome            ,
 		    D.sigla           ,
 		    I.siglaTurma      ,
@@ -147,23 +184,23 @@ CREATE VIEW Deferimento AS
 	      AND I.ra = A.ra
 	      AND ( T.semestre        = I.semestre   AND
 	      	    T.ano             = I.ano        AND
-	      	    T.siglaTurma      = I.siglaTurma AND
-	      	    T.siglaDisciplina = I.siglaDisciplina)
+	      		T.siglaTurma      = I.siglaTurma AND
+	      		T.siglaDisciplina = I.siglaDisciplina)
 
 GO
 
 /*
-select * from InfoPessoal_Aluno
-select * from InscriçõesEmTurma
-select * from listaDeDisciplinas
-select * from Historico
+select * from vInfoPessoal_Aluno
+select * from vInscriçõesEmTurma
+select * from vlistaDeDisciplinas
+select * from vHistorico
 select * from vPlanoDeEnsino
-select * from Deferimento
+select * from vDeferimento
 
-drop view InfoPessoal_Aluno
-drop view InscriçõesEmTurma
-drop view listaDeDisciplinas
-drop view Historico
+drop view vInfoPessoal_Aluno
+drop view vInscriçõesEmTurma
+drop view vlistaDeDisciplinas
+drop view vHistorico
 drop view vPlanoDeEnsino
-drop view Deferimento
+drop view vDeferimento
 */
