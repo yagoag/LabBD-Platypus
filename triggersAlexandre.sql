@@ -1,4 +1,4 @@
--- -- Trigger Informações pessoais
+-- Trigger Informações pessoais
 
 CREATE TRIGGER tInfoPessoalAluno
 ON vInfoPessoalAluno
@@ -318,66 +318,3 @@ INSERT INTO vInscriçõesEmTurma values (6, 'Programação de Computadores',
 DELETE vInscriçõesEmTurma WHERE ra = 6 and siglaDisciplina = 'PC' and siglaTurma = 'A'
                                 and ano = 2013 and semestre = 2
 
-
-
-
-
-
-
-
- -- Update -> Não eh necessario, pois o aluno não deve
- --           ser capaz de alterar os campos
-      DECLARE cur CURSOR FOR SELECT ra                 ,                 
-                                    Disciplina         ,
-                                    numCreditosPraticos,
-                                    numCreditosTeoricos,
-                                    siglaTurma         ,
-                                    ano                ,
-                                    semestre           , 
-                                    vagas              ,
-                                    inscricaoMin       ,
-                                    inscricaoMax       ,
-                                    situacao           ,
-                                    motivo           
-                             FROM inserted        
-      OPEN cur
-      FETCH NEXT FROM cur INTO @ra                   ,
-                               @nomeDisciplina       ,
-                               @numCreditosPraticos  ,
-                               @numCreditosTeoricos  ,
-                               @siglaTurma           ,
-                               @ano                  ,
-                               @semestre             ,
-                               @vagas                ,
-                               @inscricaoMin         ,
-                               @inscricaoMax         ,
-                               @situacao             ,
-                               @motivo        
-      WHILE @@FETCH_STATUS = 0
-      BEGIN
-          EXEC pAtualizaInscriçõesEmTurma @ra                   ,
-                                          @nomeDisciplina       ,
-                                          @numCreditosPraticos  ,
-                                          @numCreditosTeoricos  ,
-                                          @siglaTurma           ,
-                                          @ano                  ,
-                                          @semestre             ,
-                                          @vagas                ,
-                                          @inscricaoMin         ,
-                                          @inscricaoMax         ,
-                                          @situacao             ,
-                                          @motivo             
-          FETCH NEXT FROM cur INTO @ra                   ,
-                                   @nomeDisciplina       ,
-                                   @numCreditosPraticos  ,
-                                   @numCreditosTeoricos  ,
-                                   @siglaTurma           ,
-                                   @ano                  ,
-                                   @semestre             ,
-                                   @vagas                ,
-                                   @inscricaoMin         ,
-                                   @inscricaoMax         ,
-                                   @situacao             ,
-                                   @motivo
-      END
-      CLOSE cur
