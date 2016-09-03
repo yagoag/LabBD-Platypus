@@ -50,6 +50,7 @@ CREATE VIEW vInscriçõesEmTurma AS
 SELECT
 			I.ra                  ,
 			D.nome as 'Disciplina',
+			I.siglaDisciplina     , 
 			D.numCreditosPraticos ,
 			D.numCreditosTeoricos ,
     		I.siglaTurma          , 

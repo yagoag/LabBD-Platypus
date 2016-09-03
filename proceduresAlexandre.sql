@@ -234,18 +234,10 @@ EXEC pAtualizaInscriçõesEmTurma
 -- delete
 CREATE PROCEDURE pRemoveInscriçõesEmTurma 
                 (@ra                  int        , 
-				 @nomeDisciplina      varchar(64),
 				 @siglaDisciplina	  varchar(5) , 
-				 @numCreditosPraticos int        ,
-				 @numCreditosTeoricos int        ,	
  	   		     @siglaTurma          varchar(5) , 
 			     @ano                 int        , 
-			     @semestre            tinyint    ,
-			     @vagas               int        ,
-			     @inscricaoMin        int        ,
-			     @inscricaoMax        int        , 
-			     @situacao            varchar(30), 
-			     @motivo              varchar(30))
+			     @semestre            tinyint    )
 AS
 	BEGIN
 		DELETE FROM AlunoInscreveTurma
@@ -254,7 +246,7 @@ AS
 	END	  
 GO
 
--- Teste do Update
+-- Teste do Delete
 EXEC pRemoveInscriçõesEmTurma
 	@ra                  = 6                            ,  
 	@nomeDisciplina      = 'Programação de Computadores',
