@@ -1,31 +1,16 @@
-/*
-Criar procedures para executar as ações de insert, update e delete para:
-
-+ Informações pessoais do Aluno
-+ Inscrições em turmas
-
-
-CREATE PROCEDURE adicionaInfoPessoalAluno -> nao eh posssivel
-	Acredito que um aluno não possa ser capaz de adicionar um novo aluno no banco
-
-CREATE PROCEDURE removerInfoPessoalAluno -> nao eh posssivel
-	Acredito que um aluno não possa ser capaz de remover suas Informacoes pessoais do banco
-
- */
-
 CREATE PROCEDURE pAtualizaInfoPessoalAluno 
-				(-- Informacoes como Pessoa
+		(-- Informacoes como Pessoa
                  @cpf               CHAR(11), 
-		         @senha             VARCHAR(30), 
+		 @senha             VARCHAR(30), 
                  @sobreNome         VARCHAR(30),
                  @preNome           VARCHAR(30), 
                  @rgCod             VARCHAR(10),
-		  		 @rgOrg             VARCHAR(7),
-		  		 @endLog            VARCHAR(40),
-		  		 @endNum            INT,
-		  		 @endCid            VARCHAR(30),
-		  		 @endBai            VARCHAR(30),
-		  		 @endCEP            CHAR(8),
+		 @rgOrg             VARCHAR(7),
+		 @endLog            VARCHAR(40),
+		 @endNum            INT,
+		 @endCid            VARCHAR(30),
+		 @endBai            VARCHAR(30),
+		 @endCEP            CHAR(8),
                  -- Informacoes como Aluno                 
                  @ra                INT, 
                  @sexoDoc           VARCHAR(max),
@@ -47,19 +32,19 @@ AS
 	BEGIN
 		UPDATE Pessoa
 		SET cpf       = @cpf      , 
-			senha     = @senha    , 
-			sobreNome = @sobreNome, 
-			preNome   = @preNome  , 
-			rgCod     = @rgCod    ,
-			endLog    = @endLog   ,
-			endNum    = @endNum   , 
-			endCid    = @endCid   ,
-			endBai    = @endBai   ,
-			endCEP    = @endCEP    
+         	    senha     = @senha    , 
+		    sobreNome = @sobreNome, 
+		    preNome   = @preNome  , 
+		    rgCod     = @rgCod    ,
+		    endLog    = @endLog   ,
+		    endNum    = @endNum   , 
+		    endCid    = @endCid   ,
+		    endBai    = @endBai   ,
+		    endCEP    = @endCEP    
 		WHERE cpf = @cpf;
 
 		UPDATE Aluno
-		SET cpf               = @cpf               , 
+		SET     cpf               = @cpf               , 
 			sexoDoc           = @sexoDoc           , 
 			sexoDesc          = @sexoDesc          , 
 			sexoNome          = @sexoNome          , 
@@ -78,6 +63,7 @@ AS
 	END
 GO
 
+-- Teste
 EXEC pAtualizaInfoPessoalAluno
 
 		-- Informacoes como Pessoa
@@ -109,11 +95,9 @@ EXEC pAtualizaInfoPessoalAluno
         @ensMedAnoTermino  = 2009                , 
         @ensMedInstituicao = 'Colégio 2'
 
--- Teste
+GO
 select * from Aluno
 WHERE cpf = '11100000002'          
-
-
 
 
 --  Inscrições em turmas
@@ -121,18 +105,18 @@ WHERE cpf = '11100000002'
 --Insert
 CREATE PROCEDURE pInsereInscriçõesEmTurma 
                 (@ra                  int        , 
-				 @nomeDisciplina      varchar(64),
-				 @siglaDisciplina	  varchar(5) , 
-				 @numCreditosPraticos int        ,
-				 @numCreditosTeoricos int        ,	
- 	   		     @siglaTurma          varchar(5) , 
-			     @ano                 int        , 
-			     @semestre            tinyint    ,
-			     @vagas               int        ,
-			     @inscricaoMin        int        ,
-			     @inscricaoMax        int        , 
-			     @situacao            varchar(30), 
-			     @motivo              varchar(30))
+		 @nomeDisciplina      varchar(64),
+		 @siglaDisciplina	  varchar(5) , 
+		 @numCreditosPraticos int        ,
+		 @numCreditosTeoricos int        ,	
+		 @siglaTurma          varchar(5) , 
+		 @ano                 int        , 
+	         @semestre            tinyint    ,
+                 @vagas               int        ,
+                 @inscricaoMin        int        ,
+   	         @inscricaoMax        int        , 
+		 @situacao            varchar(30), 
+		 @motivo              varchar(30))
 AS
 	BEGIN
 		DECLARE @alunoExiste int
@@ -176,60 +160,6 @@ EXEC pInsereInscriçõesEmTurma
 	@inscricaoMax        = 40                           ,
 	@situacao            = 'Aceito'                     ,
 	@motivo              = 'Vagas Suficientes'  
-
-
-
-/*
--- update
--- O aluno não deve ser capaz de realizar update
-
-CREATE PROCEDURE pAtualizaInscriçõesEmTurma 
-                (@ra                  int        , 
-				 @nomeDisciplina      varchar(64),
-				 @siglaDisciplina	  varchar(5) , 
-				 @numCreditosPraticos int        ,
-				 @numCreditosTeoricos int        ,	
- 	   		     @siglaTurma          varchar(5) , 
-			     @ano                 int        , 
-			     @semestre            tinyint    ,
-			     @vagas               int        ,
-			     @inscricaoMin        int        ,
-			     @inscricaoMax        int        , 
-			     @situacao            varchar(30), 
-			     @motivo              varchar(30))
-AS
-	BEGIN
-	UPDATE AlunoInscreveTurma
-		SET ra              = @ra        , 
-			semestre        = @semestre  , 
-			ano             = @ano       , 
-			siglaTurma      = @siglaTurma, 
-			siglaDisciplina = @siglaTurma,
-			situacao        = @situacao  ,
-			motivo          = @motivo 
-		WHERE ra = @ra and semestre = @semestre and ano = @ano
-		      and siglaTurma = @siglaTurma and siglaDisciplina = @siglaDisciplina
-	END
-GO
-
-
--- Teste do Update
-EXEC pAtualizaInscriçõesEmTurma
-	@ra                  = 6                            ,  
-	@nomeDisciplina      = 'Programação de Computadores',
-	@siglaDisciplina	 = 'PC'                         ,
-	@numCreditosPraticos = 4                            ,
-	@numCreditosTeoricos = 2                            ,
-	@siglaTurma          = 'A'                          ,
-	@ano                 = 2013                         ,	
-	@semestre            = 2                            ,
-	@vagas               = 40                           ,
-	@inscricaoMin        = 12                            ,
-	@inscricaoMax        = 40                           ,
-	@situacao            = 'Aceito'                     ,
-	@motivo              = 'Vagas Suficientes'  
-
-*/
 
 -- delete
 CREATE PROCEDURE pRemoveInscriçõesEmTurma 
