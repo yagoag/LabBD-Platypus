@@ -12,12 +12,29 @@ CREATE VIEW licencas_ChefeDepto AS
 GO
 
 -- Marcos
-CREATE VIEW InfoPessoalDocente AS
-	SELECT p.*, d.siape
-	FROM Pessoa p, Funcionario f, Docente d 
-	WHERE d.siape = f.siape
-	AND f.cpf = p.cpf
+CREATE VIEW vInfoPessoalDocente AS
+SELECT	  
+	P.preNome,
+	P.sobreNome,
+	P.cpf,
+	P.rgCod,
+	P.rgOrg,
+	P.endLog,
+	P.endNum,
+	P.endCid,
+	P.endBai,
+	P.endCEP,
+	P.senha,
+	D.siape,
+	D.gabineteLocal,
+	D.gabineteTelDDD,
+	D.gabineteTelSufixo,
+	D.gabineteTelPrefixo
+FROM Docente D, Funcionario F, Pessoa P
+WHERE F.cpf = P.cpf
+AND F.siape = D.siape
 GO
+
 
 CREATE VIEW PlanoEnsinoDocente AS
 	SELECT p.*, pe.preNome, pe.sobreNome
