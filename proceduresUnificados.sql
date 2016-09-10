@@ -248,6 +248,60 @@ BEGIN
 END
 GO
 
+
+CREATE PROCEDURE pAtualizaInfoPessoalDocente 
+	(-- Informacoes como Pessoa
+	@cpf               CHAR(11), 
+	@senha             VARCHAR(30), 
+	@sobreNome         VARCHAR(30),
+	@preNome           VARCHAR(30), 
+	@rgCod             VARCHAR(10),
+	@rgOrg             VARCHAR(7),
+	@endLog            VARCHAR(40),
+	@endNum            INT,
+	@endCid            VARCHAR(30),
+	@endBai            VARCHAR(30),
+	@endCEP            CHAR(8),
+	-- Informacoes como Docente                 
+	@siape	CHAR(9),
+	@gabineteLocal varchar(30),
+	@gabineteTelDDD char(2),
+	@gabineteTelSufixo char(4),
+	@gabineteTelPrefixo varchar(5))
+
+AS
+	BEGIN
+		UPDATE Pessoa
+		SET
+			cpf       = @cpf      , 
+			senha     = @senha    , 
+			sobreNome = @sobreNome, 
+			preNome   = @preNome  , 
+			rgCod     = @rgCod    ,
+			endLog    = @endLog   ,
+			endNum    = @endNum   , 
+			endCid    = @endCid   ,
+			endBai    = @endBai   ,
+			endCEP    = @endCEP    
+		WHERE cpf = @cpf;
+
+		UPDATE Funcionario
+		SET
+			cpf = @cpf,
+			siape = @siape
+		WHERE cpf = @cpf;
+
+		UPDATE Docente
+		SET
+			siape = @siape,
+			gabineteLocal = @gabineteLocal,
+			gabineteTelDDD = @gabineteTelDDD,
+			gabineteTelSufixo = @gabineteTelSufixo,
+			gabineteTelPrefixo = @gabineteTelPrefixo
+		WHERE siape = @siape;
+	END
+GO
+
 CREATE PROCEDURE adicionaPlanoDeEnsino (
     @semestre             tinyint,
     @ano                  INT,
