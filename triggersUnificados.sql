@@ -147,3 +147,114 @@ BEGIN
 	
 END
 GO
+
+
+-- Guilhermo
+
+CREATE TRIGGER tInfoPessoalDocente
+ON vInfoPessoalDocente
+INSTEAD OF UPDATE
+AS
+BEGIN
+  IF @@ROWCOUNT = 0 -- sair se não houver linhas a atualizar
+    BEGIN
+      RETURN
+    END
+ 
+    -- Informacoes como Pessoa
+    DECLARE @cpf               CHAR(11) 
+    DECLARE @senha             VARCHAR(30) 
+    DECLARE @sobreNome         VARCHAR(30)
+    DECLARE @preNome           VARCHAR(30) 
+    DECLARE @rgCod             VARCHAR(10)
+    DECLARE @rgOrg             VARCHAR(7)
+    DECLARE @endLog            VARCHAR(40)
+    DECLARE @endNum            INT
+    DECLARE @endCid            VARCHAR(30)
+    DECLARE @endBai            VARCHAR(30)
+    DECLARE @endCEP            CHAR(8)
+     -- Informacoes como Docente                 
+    DECLARE @siape	CHAR(9)
+	DECLARE @gabineteLocal varchar(30)
+	DECLARE @gabineteTelDDD char(2)
+	DECLARE @gabineteTelSufixo char(4)
+	DECLARE @gabineteTelPrefixo varchar(5)
+    
+    IF EXISTS(SELECT * FROM inserted)
+    BEGIN
+      IF EXISTS(SELECT * FROM deleted)
+      BEGIN -- Update
+        DECLARE cur CURSOR FOR SELECT preNome          ,
+                                      sobreNome        ,
+                                      cpf              ,
+                                      rgCod            ,
+                                      rgOrg            ,
+                                      endLog           ,
+                                      endNum           ,
+                                      endCid           ,
+                                      endBai           ,
+                                      endCEP           ,
+                                      senha            ,
+                                      siape	,
+                                      gabineteLocal,
+                                      gabineteTelDDD,
+                                      gabineteTelSufixo,
+                                      gabineteTelPrefixo
+                              FROM inserted
+        OPEN cur
+        FETCH NEXT FROM cur INTO @preNome          ,
+                                 @sobreNome        ,
+                                 @cpf              ,
+                                 @rgCod            ,
+                                 @rgOrg            ,
+                                 @endLog           ,
+                                 @endNum           ,
+                                 @endCid           ,
+                                 @endBai           ,
+                                 @endCEP           ,
+                                 @senha            ,
+                                 @siape,
+                                 @gabineteLocal,
+                                 @gabineteTelDDD,
+                                 @gabineteTelSufixo,
+                                 @gabineteTelPrefixo   
+        WHILE @@FETCH_STATUS = 0
+        BEGIN
+          EXEC pAtualizaInfoPessoalDocente @cpf               ,    
+                                         @senha             ,            
+                                         @sobreNome         ,   
+                                         @preNome           ,  
+                                         @rgCod             ,   
+                                         @rgOrg             ,  
+                                         @endLog            ,    
+                                         @endNum            ,   
+                                         @endCid            ,   
+                                         @endBai            ,   
+                                         @endCEP            ,   
+                                         @siape,
+			                             @gabineteLocal,
+			                             @gabineteTelDDD,
+			                             @gabineteTelSufixo,
+			                             @gabineteTelPrefixo     
+        FETCH NEXT FROM cur INTO @preNome           ,
+                                  @sobreNome        ,
+                                  @cpf              ,
+                                  @rgCod            ,
+                                  @rgOrg            ,
+                                  @endLog           ,
+                                  @endNum           ,
+                                  @endCid           ,
+                                  @endBai           ,
+                                  @endCEP           ,
+                                  @senha            ,
+                                  @siape,
+                                 @gabineteLocal,
+                                 @gabineteTelDDD,
+                                 @gabineteTelSufixo,
+                                 @gabineteTelPrefixo   
+        END
+        CLOSE cur
+      END
+    END
+END    
+GO
