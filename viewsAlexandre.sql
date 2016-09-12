@@ -16,7 +16,7 @@ SELECT
 		  P.endBai         ,
 		  P.endCEP         ,
 		  P.senha          ,
-		  ra  			   ,
+		  ra  		   ,
 		  sexoDoc          ,
 		  sexoDesc         ,
 		  sexoNome         ,
@@ -53,7 +53,7 @@ SELECT
 			I.siglaDisciplina     , 
 			D.numCreditosPraticos ,
 			D.numCreditosTeoricos ,
-    		I.siglaTurma          , 
+    			I.siglaTurma          , 
 			I.ano                 , 
 			I.semestre            ,
 			T.vagas               ,
@@ -64,7 +64,7 @@ SELECT
 
 FROM AlunoInscreveTurma I, Aluno A, Turma T, Disciplina D 
 WHERE I.ra = A.ra AND I.siglaDisciplina = D.sigla 
-	  AND (T.semestre        = I.semestre        AND
+	  AND (T.semestre        	= I.semestre     AND
 	  	   T.ano             = I.ano             AND 
 	  	   T.siglaTurma      = I.siglaTurma      AND
 	  	   T.siglaDisciplina = I.siglaDisciplina) 
@@ -82,18 +82,21 @@ View: Aluno visualizar lista com todas as disciplinas
 CREATE VIEW vlistaDeDisciplinas AS
 	SELECT  D.sigla               ,
   			D.nome                ,
+			Pe.preNome            ,
+			Pe.sobreNome          ,
+			Dc.gabineteLocal      ,
+  			T.semestre            ,
+  			T.ano                 ,
   			D.numCreditosPraticos ,
   			D.numCreditosTeoricos ,
-  			T.siglaTurma          ,
-  			T.semestre            ,
-  			L.predio              ,
-  			L.nroSala             ,
   			P.ementa              ,
   			P.estrategia          ,
   			P.objetivosEspecificos,
   			P.objetivosGerais     
 
-	FROM Disciplina D, Turma T, TurmaAtribuicaoLocal L, PlanoDeEnsino P
+	FROM Disciplina D, Turma T, TurmaAtribuicaoLocal L, 
+	PlanoDeEnsino P, Docente Dc, Funcionario F, Pessoa Pe
+	    
 	WHERE D.sigla = T.siglaDisciplina -- Turma(s) da disciplina
 		  AND (
 		  		T.semestre        = L.semestre   AND 
@@ -104,7 +107,11 @@ CREATE VIEW vlistaDeDisciplinas AS
 		  		T.semestre        = P.semestre   AND 
 		  		T.ano             = P.ano        AND 
 		  		T.siglaTurma      = P.siglaTurma AND 
-		  		T.siglaDisciplina = P.siglaDisciplina) -- Plano de ensino da Turma 
+		  		T.siglaDisciplina = P.siglaDisciplina) -- Plano de ensino da Turma
+		  AND ( 
+				P.siape           = Dc.siape     AND
+		        	Dc.siape          = F.siape      AND
+				F.cpf             = Pe.cpf           ) -- Professor que ofertou a Turma  
 
 GO
 
