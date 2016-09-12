@@ -80,7 +80,7 @@ View: Aluno visualizar lista com todas as disciplinas
 */
 
 CREATE VIEW vlistaDeDisciplinas AS
-	SELECT  D.sigla               ,
+	SELECT  	D.sigla               ,
   			D.nome                ,
 			Pe.preNome            ,
 			Pe.sobreNome          ,
@@ -126,7 +126,7 @@ View: Aluno visualizar seu historico
 */
 
 CREATE VIEW vHistorico AS
-	SELECT  A.ra                  , 
+	SELEC		A.ra                  , 
  			D.nome                ,
   			D.numCreditosTeoricos ,
   			D.numCreditosPraticos ,
@@ -150,7 +150,7 @@ View: Aluno visualizar um plano de Ensino
 */
 
 CREATE VIEW vPlanoDeEnsino AS
-	SELECT 	nome                 , 
+	SELECT 	    nome                 , 
 		    ementa               ,
 		    estrategia           ,
 		    objetivosEspecificos ,
@@ -172,7 +172,7 @@ IF EXISTS (SELECT TABLE_NAME FROM INFORMATION_SCHEMA.VIEWS
 GO
 
 CREATE VIEW vDeferimento AS
-	SELECT  A.ra              ,
+	SELECT      A.ra              ,
 		    D.nome            ,
 		    D.sigla           ,
 		    I.siglaTurma      ,
@@ -188,8 +188,8 @@ CREATE VIEW vDeferimento AS
 	      AND I.ra = A.ra
 	      AND ( T.semestre        = I.semestre   AND
 	      	    T.ano             = I.ano        AND
-	      		T.siglaTurma      = I.siglaTurma AND
-	      		T.siglaDisciplina = I.siglaDisciplina)
+	      	    T.siglaTurma      = I.siglaTurma AND
+	      	    T.siglaDisciplina = I.siglaDisciplina)
 
 GO
 
