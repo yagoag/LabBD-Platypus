@@ -150,11 +150,7 @@ View: Aluno visualizar um plano de Ensino
 */
 
 CREATE VIEW vPlanoDeEnsino AS
-	SELECT 	semestre             ,
-		    ano                  ,
-		    nome                 , 
-		    siglaTurma           ,
-		    siape                ,
+	SELECT 	nome                 , 
 		    ementa               ,
 		    estrategia           ,
 		    objetivosEspecificos ,
