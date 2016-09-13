@@ -74,15 +74,17 @@ CREATE VIEW TurmaSemestre AS
 GO
 
 -- Wilton
-CREATE VIEW TecnicoEquipesApoioView AS
-	SELECT T.siape, E.descricao 
-	FROM Tecnico T, EquipeDeApoio E, PlanoDeEnsino P 
-	WHERE (T.siape=E.siape AND E.siglaDisciplina=P.siglaDisciplina AND E.siglaTurma=P.siglaTurma
-	       AND E.ano=P.ano AND E.semestre=P.semestre)
-GO
+CREATE VIEW 
+	TecnicoEquipesApoioView AS SELECT T.siape,E.descricao, E.siglaDisciplina, E.siglaTurma, E.semestre, E.ano FROM Tecnico T, EquipeDeApoio E, PlanoDeEnsino P 
+			WHERE (T.siape=E.siape AND E.siglaDisciplina=P.siglaDisciplina AND E.siglaTurma=P.siglaTurma AND E.ano=P.ano
+                   AND E.semestre=P.semestre);
 
-CREATE VIEW PlanoDeEnsinoView AS
-	SELECT P.siglaDisciplina, P.siglaTurma, P.ano, P.semestre, P.ementa, P.estrategia, P.objetivosEspecificos, P.objetivosGerais
-	FROM PlanoDeEnsino P, Turma T, Disciplina D
-	WHERE (T.siglaTurma=P.siglaTurma AND T.ano=P.ano AND T.semestre=P.semestre AND T.siglaDisciplina=D.sigla);
-GO
+
+CREATE VIEW
+	PlanoDeEnsinoView AS SELECT P.siglaDisciplina, P.siglaTurma, P.ano, P.semestre, P.ementa, P.estrategia, P.objetivosEspecificos,
+	 	 	P.objetivosGerais FROM PlanoDeEnsino P, Turma T, Disciplina D WHERE (T.siglaTurma=P.siglaTurma AND T.ano=P.ano AND
+    T.semestre=P.semestre AND T.siglaDisciplina=D.sigla);
+
+CREATE VIEW
+	TecnicoView AS SELECT T.siape, P.cpf, P.sobreNome, P.preNome, P.rgCod, P.rgOrg, P.endLog, P.endNum, P.endCid, P.endBai, P.endCEP,
+	T.nroGabinete, T.local FROM Tecnico T, Pessoa P, Funcionario F WHERE (T.siape=F.siape AND F.cpf=P.cpf);
