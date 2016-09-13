@@ -126,7 +126,7 @@ View: Aluno visualizar seu historico
 */
 
 CREATE VIEW vHistorico AS
-	SELEC		A.ra                  , 
+	SELECT		A.ra                  , 
  			D.nome                ,
   			D.numCreditosTeoricos ,
   			D.numCreditosPraticos ,
