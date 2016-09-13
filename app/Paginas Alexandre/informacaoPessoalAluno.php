@@ -5,6 +5,7 @@
 <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 </head>
 <?php
+session_start();
 require_once 'config.php';
 echo '<h2>
         <p>Informações pessoais do Aluno</p>  
@@ -50,7 +51,8 @@ echo '<h2>
 ?>
  
 <?php
-  $stmt = sqlsrv_query($conn, "SELECT * FROM vInfoPessoalAluno");
+  $ra = $_SESSION['ra'];
+  $stmt = sqlsrv_query($conn, "SELECT * FROM vInfoPessoalAluno WHERE ra = '$ra' ");
   while ($a = sqlsrv_fetch_array($stmt)) 
   {
     echo '<form class="pure-form pure-form-stacked" method="post" action="informacaoPessoalAluno.php">

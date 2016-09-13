@@ -7,6 +7,8 @@
 <?php
 
 require_once 'config.php';
+session_start();
+$ra = $_SESSION['ra'];
 
 function soNumero($str) {
     return preg_replace("/[^0-9]/", "", $str);
@@ -22,7 +24,7 @@ echo '<h2>
     {
       $filtro = soNumero($_POST['ra']);
       $stmt = sqlsrv_query($conn, "DELETE FROM vInscriçõesEmTurma 
-                                   WHERE ra                  = $filtro                         and 
+                                   WHERE ra                  = '$ra'                           and 
                                          siglaDisciplina     = '".$_POST['siglaDisciplina']."' and
                                          siglaTurma          = '".$_POST['siglaTurma']."'      and
                                          ano                 = '".$_POST['ano']."'             and
@@ -57,7 +59,7 @@ echo '<h2>
           while ($cadaLinha = sqlsrv_fetch_array($consulta, SQLSRV_FETCH_ASSOC)) 
           {
             $stmt = sqlsrv_query($conn, "INSERT INTO  AlunoInscreveTurma
-                                         VALUES ('".$_POST['ra1']."', '".$cadaLinha[ $campo0 ]."',
+                                         VALUES ('$ra', '".$cadaLinha[ $campo0 ]."',
                                                  '".$cadaLinha[ $campo1 ]."', '".$cadaLinha[ $campo2 ]."',
                                                  '".$cadaLinha[ $campo3 ]."', 'Aguardando', 'Em análise')");
             if ($stmt) {
@@ -68,18 +70,18 @@ echo '<h2>
     }  
   }
 
-  $stmt = sqlsrv_query($conn, "SELECT * FROM vInscriçõesEmTurma");
+  $stmt = sqlsrv_query($conn, "SELECT * FROM vInscriçõesEmTurma WHERE ra = '$ra'");
   while ($a = sqlsrv_fetch_array($stmt)) 
   {
     echo '<form class="pure-form pure-form-stacked" method="post" action="inscricoesEmTurma.php">
               <fieldset>
-                <div class="pure-g">
+                <!--<div class="pure-g">
                       <h5>
                         <div class="pure-u-23-24">
                           <input name="ra" class="pure-u-1-2" type="text" value="RA '.$a['ra'].'" readonly>
                         </div>
                       </h5>                      
-                </div>
+                </div>-->
                 <div class="pure-g">
                     <div class="pure-u-3-24"><p>Disciplina</p></div>
                     <div class="pure-u-2-24"><p>sigla Disciplina</p></div>
@@ -150,7 +152,7 @@ echo"<h2>
     echo '<form class="pure-form pure-form-stacked" method="post" action="inscricoesEmTurma.php">
               <fieldset>
                 <div class="pure-g">
-                    <div class="pure-u-1-24"><p>RA</p></div> <!-- Qdo tiver o login n vai precisar -->
+                    <!--<div class="pure-u-1-24"><p>RA</p></div>--> <!-- Qdo tiver o login n vai precisar -->
                     <div class="pure-u-2-24"><p>semestre</p></div>
                     <div class="pure-u-2-24"><p>ano</p></div>
                     <div class="pure-u-2-24"><p>sigla da turma</p></div>
@@ -167,9 +169,9 @@ echo"<h2>
                 </div>               
 
                   <div class="pure-g">
-                      <div class="pure-u-1-24">
+                      <!--<div class="pure-u-1-24">
                         <input name="ra1" class="pure-u-23-24" type="text" value="'.$GLOBALS['ra1'].'">
-                      </div>
+                      </div>-->
                       <div class="pure-u-2-24">
                           <input name="semestre" class="pure-u-22-24" type="text" value="'.$a['semestre'].'" readonly>
                       </div>

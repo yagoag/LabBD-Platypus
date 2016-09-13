@@ -33,11 +33,14 @@ echo '<h1>
       </h1>';
 $aux  = '';
 $aux1 = '_';
-  $stmt = sqlsrv_query($conn, "SELECT * FROM vDeferimento");
+  
+  session_start();
+  $ra = $_SESSION['ra'];
+  $stmt = sqlsrv_query($conn, "SELECT * FROM vDeferimento WHERE ra = $ra");
   while ($a = sqlsrv_fetch_array($stmt)) 
   {
     $aux = $a['ra'];
-    if ($aux != $aux1) 
+    /*if ($aux != $aux1) 
     {
       echo'<h2>
             <ul class="b">
@@ -45,7 +48,7 @@ $aux1 = '_';
             </ul>
           </h2>';
       $aux1 = $aux;
-    }
+    }*/
     echo '<form class="pure-form pure-form-stacked" method="post" action="inscricoesEmTurma.php">
             <fieldset>
                 <div class="pure-g">

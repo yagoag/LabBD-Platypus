@@ -26,23 +26,23 @@
 <?php
 
 require_once 'config.php';
-
+session_start();
 
 echo '<h1>
         <p>Histórico de disciplinas cursadas</p><hr>  
       </h1>';
 
-
-  $stmt = sqlsrv_query($conn, "SELECT * FROM vHistorico");
+  $ra = $_SESSION['ra'];
+  $stmt = sqlsrv_query($conn, "SELECT * FROM vHistorico WHERE ra = $ra ");
   while ($a = sqlsrv_fetch_array($stmt)) 
   {
     echo '<form class="pure-form pure-form-stacked" method="post" action="inscricoesEmTurma.php">
             <fieldset>
-                <h2>
+                <!--<h2>
                   <ul class="b">
                     <li>RA: '.$a['ra'].'</li>
                   </ul>
-                </h2>
+                </h2>-->
                 <div class="pure-g">
                     <div class="pure-u-3-24"><p>Disciplina</p></div>
                     <div class="pure-u-2-24"><p>Créditos Práticos</p></div>
