@@ -1057,3 +1057,183 @@ BEGIN
     
 END
 GO
+
+-- Marcos
+CREATE PROCEDURE adicionaPrioridade (
+    @siglaDisciplina    varchar(5),
+    @siape              char(9),
+    @grau               tinyint)
+AS
+BEGIN
+    DECLARE @disciplinaExiste varchar(5);
+
+    SELECT @disciplinaExiste = siglaDisciplina FROM TemPrioridadeDocente WHERE siape = @siape AND grau = @grau;
+    IF @disciplinaExiste IS NULL
+    BEGIN
+        INSERT INTO TemPrioridadeDocente VALUES (@siglaDisciplina, @siape, @grau);
+    END
+END
+GO
+
+CREATE PROCEDURE apagaPrioridade(
+    @siglaDisciplina    varchar(5),
+    @siape              char(9))
+AS
+BEGIN
+    DECLARE @planoExiste varchar(5);
+	DECLARE @disciplinaExiste varchar(5);
+
+    SELECT @disciplinaExiste = siglaDisciplina FROM TemPrioridadeDocente WHERE siape = @siape AND siglaDisciplina = @siglaDisciplina;
+    IF @disciplinaExiste IS NOT NULL
+    BEGIN
+        DELETE FROM TemPrioridadeDocente WHERE @siglaDisciplina = siglaDisciplina AND @siape = siape;
+    END
+END
+GO
+
+CREATE PROCEDURE atualizaPrioridade(
+    @siglaDisciplina    varchar(5),
+    @siape              char(9),
+    @grau               tinyint)
+AS
+BEGIN
+    DECLARE @disciplinaExiste varchar(5);
+
+    SELECT @disciplinaExiste = siglaDisciplina FROM TemPrioridadeDocente WHERE siape = @siape AND grau = @grau;
+    IF @disciplinaExiste IS NOT NULL
+    BEGIN
+        UPDATE TemPrioridadeDocente
+        SET grau = @grau
+        WHERE @siglaDisciplina = siglaDisciplina AND @siape = siape;
+    END
+END
+GO
+
+-- Propostas da reunião do núcleoDocenteEstruturante (apenas se for membro do núcleo)
+CREATE PROCEDURE adicionaItemNDE (
+	@siapeDocente	char(9),
+	@siglaCurso		varchar(5),
+	@idIP			int,
+	@dataHora		datetime,
+	@descricao		nvarchar(200))
+AS
+BEGIN
+	DECLARE @itemExiste int;
+	SELECT @itemExiste = idIP FROM PropoeItemReuniaoNucleoDocenteEstruturante WHERE siapeDocente = @siapeDocente AND siglaCurso = @siglaCurso AND dataHora = @dataHora;
+	IF @itemExiste IS NULL
+	BEGIN
+		INSERT INTO PropoeItemReuniaoNucleoDocenteEstruturante VALUES (@siapeDocente, @siglaCurso, @idIP, @dataHora);
+		INSERT INTO ItemDePauta VALUES (@idIP, @dataHora, @descricao);
+	END
+END
+GO
+
+CREATE PROCEDURE removeItemNDE (
+	@siapeDocente	char(9),
+	@siglaCurso		varchar(5),
+	@idIP			int,
+	@dataHora		datetime)
+AS
+BEGIN
+	DECLARE @itemExiste int;
+	SELECT @itemExiste = idIP FROM PropoeItemReuniaoNucleoDocenteEstruturante WHERE siapeDocente = @siapeDocente AND siglaCurso = @siglaCurso AND dataHora = @dataHora;
+	IF @itemExiste IS NOT NULL
+	BEGIN
+		DELETE FROM PropoeItemReuniaoNucleoDocenteEstruturante WHERE siapeDocente = @siapeDocente AND siglaCurso = @siglaCurso AND dataHora = @dataHora AND @idIP = idIP;
+		DELETE FROM ItemDePauta WHERE @idIP = idIP;
+	END
+END
+GO
+
+CREATE PROCEDURE atualizaDescricaoItemNDE (
+	@siapeDocente	char(9),
+	@siglaCurso		varchar(5),
+	@idIP			int,
+	@dataHora		datetime)
+AS
+BEGIN
+	DECLARE @itemExiste int;
+	DECLARE @descricao nvarchar(200);
+	SELECT @itemExiste = idIP FROM PropoeItemReuniaoNucleoDocenteEstruturante WHERE siapeDocente = @siapeDocente AND siglaCurso = @siglaCurso AND dataHora = @dataHora;
+	IF @itemExiste IS NOT NULL
+	BEGIN
+	UPDATE ItemDePauta
+		SET descricao = @descricao
+		WHERE idIP = @idIP AND dataHora = @dataHora;
+	END
+END
+GO
+
+
+CREATE PROCEDURE atualizaDataItemNDE (
+	@siapeDocente	char(9),
+	@siglaCurso		varchar(5),
+	@idIP			int,
+	@dataHora		datetime)
+AS
+BEGIN
+	DECLARE @itemExiste int;
+	SELECT @itemExiste = idIP FROM PropoeItemReuniaoNucleoDocenteEstruturante WHERE siapeDocente = @siapeDocente AND siglaCurso = @siglaCurso AND dataHora = @dataHora;
+	IF @itemExiste IS NOT NULL
+	BEGIN
+	UPDATE PropoeItemReuniaoNucleoDocenteEstruturante
+		SET dataHora = @dataHora
+		WHERE siapeDocente = @siapeDocente AND siglaCurso = @siglaCurso;
+	END
+END
+GO
+
+-- Editar regimento e membros do nucleoDocenteEstruturante (apenas se for líder do núcleo)
+CREATE PROCEDURE atualizaRegimentoNDE (
+	@siglaCurso		varchar(5),
+	@dataCriacao	date,
+	@regimento 		text)
+
+AS
+BEGIN
+	DECLARE @NDEExiste	varchar(5);
+	SELECT @NDEExiste = siglaCurso FROM NucleoDocenteEstruturante WHERE @dataCriacao = dataCriacao;
+	IF @NDEExiste IS NOT NULL
+	BEGIN
+	UPDATE NucleoDocenteEstruturante
+		SET regimento = @regimento
+		WHERE @siglaCurso = siglaCurso;
+	END
+END
+GO
+
+CREATE PROCEDURE atualizaSiapeMembrosNDE(
+	@siapeDocente	char(9),
+	@siglaCurso		varchar(5),
+	@dataPosse		date,
+	@portaria		varchar(max))
+AS
+BEGIN
+	DECLARE @membroExiste char(9);
+	SELECT @membroExiste = siapeDocente FROM MembroNucleoDocenteEstruturante WHERE @siglaCurso = siglaCurso AND dataPosse = @dataPosse;
+	IF @membroExiste IS NOT NULL
+	BEGIN
+		UPDATE MembroNucleoDocenteEstruturante
+		SET siapeDocente = @siapeDocente
+		WHERE @siglaCurso = siglaCurso;
+	END
+END
+GO
+
+CREATE PROCEDURE atualizaSiglaCursoMembrosNDE(
+	@siapeDocente	char(9),
+	@siglaCurso		varchar(5),
+	@dataPosse		date,
+	@portaria		varchar(max))
+AS
+BEGIN
+	DECLARE @membroExiste char(9);
+	SELECT @membroExiste = siapeDocente FROM MembroNucleoDocenteEstruturante WHERE @siglaCurso = siglaCurso AND dataPosse = @dataPosse;
+	IF @membroExiste IS NOT NULL
+	BEGIN
+		UPDATE MembroNucleoDocenteEstruturante
+		SET siglaCurso = @siglaCurso
+		WHERE @siapeDocente = siapeDocente;
+	END
+END
+GO
