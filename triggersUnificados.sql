@@ -407,3 +407,257 @@ BEGIN
 	
 END
 GO
+
+-- Lucas
+CREATE TRIGGER tRegimentoConselhoCoordenacao
+ON vRegimentoConselhoCoordenacao
+INSTEAD OF INSERT, UPDATE, DELETE
+AS
+BEGIN
+	IF @@ROWCOUNT = 0 -- sair se não houver linhas a atualizar
+    BEGIN
+       RETURN;
+    END;
+
+    DECLARE @siglaCurso varchar(5);
+    DECLARE @regimento varchar(max);
+	DECLARE @dataCriacao date;
+
+    IF EXISTS(SELECT * FROM inserted)
+    BEGIN
+      IF EXISTS(SELECT * FROM deleted)
+      BEGIN
+          -- Update
+          DECLARE cur CURSOR FOR SELECT siglaCurso, dataCriacao, regimento  FROM inserted;
+
+          OPEN cur;
+          FETCH NEXT FROM cur INTO @siglaCurso, @dataCriacao, @regimento;
+
+          WHILE @@FETCH_STATUS = 0
+          BEGIN
+              EXEC atualizaRegimento @siglaCurso, @dataCriacao, @regimento;
+
+              FETCH NEXT FROM cur INTO @siglaCurso, @dataCriacao, @regimento;
+          END
+
+          CLOSE cur;
+      END
+		END
+END
+GO
+
+CREATE TRIGGER tProjetoPoliticoPedagogico_CoordCurso
+ON vProjetoPoliticoPedagogico_CoordCurso
+INSTEAD OF INSERT, UPDATE, DELETE
+AS
+BEGIN
+	IF @@ROWCOUNT = 0 -- sair se não houver linhas a atualizar
+    BEGIN
+       RETURN;
+    END;
+
+    DECLARE @siglaCurso varchar(5);
+    DECLARE @inicioVigencia date;
+    DECLARE @projeto varchar(max)
+    IF EXISTS(SELECT * FROM inserted)
+    BEGIN
+      IF EXISTS(SELECT * FROM deleted)
+      BEGIN
+          -- Update
+          DECLARE cur CURSOR FOR SELECT siglaCurso, inicioVigencia, projeto FROM inserted;
+
+          OPEN cur;
+          FETCH NEXT FROM cur INTO @siglaCurso, @inicioVigencia, @projeto;
+
+          WHILE @@FETCH_STATUS = 0
+          BEGIN
+              EXEC atualizaPPP @siglaCurso, @inicioVigencia, @projeto;
+
+              FETCH NEXT FROM cur INTO @siglaCurso, @inicioVigencia, @projeto;
+          END
+
+          CLOSE cur;
+      END
+      ELSE
+      BEGIN
+         -- Insert
+         DECLARE cur CURSOR FOR SELECT siglaCurso, inicioVigencia, projeto FROM inserted;
+
+          OPEN cur;
+          FETCH NEXT FROM cur INTO @siglaCurso, @inicioVigencia, @projeto;
+
+          WHILE @@FETCH_STATUS = 0
+          BEGIN
+              EXEC adicionaPPP @siglaCurso, @inicioVigencia, @projeto;
+              FETCH NEXT FROM cur INTO @siglaCurso, @inicioVigencia, @projeto;
+          END
+
+          CLOSE cur;
+      END
+    END
+    ELSE
+    BEGIN
+      -- Delete
+      DECLARE cur CURSOR FOR SELECT @inicioVigencia FROM deleted;
+
+      OPEN cur;
+      FETCH NEXT FROM cur INTO @inicioVigencia;
+
+      WHILE @@FETCH_STATUS = 0
+      BEGIN
+          EXEC apagaPPP @inicioVigencia;
+          FETCH NEXT FROM cur INTO @inicioVigencia;
+      END
+
+      CLOSE cur;
+    END;
+
+
+END
+GO
+
+CREATE TRIGGER tPropostaReuniaoConselhoCurso_CoordCurso
+ON vPropostaReuniaoConselhoCurso_CoordCurso
+INSTEAD OF INSERT, UPDATE, DELETE
+AS
+BEGIN
+	IF @@ROWCOUNT = 0 -- sair se não houver linhas a atualizar
+    BEGIN
+       RETURN;
+    END;
+
+    DECLARE @cpf char(11);
+	DECLARE @preNome varchar(30);
+	DECLARE @sobreNome varchar(30);
+    DECLARE @siglaCurso varchar(5);
+    DECLARE @dataHora datetime;
+    DECLARE @idPICC int;
+	DECLARE @dataCriacao date;
+    DECLARE @propostaIntervencao varchar(max);
+
+    IF EXISTS(SELECT * FROM inserted)
+    BEGIN
+      IF EXISTS(SELECT * FROM deleted)
+      BEGIN
+          -- Update
+          DECLARE cur CURSOR FOR SELECT cpf, preNome, sobreNome, siglaCurso,  dataHora, idPICC, propostaIntervencao FROM inserted;
+
+          OPEN cur;
+          FETCH NEXT FROM cur INTO @cpf, @siglaCurso, @dataHora, @idPICC, @propostaIntervencao;
+
+          WHILE @@FETCH_STATUS = 0
+          BEGIN
+              EXEC atualizaPropostaIntervencaoCC @idPICC, @dataHora, @cpf, @preNome, @sobreNome, @siglaCurso, @dataCriacao, @propostaIntervencao;
+              FETCH NEXT FROM cur INTO @idPICC, @dataHora, @cpf, @preNome, @sobreNome, @siglaCurso, @propostaIntervencao;
+          END
+
+          CLOSE cur;
+      END
+      ELSE
+      BEGIN
+         -- Insert
+         DECLARE cur CURSOR FOR SELECT cpf, preNome, sobreNome, siglaCurso,  dataHora, idPICC, propostaIntervencao FROM inserted;
+
+          OPEN cur;
+          FETCH NEXT FROM cur INTO @cpf, @preNome, @sobreNome, @siglaCurso, @dataHora, @idPICC, @propostaIntervencao;
+
+          WHILE @@FETCH_STATUS = 0
+          BEGIN
+              EXEC adicionaPropostaIntervencaoCC @idPICC, @dataHora, @cpf, @preNome, @sobreNome, @siglaCurso, @propostaIntervencao;
+              FETCH NEXT FROM cur INTO @idPICC, @dataHora, @cpf, @preNome, @sobreNome, @siglaCurso, @propostaIntervencao;
+          END
+
+          CLOSE cur;
+      END
+    END
+    ELSE
+    BEGIN
+      -- Delete
+      DECLARE cur CURSOR FOR SELECT cpf, preNome, sobreNome, siglaCurso, dataHora, idPICC, propostaIntervencao FROM deleted;
+
+      OPEN cur;
+      FETCH NEXT FROM cur INTO @cpf, @preNome, @sobreNome, @siglaCurso, @dataHora, @idPICC, @propostaIntervencao
+
+      WHILE @@FETCH_STATUS = 0
+      BEGIN
+          EXEC apagaPropostaIntervencaoCC @idPICC, @dataHora, @cpf, @preNome, @sobreNome, @siglaCurso, @propostaIntervencao;
+          FETCH NEXT FROM cur INTO @idPICC, @dataHora, @cpf, @preNome, @sobreNome, @siglaCurso, @propostaIntervencao;
+      END
+
+      CLOSE cur;
+    END;
+END
+GO
+
+CREATE TRIGGER tItemDePautaConselhoCurso_CoordCurso
+ON vItemDePautaConselhoCurso_CoordCurso
+INSTEAD OF INSERT, UPDATE, DELETE
+AS
+BEGIN
+	IF @@ROWCOUNT = 0 -- sair se não houver linhas a atualizar
+    BEGIN
+       RETURN;
+    END;
+
+		DECLARE @idIP int;
+    DECLARE @cpf char(11);
+		DECLARE @preNome varchar(30);
+		DECLARE @sobrenome varchar(30);
+    DECLARE @siglaCurso varchar(5);
+    DECLARE @dataHora datetime;
+    DECLARE @descricao varchar(max);
+
+    IF EXISTS(SELECT * FROM inserted)
+    BEGIN
+      IF EXISTS(SELECT * FROM deleted)
+      BEGIN
+          -- Update
+          DECLARE cur CURSOR FOR SELECT cpf, preNome, sobrenome, siglaCurso, idIP, dataHora, descricao FROM inserted;
+
+          OPEN cur;
+          FETCH NEXT FROM cur INTO @cpf, @preNome, @sobrenome, @siglaCurso, @idIP, @dataHora, @descricao;
+
+          WHILE @@FETCH_STATUS = 0
+          BEGIN
+              EXEC atualizaItemdePautaRCC @idIP, @cpf, @preNome, @sobrenome, @siglaCurso, @dataHora, @descricao;
+              FETCH NEXT FROM cur INTO @idIP, @cpf, @preNome, @sobrenome, @siglaCurso, @dataHora, @descricao;
+          END
+
+          CLOSE cur;
+      END
+      ELSE
+      BEGIN
+         -- Insert
+         DECLARE cur CURSOR FOR SELECT idIP, cpf, preNome, sobrenome, siglaCurso, dataHora, descricao FROM inserted;
+
+          OPEN cur;
+          FETCH NEXT FROM cur INTO @idIP, @cpf, @preNome, @sobrenome, @siglaCurso, @dataHora, @descricao;
+          WHILE @@FETCH_STATUS = 0
+          BEGIN
+              EXEC adicionarItemdePautaRCC @idIP, @cpf, @preNome, @sobrenome, @siglaCurso, @dataHora, @descricao;
+              FETCH NEXT FROM cur INTO @idIP, @cpf, @preNome, @sobrenome, @siglaCurso, @dataHora, @descricao;
+          END
+
+          CLOSE cur;
+      END
+    END
+    ELSE
+    BEGIN
+      -- Delete
+      DECLARE cur CURSOR FOR SELECT idIP, cpf, preNome, sobrenome, siglaCurso, dataHora, descricao FROM deleted;
+
+      OPEN cur;
+      FETCH NEXT FROM cur INTO @idIP, @cpf, @preNome, @sobrenome, @siglaCurso, @dataHora, @descricao;
+
+      WHILE @@FETCH_STATUS = 0
+      BEGIN
+          EXEC apagaItemdePautaRCC @idIP, @cpf, @preNome, @sobrenome, @siglaCurso, @dataHora, @descricao;
+          FETCH NEXT FROM cur INTO @idIP, @cpf, @preNome, @sobrenome, @siglaCurso, @dataHora, @descricao;
+      END
+
+      CLOSE cur;
+    END;
+
+
+END
+GO
