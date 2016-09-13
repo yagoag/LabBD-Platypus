@@ -1237,3 +1237,64 @@ BEGIN
 	END
 END
 GO
+
+-- Wilton
+/* Insere tecnico em tabela Tecnico caso exista CPF na tabela Pessoa */
+CREATE PROCEDURE InserirTecnico (
+	@siape CHAR(9),
+	@cpf   CHAR(11),
+	@nroGabinete INT,
+	@local VARCHAR(30)
+	)
+AS
+BEGIN
+	DECLARE @cpfExiste VARCHAR(11);
+	SELECT @cpfExiste = cpf FROM Pessoa WHERE cpf = @cpf;
+
+	IF @cpfExiste IS NOT NULL
+	BEGIN	
+		INSERT INTO Tecnico VALUES (@siape, @nroGabinete, @local);
+
+	END
+END
+GO
+
+/* Delete tecnico da tabela Tecnico */
+CREATE PROCEDURE DeletaTecnico (
+	@siape VARCHAR(9)
+	)
+AS
+BEGIN
+	DECLARE @siapeExiste VARCHAR(9);
+	
+	SELECT @siapeExiste = siape FROM Tecnico WHERE siape = @siape;
+
+	IF @siapeExiste IS NOT NULL
+	BEGIN
+		DELETE FROM Tecnico WHERE siape = @siape;
+	END
+
+END
+GO
+
+
+/* Atualiza informações na tabela tecnico */
+CREATE PROCEDURE AtualizaTecnico (
+	@siape VARCHAR(9),
+	@cpf   VARCHAR(11),
+	@nroGabinete INT,
+	@local VARCHAR(30)
+	)
+AS
+BEGIN
+	DECLARE @siapeExiste VARCHAR(9);
+	
+	SELECT @siapeExiste = siape FROM Tecnico WHERE siape = @siape;
+
+	IF @siapeExiste IS NOT NULL
+	BEGIN
+		UPDATE Tecnico SET siape = @siape, nroGabinete = @nroGabinete , local = @local WHERE siape = @siape;
+	END
+
+END
+GO
