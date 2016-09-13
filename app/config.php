@@ -1,5 +1,5 @@
 <?php
-$connectionInfo = array("Database" => "LabBD");
+$connectionInfo = array("Database" => "LabBD", "CharacterSet" => "UTF-8");
 $server = 'YAGO-XPS\SQLEXPRESS';
 
 // Connect to MSSQL

@@ -44,22 +44,22 @@ require_once 'config.php';
               <fieldset>
                   <div class="pure-g">
                       <div class="pure-u-1-12">
-                          <input name="dataInicio" class="pure-u-23-24" type="text" value="'.utf8_encode($a['dataInicio']->format('d/m/Y')).'">
+                          <input name="dataInicio" class="pure-u-23-24" type="text" value="'.$a['dataInicio']->format('Ymd').'">
                       </div>
                       <div class="pure-u-1-12">
-                          <input name="dataTermino" class="pure-u-23-24" type="text" value="'.utf8_encode($a['dataTermino']->format('d/m/Y')).'">
+                          <input name="dataTermino" class="pure-u-23-24" type="text" value="'.$a['dataTermino']->format('Ymd').'">
                       </div>
                       <div class="pure-u-1-12">
-                          <input name="siape" class="pure-u-23-24" type="text" value="'.utf8_encode($a['siape']).'">
+                          <input name="siape" class="pure-u-23-24" type="text" value="'.$a['siape'].'">
                       </div>
                       <div class="pure-u-4-24">
-                          <input name="documento" class="pure-u-23-24" type="text" value="'.utf8_encode($a['documento']).'">
+                          <input name="documento" class="pure-u-23-24" type="text" value="'.$a['documento'].'">
                       </div>
                       <div class="pure-u-4-24">
-                          <input name="indicacao" class="pure-u-23-24" type="text" value="'.utf8_encode($a['indicacao']).'">
+                          <input name="indicacao" class="pure-u-23-24" type="text" value="'.$a['indicacao'].'">
                       </div>
                       <div class="pure-u-4-24">
-                          <input name="motivo" class="pure-u-23-24" type="text" value="'.utf8_encode($a['motivo']).'">
+                          <input name="motivo" class="pure-u-23-24" type="text" value="'.$a['motivo'].'">
                       </div>
                       <div class="pure-u-1-12">  
                         <button type="submit" class="pure-button pure-button-primary" name="acao" value="editar">Editar</button>
