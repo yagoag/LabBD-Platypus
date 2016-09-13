@@ -92,20 +92,25 @@ BEGIN
     DECLARE @inscricaoMin int;
     DECLARE @inscricaoMax int;
     
+    -- Não são utilizados, porém são necessários para a seleção
+    DECLARE @nome varchar(64);
+    DECLARE @numCreditosPraticos int;
+    DECLARE @numCreditosTeoricos int;
+    
     IF EXISTS(SELECT * FROM inserted)
     BEGIN
       IF EXISTS(SELECT * FROM deleted)
       BEGIN
           -- Update
-          DECLARE cur CURSOR FOR SELECT semestre, ano, siglaTurma, sigla, valida, vagas, inscricaoMin, inscricaoMax FROM inserted;
+          DECLARE cur CURSOR FOR SELECT sigla, nome, numCreditosPraticos, numCreditosTeoricos, semestre, ano, siglaTurma, valida, vagas, inscricaoMin, inscricaoMax FROM inserted;
 
           OPEN cur;
-          FETCH NEXT FROM cur INTO @semestre, @ano, @siglaTurma, @sigla, @valida, @vagas, @inscricaoMin, @inscricaoMax;
+          FETCH NEXT FROM cur INTO @sigla, @nome, @numCreditosPraticos, @numCreditosTeoricos, @semestre, @ano, @siglaTurma, @valida, @vagas, @inscricaoMin, @inscricaoMax;
 
           WHILE @@FETCH_STATUS = 0
           BEGIN
               EXEC atualizaTurma @semestre, @ano, @siglaTurma, @sigla , @valida, @vagas, @inscricaoMin, @inscricaoMax;
-              FETCH NEXT FROM cur INTO @semestre, @ano, @siglaTurma, @sigla, @valida, @vagas, @inscricaoMin, @inscricaoMax;
+              FETCH NEXT FROM cur INTO @sigla, @nome, @numCreditosPraticos, @numCreditosTeoricos, @semestre, @ano, @siglaTurma, @valida, @vagas, @inscricaoMin, @inscricaoMax;
           END
 
           CLOSE cur;
@@ -113,15 +118,15 @@ BEGIN
       ELSE
       BEGIN
          -- Insert
-         DECLARE cur CURSOR FOR SELECT semestre, ano, siglaTurma, sigla, valida, vagas, inscricaoMin, inscricaoMax FROM inserted;
+         DECLARE cur CURSOR FOR SELECT sigla, nome, numCreditosPraticos, numCreditosTeoricos, semestre, ano, siglaTurma, valida, vagas, inscricaoMin, inscricaoMax FROM inserted;
 
           OPEN cur;
-          FETCH NEXT FROM cur INTO @semestre, @ano, @siglaTurma, @sigla, @valida, @vagas, @inscricaoMin, @inscricaoMax;
+          FETCH NEXT FROM cur INTO @sigla, @nome, @numCreditosPraticos, @numCreditosTeoricos, @semestre, @ano, @siglaTurma, @valida, @vagas, @inscricaoMin, @inscricaoMax;
 
           WHILE @@FETCH_STATUS = 0
           BEGIN
               EXEC adicionaTurma @semestre, @ano, @siglaTurma, @sigla, @valida, @vagas, @inscricaoMin, @inscricaoMax;
-              FETCH NEXT FROM cur INTO @semestre, @ano, @siglaTurma, @sigla, @valida, @vagas, @inscricaoMin, @inscricaoMax;
+              FETCH NEXT FROM cur INTO @sigla, @nome, @numCreditosPraticos, @numCreditosTeoricos, @semestre, @ano, @siglaTurma, @valida, @vagas, @inscricaoMin, @inscricaoMax;
           END
 
           CLOSE cur;
@@ -130,15 +135,15 @@ BEGIN
     ELSE
     BEGIN
       -- Delete
-      DECLARE cur CURSOR FOR SELECT semestre, ano, siglaTurma, sigla FROM deleted;
+      DECLARE cur CURSOR FOR SELECT sigla, semestre, ano, siglaTurma FROM deleted;
 
       OPEN cur;
-      FETCH NEXT FROM cur INTO @semestre, @ano, @siglaTurma, @sigla;
+      FETCH NEXT FROM cur INTO @sigla, @semestre, @ano, @siglaTurma;
 
       WHILE @@FETCH_STATUS = 0
       BEGIN
           EXEC apagaTurma @semestre, @ano, @siglaTurma, @sigla;
-          FETCH NEXT FROM cur INTO @semestre, @ano, @siglaTurma, @sigla;
+          FETCH NEXT FROM cur INTO @sigla, @semestre, @ano, @siglaTurma;
       END
 
       CLOSE cur;
@@ -147,7 +152,6 @@ BEGIN
 	
 END
 GO
-
 
 -- Guilhermo
 
