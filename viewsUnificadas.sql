@@ -134,3 +134,37 @@ CREATE VIEW vlicencasFuncionarios AS
 	WHERE L.siape = F.siape and P.cpf = F.cpf
 
 GO
+
+-- Lucas
+CREATE VIEW vRegimentoConselhoCoordenacao as
+    SELECT CC.siglaCurso, CC.regimento, CC.dataCriacao
+    FROM ConselhoCoordenacao CC, MembroConsehoCoordenacao MCC, Pessoa P
+    WHERE P.cpf = MCC.cpf
+    AND MCC.siglaCurso = CC.siglaCurso
+GO
+
+CREATE VIEW vProjetoPoliticoPedagogico_CoordCurso as
+    SELECT PPP.siglaCurso, PPP.inicioVigencia, PPP.projeto
+    FROM ProjetoPoliticoPedagogico PPP
+GO
+
+CREATE VIEW vPropostaReuniaoConselhoCurso_CoordCurso as
+    SELECT PICC.idPICC, IP.idIP, PICC.cpf, P.preNome, P.sobreNome, PICC.siglaCurso, PICC.dataHora, PICC.propostaIntervencao
+    FROM ReuniaoConselhoCoordenacaoCurso RCC,  PropostaIntervencaoConselhoDeCoordenacao PICC, ItemDePauta IP, Pessoa P
+    WHERE RCC.siglaCurso = PICC.siglaCurso AND PICC.cpf = P.cpf
+
+GO
+
+CREATE VIEW vItemDePautaConselhoCurso_CoordCurso as
+    SELECT PIRCC.idIP, PIRCC.cpf, P.preNome, P.sobreNome, PIRCC.siglaCurso, PIRCC.dataHora, IP.descricao
+    FROM PropoeItemReuniaoConselhoDeCoordenacao PIRCC, ItemDePauta IP, ReuniaoConselhoCoordenacaoCurso RCC, Pessoa P
+    WHERE RCC.siglaCurso = PIRCC.siglaCurso AND PIRCC.idIP = IP.idIP AND P.cpf = PIRCC.cpf;
+
+GO
+
+CREATE VIEW vAlunosEnade as
+    SELECT A.ra, A.cpf, ARE.status, P.preNome, P.sobreNome
+    FROM aluno A, AlunoRealizaEnade ARE, Pessoa P
+    WHERE P.cpf = A.cpf
+    AND A.ra = ARE.ra
+GO
