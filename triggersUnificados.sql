@@ -661,3 +661,43 @@ BEGIN
 
 END
 GO
+
+-- Wilton
+CREATE TRIGGER tTecnicoView
+ON TecnicoView INSTEAD OF INSERT, DELETE, UPDATE
+AS
+BEGIN
+
+    IF @@ROWCOUNT = 0 -- sair se não houver linhas a atualizar
+    BEGIN
+       RETURN;
+    END;
+
+    DECLARE @siape VARCHAR(9);
+    DECLARE @cpf VARCHAR(11);
+    DECLARE @nroGabinete INT;
+    DECLARE @local VARCHAR(30);
+
+    IF EXISTS(SELECT * FROM inserted)
+    BEGIN
+		IF EXISTS(SELECT * FROM deleted)
+		BEGIN
+		  -- Atualizacao
+			  DECLARE cur CURSOR FOR SELECT siape, cpf, nroGabinete, local  FROM inserted;
+
+		  OPEN cur;
+			  FETCH NEXT FROM cur INTO @siape, @cpf, @nroGabinete, @local;
+	
+		  WHILE @@FETCH_STATUS = 0
+			  BEGIN
+				  EXEC AtualizaTecnico @siape, @cpf, @nroGabinete, @local;
+
+				  FETCH NEXT FROM cur INTO @siape, @cpf, @nroGabinete, @local;
+			  END
+	  
+		  CLOSE cur;
+
+		END
+	END
+END
+GO
