@@ -543,6 +543,7 @@ CREATE TABLE PropostaIntervencaoNucleoDocenteEstruturante(
 CREATE TABLE ConselhoCoordenacao(
 	siglaCurso varchar(5),
 	dataCriacao date,
+    regimento TEXT NOT NULL,
 	PRIMARY KEY (siglaCurso, dataCriacao),
 	FOREIGN KEY (siglaCurso) REFERENCES Curso (sigla)
 );

@@ -646,11 +646,11 @@ INSERT INTO PropostaIntervencaoNucleoDocenteEstruturante VALUES ('000000005', 'B
 INSERT INTO PropostaIntervencaoNucleoDocenteEstruturante VALUES ('000000005', 'BCC', 5, '20160520 10:34:09 AM', 5, '')
 
 
-INSERT INTO ConselhoCoordenacao VALUES ('BCC', '19720520 10:34:09 AM')
-INSERT INTO ConselhoCoordenacao VALUES ('ENC', '19730520 10:34:09 AM')
-INSERT INTO ConselhoCoordenacao VALUES ('EP',  '19800520 10:34:09 AM')
-INSERT INTO ConselhoCoordenacao VALUES ('EM',  '19710520 10:34:09 AM')
-INSERT INTO ConselhoCoordenacao VALUES ('EF',  '19720520 10:34:09 AM')
+INSERT INTO ConselhoCoordenacao VALUES ('BCC', '19720520 10:34:09 AM', 'Link para regimento')
+INSERT INTO ConselhoCoordenacao VALUES ('ENC', '19730520 10:34:09 AM', 'Link para regimento')
+INSERT INTO ConselhoCoordenacao VALUES ('EP',  '19800520 10:34:09 AM', 'Link para regimento')
+INSERT INTO ConselhoCoordenacao VALUES ('EM',  '19710520 10:34:09 AM', 'Link para regimento')
+INSERT INTO ConselhoCoordenacao VALUES ('EF',  '19720520 10:34:09 AM', 'Link para regimento')
 
 INSERT INTO MembroConsehoCoordenacao VALUES ('11100000001', 'BCC', '19720520 10:34:09 AM', '20160510', '')
 INSERT INTO MembroConsehoCoordenacao VALUES ('11100000002', 'BCC', '19720520 10:34:09 AM', '20160511', '')
