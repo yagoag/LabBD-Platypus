@@ -791,3 +791,269 @@ BEGIN
     END
 END
 GO
+
+-- Aquino
+CREATE PROCEDURE pAdicionaComunicado	(@siapeDocente  CHAR(9), 
+				      @siglaCurso VARCHAR(5), 
+				      @idIP  int, 
+				      @dataHora datetime,
+                      			@idCNDE int, 
+				      @comunicado VARCHAR(MAX))
+AS
+BEGIN
+    	DECLARE @docenteExiste CHAR(9);
+		DECLARE @siglaCursoExiste VARCHAR(5);
+		DECLARE @idIPExiste INT;
+		DECLARE @dataHoraExiste DATETIME;
+
+	IF (@siapeDocente IS NOT NULL AND 
+	   @siglaCurso IS NOT NULL AND 
+	   @idIP IS NOT NULL AND 
+	   @dataHora IS NOT NULL AND 
+	   @idCNDE IS NOT NULL AND 
+	   @comunicado IS NOT NULL  )
+        BEGIN
+
+        -- Verifica se o os dados conferem com os dados de quem propos a Reunião
+ 	SELECT @docenteExiste = siapeDocente, @siglaCursoExiste = siglaCurso,  @idIPExiste = idIP, @dataHoraExiste = dataHora 
+	FROM PropoeItemReuniaoNucleoDocenteEstruturante 
+	WHERE siapeDocente = @siapeDocente AND siglaCurso = @siglaCurso AND idIP = @idIP AND dataHora = @dataHora;
+
+	-- Verifica se o siape passado é um siape válido para Docente
+	SELECT @docenteExiste = siape FROM Docente D WHERE D.siape = @siapeDocente
+
+
+
+        IF 	@docenteExiste IS NOT NULL AND
+		@siglaCursoExiste IS NOT NULL AND 
+		@idIPExiste  IS NOT NULL AND
+		@dataHoraExiste IS NOT NULL 
+	BEGIN
+			INSERT INTO ComunicadoNucleoDocenteEstruturante VALUES (@siapeDocente, @siglaCurso, @idIP, @dataHora, @idCNDE, @comunicado);
+	END
+	END
+END
+GO
+
+CREATE PROCEDURE pAtualizaComunicado	(@siapeDocente  CHAR(9), 
+				      @siglaCurso VARCHAR(5), 
+				      @idIP  int, 
+				      @dataHora datetime,
+                      @idCNDE int, 
+				      @comunicado VARCHAR(MAX))
+AS
+BEGIN
+    	DECLARE @docenteExiste CHAR(9);
+		DECLARE @siglaCursoExiste VARCHAR(5);
+		DECLARE @idIPExiste INT;
+		DECLARE @dataHoraExiste DATETIME;
+
+	IF (@siapeDocente IS NOT NULL AND 
+	   @siglaCurso IS NOT NULL AND 
+	   @idIP IS NOT NULL AND 
+	   @dataHora IS NOT NULL AND 
+	   @idCNDE IS NOT NULL AND 
+	   @comunicado IS NOT NULL  )
+        BEGIN
+
+        -- Verifica se o os dados conferem com os dados de quem propos a Reunião
+ 	SELECT @docenteExiste = siapeDocente, @siglaCursoExiste = siglaCurso,  @idIPExiste = idIP, @dataHoraExiste = dataHora 
+	FROM PropoeItemReuniaoNucleoDocenteEstruturante 
+	WHERE siapeDocente = @siapeDocente AND siglaCurso = @siglaCurso AND idIP = @idIP AND dataHora = @dataHora;
+
+	-- Verifica se o siape passado é um siape válido para Docente
+	SELECT @docenteExiste = siape FROM Docente D WHERE D.siape = @siapeDocente
+
+
+
+        IF 	@docenteExiste IS NOT NULL AND
+		@siglaCursoExiste IS NOT NULL AND 
+		@idIPExiste  IS NOT NULL AND
+		@dataHoraExiste IS NOT NULL 
+	BEGIN
+			UPDATE ComunicadoNucleoDocenteEstruturante 
+				SET 	
+					comunicado = @comunicado
+				WHERE 	
+					siapeDocente = @siapeDocente AND 
+					siglaCurso = @siglaCurso AND 
+					idIP = @idIP AND 
+					dataHora = @dataHora AND 
+					idCNDE = @idCNDE;
+	END
+	END
+END
+GO
+
+CREATE PROCEDURE pRemoveComunicado (@siapeDocente  CHAR(9), 
+				      @siglaCurso VARCHAR(5), 
+				      @idIP  int, 
+				      @dataHora datetime,
+                      @idCNDE int)
+AS
+BEGIN
+    	DECLARE @docenteExiste CHAR(9);
+		DECLARE @siglaCursoExiste VARCHAR(5);
+		DECLARE @idIPExiste INT;
+		DECLARE @dataHoraExiste DATETIME;
+
+	-- Verifica se o os dados conferem com os dados de quem propos a Reunião
+ 	SELECT @docenteExiste = siapeDocente, @siglaCursoExiste = siglaCurso,  @idIPExiste = idIP, @dataHoraExiste = dataHora 
+	FROM PropoeItemReuniaoNucleoDocenteEstruturante 
+	WHERE siapeDocente = @siapeDocente AND siglaCurso = @siglaCurso AND idIP = @idIP AND dataHora = @dataHora;
+
+
+        IF 	@docenteExiste IS NOT NULL AND
+		@siglaCursoExiste IS NOT NULL AND 
+		@idIPExiste  IS NOT NULL AND
+		@dataHoraExiste IS NOT NULL 
+		BEGIN
+			DELETE FROM ComunicadoNucleoDocenteEstruturante 
+			WHERE siapeDocente = @siapeDocente AND siglaCurso = @siglaCurso AND idIP = @idIP AND dataHora = @dataHora 
+			AND idCNDE = @idCNDE;
+		END
+    
+END
+GO
+
+CREATE PROCEDURE pAdicionaIntervencaoDocente	(
+				@siape  CHAR(9), 
+				@siglaCurso VARCHAR(5), 
+				@idIP  int, 
+				@dataHora datetime,
+				@idPINDE int, 
+				@propostaIntervencao VARCHAR(MAX)
+			)
+AS
+BEGIN
+    	DECLARE @docenteExiste CHAR(9);
+		DECLARE @siglaCursoExiste VARCHAR(5);
+		DECLARE @idIPExiste INT;
+		DECLARE @dataHoraExiste DATETIME;
+
+	IF 
+		@siape IS NOT NULL AND 
+		@siglaCurso IS NOT NULL AND 
+		@idIP IS NOT NULL AND 
+		@dataHora IS NOT NULL AND 
+		@idPINDE IS NOT NULL AND 
+		@propostaIntervencao IS NOT NULL  
+	BEGIN
+
+        -- Verifica se o os dados conferem com os dados de quem propos a Reunião
+ 	SELECT @docenteExiste = siapeDocente, @siglaCursoExiste = siglaCurso,  @idIPExiste = idIP, @dataHoraExiste = dataHora 
+	FROM PropoeItemReuniaoNucleoDocenteEstruturante 
+	WHERE siapeDocente = @siape AND siglaCurso = @siglaCurso AND idIP = @idIP AND dataHora = @dataHora;
+
+	-- Verifica se o siape passado é um siape válido para Docente
+	SELECT @docenteExiste = siape FROM Docente D WHERE D.siape = @siape
+
+
+
+		IF 	
+			@docenteExiste IS NOT NULL AND
+			@siglaCursoExiste IS NOT NULL AND 
+			@idIPExiste  IS NOT NULL AND
+			@dataHoraExiste IS NOT NULL 
+		BEGIN
+			INSERT INTO PropostaIntervencaoNucleoDocenteEstruturante VALUES (@siape, @siglaCurso, @idIP, @dataHora, @idPINDE, @propostaIntervencao);
+	END
+	END
+END
+GO
+
+CREATE PROCEDURE pAtualizaIntervencaoDocente	(
+				@siape  CHAR(9), 
+				@siglaCurso VARCHAR(5), 
+				@idIP  int, 
+				@dataHora datetime,
+				@idPINDE int, 
+				@propostaIntervencao VARCHAR(MAX)
+			)
+AS
+BEGIN
+    	DECLARE @docenteExiste CHAR(9);
+		DECLARE @siglaCursoExiste VARCHAR(5);
+		DECLARE @idIPExiste INT;
+		DECLARE @dataHoraExiste DATETIME;
+
+	IF 
+		@siape IS NOT NULL AND 
+		@siglaCurso IS NOT NULL AND 
+		@idIP IS NOT NULL AND 
+		@dataHora IS NOT NULL AND 
+		@idPINDE IS NOT NULL AND 
+		@propostaIntervencao IS NOT NULL  
+	BEGIN
+
+        -- Verifica se o os dados conferem com os dados de quem propos a Reunião
+ 	SELECT @docenteExiste = siapeDocente, @siglaCursoExiste = siglaCurso,  @idIPExiste = idIP, @dataHoraExiste = dataHora 
+	FROM PropoeItemReuniaoNucleoDocenteEstruturante 
+	WHERE siapeDocente = @siape AND siglaCurso = @siglaCurso AND idIP = @idIP AND dataHora = @dataHora;
+
+	-- Verifica se o siape passado é um siape válido para Docente
+	SELECT @docenteExiste = siape FROM Docente D WHERE D.siape = @siape
+
+
+
+	IF 	
+		@docenteExiste IS NOT NULL AND
+		@siglaCursoExiste IS NOT NULL AND 
+		@idIPExiste  IS NOT NULL AND
+		@dataHoraExiste IS NOT NULL 
+	BEGIN
+		UPDATE PropostaIntervencaoNucleoDocenteEstruturante 
+				SET 	
+					propostaIntervencao = @propostaIntervencao
+				WHERE 	
+					siape = @siape AND 
+					siglaCurso = @siglaCurso AND 
+					idIP = @idIP AND 
+					dataHora = @dataHora AND 
+					idPINDE = @idPINDE;
+	END
+	END
+END
+GO
+
+CREATE PROCEDURE pRemoveIntervencaoDocente (
+				@siape  CHAR(9), 
+				@siglaCurso VARCHAR(5), 
+				@idIP  int, 
+				@dataHora datetime,
+				@idPINDE int
+			)
+AS
+BEGIN
+    	DECLARE @docenteExiste CHAR(9);
+		DECLARE @siglaCursoExiste VARCHAR(5);
+		DECLARE @idIPExiste INT;
+		DECLARE @dataHoraExiste DATETIME;
+
+	IF 
+		@siape IS NOT NULL AND 
+		@siglaCurso IS NOT NULL AND 
+		@idIP IS NOT NULL AND 
+		@dataHora IS NOT NULL AND 
+		@idPINDE IS NOT NULL 
+	BEGIN
+
+        -- Verifica se o os dados conferem com os dados de quem propos a Reunião
+ 	SELECT @docenteExiste = siapeDocente, @siglaCursoExiste = siglaCurso,  @idIPExiste = idIP, @dataHoraExiste = dataHora 
+	FROM PropoeItemReuniaoNucleoDocenteEstruturante 
+	WHERE siapeDocente = @siape AND siglaCurso = @siglaCurso AND idIP = @idIP AND dataHora = @dataHora;
+
+
+        IF 	@docenteExiste IS NOT NULL AND
+		@siglaCursoExiste IS NOT NULL AND 
+		@idIPExiste  IS NOT NULL AND
+		@dataHoraExiste IS NOT NULL 
+		BEGIN
+			DELETE FROM PropostaIntervencaoNucleoDocenteEstruturante 
+			WHERE siape = @siape AND siglaCurso = @siglaCurso AND idIP = @idIP AND dataHora = @dataHora 
+			AND idPINDE = @idPINDE;
+		END
+	END
+    
+END
+GO

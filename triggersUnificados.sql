@@ -262,3 +262,148 @@ BEGIN
     END
 END    
 GO
+
+-- Aquino
+CREATE TRIGGER tIntervencaoDocente
+ON vIntervencaoDocente
+INSTEAD OF INSERT, UPDATE, DELETE
+AS
+BEGIN
+	IF @@ROWCOUNT = 0 -- sair se não houver linhas a atualizar
+    BEGIN
+       RETURN;
+    END;
+	DECLARE	@siape  CHAR(9); 
+	DECLARE	@siglaCurso VARCHAR(5);
+	DECLARE	@idIP  int;
+	DECLARE	@dataHora datetime;
+	DECLARE	@idPINDE int;
+	DECLARE	@propostaIntervencao VARCHAR(MAX);
+    
+    IF EXISTS(SELECT * FROM inserted)
+    BEGIN
+      IF EXISTS(SELECT * FROM deleted)
+      BEGIN
+          -- Update
+          DECLARE cur CURSOR FOR SELECT siape, siglaCurso, idIP, dataHora, idPINDE, propostaIntervencao FROM inserted;
+
+          OPEN cur;
+          FETCH NEXT FROM cur INTO @siape, @siglaCurso, @idIP, @dataHora, @idPINDE, @propostaIntervencao;
+
+          WHILE @@FETCH_STATUS = 0
+          BEGIN
+              EXEC pAtualizaIntervencaoDocente @siape, @siglaCurso, @idIP, @dataHora, @idPINDE, @propostaIntervencao;
+              FETCH NEXT FROM cur INTO @siape, @siglaCurso, @idIP, @dataHora, @idPINDE, @propostaIntervencao;
+          END
+
+          CLOSE cur;
+      END
+      ELSE
+      BEGIN
+         -- Insert
+         DECLARE cur CURSOR FOR SELECT siape, siglaCurso, idIP, dataHora, idPINDE, propostaIntervencao FROM inserted;
+
+          OPEN cur;
+          FETCH NEXT FROM cur INTO @siape, @siglaCurso, @idIP, @dataHora, @idPINDE, @propostaIntervencao;
+
+          WHILE @@FETCH_STATUS = 0
+          BEGIN
+              EXEC pAdicionaIntervencaoDocente @siape, @siglaCurso, @idIP, @dataHora, @idPINDE, @propostaIntervencao;
+              FETCH NEXT FROM cur INTO @siape, @siglaCurso, @idIP, @dataHora, @idPINDE, @propostaIntervencao;
+          END
+
+          CLOSE cur;
+      END
+    END
+    ELSE
+    BEGIN
+      -- Delete
+      DECLARE cur CURSOR FOR SELECT siape, siglaCurso, idIP, dataHora, idPINDE FROM deleted;
+
+      OPEN cur;
+      FETCH NEXT FROM cur INTO @siape, @siglaCurso, @idIP, @dataHora, @idPINDE;
+
+      WHILE @@FETCH_STATUS = 0
+      BEGIN
+          EXEC pRemoveIntervencaoDocente  @siape, @siglaCurso, @idIP, @dataHora, @idPINDE;
+          FETCH NEXT FROM cur INTO @siape, @siglaCurso, @idIP, @dataHora, @idPINDE;
+      END
+
+      CLOSE cur;
+    END;
+    
+	
+END
+GO
+
+CREATE TRIGGER tComunicadoDocente
+ON vComunicadoDocente
+INSTEAD OF INSERT, UPDATE, DELETE
+AS
+BEGIN
+	IF @@ROWCOUNT = 0 -- sair se não houver linhas a atualizar
+    BEGIN
+       RETURN;
+    END;
+	DECLARE	@siapeDocente  CHAR(9); 
+	DECLARE @siglaCurso VARCHAR(5); 
+	DECLARE	@idIP  int;
+	DECLARE	@dataHora datetime;
+	DECLARE	@idCNDE int;
+	DECLARE	@comunicado VARCHAR(MAX);
+    
+    IF EXISTS(SELECT * FROM inserted)
+    BEGIN
+      IF EXISTS(SELECT * FROM deleted)
+      BEGIN
+          -- Update
+          DECLARE cur CURSOR FOR SELECT siapeDocente, siglaCurso, idIP, dataHora, idCNDE, comunicado FROM inserted;
+
+          OPEN cur;
+          FETCH NEXT FROM cur INTO @siapeDocente, @siglaCurso, @idIP, @dataHora, @idCNDE, @comunicado;
+
+          WHILE @@FETCH_STATUS = 0
+          BEGIN
+              EXEC pAtualizaComunicado @siapeDocente, @siglaCurso, @idIP, @dataHora, @idCNDE, @comunicado;
+              FETCH NEXT FROM cur INTO @siapeDocente, @siglaCurso, @idIP, @dataHora, @idCNDE, @comunicado;
+          END
+
+          CLOSE cur;
+      END
+      ELSE
+      BEGIN
+         -- Insert
+         DECLARE cur CURSOR FOR SELECT siapeDocente, siglaCurso, idIP, dataHora, idCNDE, comunicado FROM inserted;
+
+          OPEN cur;
+          FETCH NEXT FROM cur INTO @siapeDocente, @siglaCurso, @idIP, @dataHora, @idCNDE, @comunicado;
+
+          WHILE @@FETCH_STATUS = 0
+          BEGIN
+              EXEC pAdicionaComunicado @siapeDocente, @siglaCurso, @idIP, @dataHora, @idCNDE, @comunicado;
+              FETCH NEXT FROM cur INTO @siapeDocente, @siglaCurso, @idIP, @dataHora, @idCNDE, @comunicado;
+          END
+
+          CLOSE cur;
+      END
+    END
+    ELSE
+    BEGIN
+      -- Delete
+      DECLARE cur CURSOR FOR SELECT siapeDocente, siglaCurso, idIP, dataHora, idCNDE FROM deleted;
+
+      OPEN cur;
+      FETCH NEXT FROM cur INTO @siapeDocente, @siglaCurso, @idIP, @dataHora, @idCNDE;
+
+      WHILE @@FETCH_STATUS = 0
+      BEGIN
+          EXEC pRemoveComunicado  @siapeDocente, @siglaCurso, @idIP, @dataHora, @idCNDE;
+          FETCH NEXT FROM cur INTO @siapeDocente, @siglaCurso, @idIP, @dataHora, @idCNDE;
+      END
+
+      CLOSE cur;
+    END;
+    
+	
+END
+GO

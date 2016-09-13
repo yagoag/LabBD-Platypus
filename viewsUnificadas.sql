@@ -88,3 +88,49 @@ CREATE VIEW
 CREATE VIEW
 	TecnicoView AS SELECT T.siape, P.cpf, P.sobreNome, P.preNome, P.rgCod, P.rgOrg, P.endLog, P.endNum, P.endCid, P.endBai, P.endCEP,
 	T.nroGabinete, T.local FROM Tecnico T, Pessoa P, Funcionario F WHERE (T.siape=F.siape AND F.cpf=P.cpf);
+
+
+-- Aquino
+CREATE VIEW vComunicadoDocente AS
+ 	SELECT 
+		C.siapeDocente,
+		P.preNome, 
+		P.sobreNome ,
+		C.siglaCurso, 
+		C.idIP,
+		C.dataHora, 
+		C.idCNDE,
+		C.comunicado
+	FROM ComunicadoNucleoDocenteEstruturante C, Pessoa P, Funcionario F, Docente D
+	WHERE C.siapeDocente = F.siape AND F.cpf = P.cpf AND D.siape = f.siape
+GO
+
+CREATE VIEW vIntervencaoDocente AS
+ 	SELECT 
+		C.siape,
+		P.preNome, 
+		P.sobreNome ,
+		C.siglaCurso, 
+		C.idIP,
+		C.dataHora, 
+		C.idPINDE,
+		C.propostaIntervencao
+	FROM 
+		PropostaIntervencaoNucleoDocenteEstruturante C, 
+		Pessoa P, 
+		Funcionario F, 
+		Docente D
+	WHERE 
+		C.siape = F.siape AND 
+		F.cpf = P.cpf AND 
+		D.siape = f.siape
+GO
+
+CREATE VIEW vlicencasFuncionarios AS
+ 	SELECT 
+		P.preNome, P.sobreNome, L.dataInicio, 
+		L.dataTermino, indicacao, motivo	
+	FROM Licenca L, Funcionario F, Pessoa P 
+	WHERE L.siape = F.siape and P.cpf = F.cpf
+
+GO
