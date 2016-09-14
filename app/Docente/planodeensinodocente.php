@@ -124,18 +124,20 @@ while ($a = sqlsrv_fetch_array($stmt))
 	</div>
 </fieldset>
 </form>';
+	echo '<h4>
+<p>Atividades</p>  
+</h4>';
 $stmt2 = sqlsrv_query($conn, "SELECT * FROM PlanoDeEnsino_Atividades WHERE semestre = ".$a['semestre']." AND ano = ".$a['ano']." AND siglaTurma = '".$a['siglaTurma']."' AND siglaDisciplina = '".$a['siglaDisciplina']."'");
-
 while ($a2 = sqlsrv_fetch_array($stmt2)) 
 {
+
 	echo '<form class="pure-form pure-form-stacked" method="post" action="planodeensinodocente.php">
 	<fieldset>
-		
-		<input name="siape" type="hidden" value="'.$a2['siape'].'" readonly>
 		<input name="semestre" type="hidden" value="'.$a2['semestre'].'" readonly>
 		<input name="ano" type="hidden" value="'.$a2['ano'].'" readonly>
 		<input name="siglaTurma" type="hidden" value="'.$a2['siglaTurma'].'" readonly>
 		<input name="siglaDisciplina" type="hidden" value="'.$a2['siglaDisciplina'].'" readonly>
+		<input name="id" type="hidden" value="'.$a2['id'].'" readonly>
 	
 		<div class="pure-g"> 
 			<div class="pure-u-1-24"><p>Horas</p></div>
@@ -155,9 +157,209 @@ while ($a2 = sqlsrv_fetch_array($stmt2))
 </fieldset>
 </form>';
 }
+	echo '<h4>
+<p>Recursos</p>  
+</h4>';
+$stmt3 = sqlsrv_query($conn, "SELECT * FROM PlanoDeEnsino_Recurso WHERE semestre = ".$a['semestre']." AND ano = ".$a['ano']." AND siglaTurma = '".$a['siglaTurma']."' AND siglaDisciplina = '".$a['siglaDisciplina']."'");
+while ($a3 = sqlsrv_fetch_array($stmt3)) 
+{
+	echo '<form class="pure-form pure-form-stacked" method="post" action="planodeensinodocente.php">
+	<fieldset>
+		<input name="semestre" type="hidden" value="'.$a3['semestre'].'" readonly>
+		<input name="ano" type="hidden" value="'.$a3['ano'].'" readonly>
+		<input name="siglaTurma" type="hidden" value="'.$a3['siglaTurma'].'" readonly>
+		<input name="siglaDisciplina" type="hidden" value="'.$a3['siglaDisciplina'].'" readonly>
+	
+		<div class="pure-g"> 
+			<div class="pure-u-1-24"><p>Recurso</p></div>
+			<div class="pure-u-23-24">
+				<input name="recurso" class="pure-u-23-24" type="text" value="'.$a3['recurso'].'">
+			</div>
 
-echo'<hr>
-<br>';
+			<div class="pure-u-1-5">  
+				<button type="submit" class="pure-button pure-button-primary" name="acao" value="editarAtividades">Editar</button>
+			</div>
+	</div>
+</fieldset>
+</form>';
+}
+	echo '<h4>
+<p>EAD</p>  
+</h4>';
+$stmt4 = sqlsrv_query($conn, "SELECT * FROM PlanoDeEnsino_EAD WHERE semestre = ".$a['semestre']." AND ano = ".$a['ano']." AND siglaTurma = '".$a['siglaTurma']."' AND siglaDisciplina = '".$a['siglaDisciplina']."'");
+while ($a4 = sqlsrv_fetch_array($stmt4)) 
+{
+	echo '<form class="pure-form pure-form-stacked" method="post" action="planodeensinodocente.php">
+	<fieldset>
+		<input name="semestre" type="hidden" value="'.$a4['semestre'].'" readonly>
+		<input name="ano" type="hidden" value="'.$a4['ano'].'" readonly>
+		<input name="siglaTurma" type="hidden" value="'.$a4['siglaTurma'].'" readonly>
+		<input name="siglaDisciplina" type="hidden" value="'.$a4['siglaDisciplina'].'" readonly>
+	
+		<div class="pure-g"> 
+			<div class="pure-u-1-24"><p>Horas</p></div>
+			<div class="pure-u-23-24">
+				<input name="horas" class="pure-u-23-24" type="number" value="'.$a4['horas'].'">
+			</div>
+
+			<div class="pure-u-1-24"><p>Atividade</p></div>
+			<div class="pure-u-23-24">
+				<input name="atividade" class="pure-u-23-24" type="text" value="'.$a4['atividade'].'">
+			</div>
+			<div class="pure-u-1-5">  
+				<button type="submit" class="pure-button pure-button-primary" name="acao" value="editarAtividades">Editar</button>
+			</div>
+	</div>
+</fieldset>
+</form>';
+}
+	echo '<h4>
+<p>Distribuicao de Horas</p>  
+</h4>';
+$stmt5 = sqlsrv_query($conn, "SELECT * FROM PlanoDeEnsino_DistribHoras WHERE semestre = ".$a['semestre']." AND ano = ".$a['ano']." AND siglaTurma = '".$a['siglaTurma']."' AND siglaDisciplina = '".$a['siglaDisciplina']."'");
+while ($a5 = sqlsrv_fetch_array($stmt5)) 
+{
+	echo '<form class="pure-form pure-form-stacked" method="post" action="planodeensinodocente.php">
+	<fieldset>
+		<input name="semestre" type="hidden" value="'.$a5['semestre'].'" readonly>
+		<input name="ano" type="hidden" value="'.$a5['ano'].'" readonly>
+		<input name="siglaTurma" type="hidden" value="'.$a5['siglaTurma'].'" readonly>
+		<input name="siglaDisciplina" type="hidden" value="'.$a5['siglaDisciplina'].'" readonly>
+	
+		<div class="pure-g"> 
+			<div class="pure-u-1-24"><p>Horas</p></div>
+			<div class="pure-u-23-24">
+				<input name="horas" class="pure-u-23-24" type="number" value="'.$a5['horas'].'">
+			</div>
+
+			<div class="pure-u-1-24"><p>Atividade</p></div>
+			<div class="pure-u-23-24">
+				<input name="atividade" class="pure-u-23-24" type="text" value="'.$a5['atividade'].'">
+			</div>
+			<div class="pure-u-1-5">  
+				<button type="submit" class="pure-button pure-button-primary" name="acao" value="editarAtividades">Editar</button>
+			</div>
+	</div>
+</fieldset>
+</form>';
+}
+	echo '<h4>
+<p>Bibliografia Basica</p>  
+</h4>';
+$stmt6 = sqlsrv_query($conn, "SELECT * FROM PlanoDeEnsino_BibliografiaBasica WHERE semestre = ".$a['semestre']." AND ano = ".$a['ano']." AND siglaTurma = '".$a['siglaTurma']."' AND siglaDisciplina = '".$a['siglaDisciplina']."'");
+while ($a6 = sqlsrv_fetch_array($stmt6)) 
+{
+	echo '<form class="pure-form pure-form-stacked" method="post" action="planodeensinodocente.php">
+	<fieldset>
+		<input name="semestre" type="hidden" value="'.$a6['semestre'].'" readonly>
+		<input name="ano" type="hidden" value="'.$a6['ano'].'" readonly>
+		<input name="siglaTurma" type="hidden" value="'.$a6['siglaTurma'].'" readonly>
+		<input name="siglaDisciplina" type="hidden" value="'.$a6['siglaDisciplina'].'" readonly>
+	
+		<div class="pure-g"> 
+			<div class="pure-u-1-24"><p>Titulo</p></div>
+			<div class="pure-u-23-24">
+				<input name="titulo" class="pure-u-23-24" type="text" value="'.$a6['titulo'].'">
+			</div>
+
+			<div class="pure-u-1-24"><p>Editor</p></div>
+			<div class="pure-u-23-24">
+				<input name="editor" class="pure-u-23-24" type="text" value="'.$a6['editor'].'">
+			</div>
+
+			<div class="pure-u-1-24"><p>Ano</p></div>
+			<div class="pure-u-23-24">
+				<input name="bibAno" class="pure-u-23-24" type="number" value="'.$a6['bibAno'].'">
+			</div>
+
+			<div class="pure-u-1-24"><p>Autor</p></div>
+			<div class="pure-u-23-24">
+				<input name="autor" class="pure-u-23-24" type="text" value="'.$a6['autor'].'">
+			</div>
+
+			<div class="pure-u-1-5">  
+				<button type="submit" class="pure-button pure-button-primary" name="acao" value="editarAtividades">Editar</button>
+			</div>
+	</div>
+</fieldset>
+</form>';
+}
+
+	echo '<h4>
+<p>Bibliografia Complementar</p>  
+</h4>';
+$stmt7 = sqlsrv_query($conn, "SELECT * FROM PlanoDeEnsino_BibliografiaComplementar WHERE semestre = ".$a['semestre']." AND ano = ".$a['ano']." AND siglaTurma = '".$a['siglaTurma']."' AND siglaDisciplina = '".$a['siglaDisciplina']."'");
+while ($a7 = sqlsrv_fetch_array($stmt7)) 
+{
+	echo '<form class="pure-form pure-form-stacked" method="post" action="planodeensinodocente.php">
+	<fieldset>
+		<input name="semestre" type="hidden" value="'.$a7['semestre'].'" readonly>
+		<input name="ano" type="hidden" value="'.$a7['ano'].'" readonly>
+		<input name="siglaTurma" type="hidden" value="'.$a7['siglaTurma'].'" readonly>
+		<input name="siglaDisciplina" type="hidden" value="'.$a7['siglaDisciplina'].'" readonly>
+	
+		<div class="pure-g"> 
+			<div class="pure-u-1-24"><p>Titulo</p></div>
+			<div class="pure-u-23-24">
+				<input name="titulo" class="pure-u-23-24" type="text" value="'.$a7['titulo'].'">
+			</div>
+
+			<div class="pure-u-1-24"><p>Editor</p></div>
+			<div class="pure-u-23-24">
+				<input name="editor" class="pure-u-23-24" type="text" value="'.$a7['editor'].'">
+			</div>
+
+			<div class="pure-u-1-24"><p>Ano</p></div>
+			<div class="pure-u-23-24">
+				<input name="bibAno" class="pure-u-23-24" type="number" value="'.$a7['bibAno'].'">
+			</div>
+
+			<div class="pure-u-1-24"><p>Autor</p></div>
+			<div class="pure-u-23-24">
+				<input name="autor" class="pure-u-23-24" type="text" value="'.$a7['autor'].'">
+			</div>
+
+			<div class="pure-u-1-5">  
+				<button type="submit" class="pure-button pure-button-primary" name="acao" value="editarAtividades">Editar</button>
+			</div>
+	</div>
+</fieldset>
+</form>';
+}
+
+	echo '<h4>
+<p>Tópico</p>  
+</h4>';
+$stmt5 = sqlsrv_query($conn, "SELECT * FROM PlanoDeEnsino_Topico WHERE semestre = ".$a['semestre']." AND ano = ".$a['ano']." AND siglaTurma = '".$a['siglaTurma']."' AND siglaDisciplina = '".$a['siglaDisciplina']."'");
+while ($a5 = sqlsrv_fetch_array($stmt5)) 
+{
+	echo '<form class="pure-form pure-form-stacked" method="post" action="planodeensinodocente.php">
+	<fieldset>
+		<input name="semestre" type="hidden" value="'.$a5['semestre'].'" readonly>
+		<input name="ano" type="hidden" value="'.$a5['ano'].'" readonly>
+		<input name="siglaTurma" type="hidden" value="'.$a5['siglaTurma'].'" readonly>
+		<input name="siglaDisciplina" type="hidden" value="'.$a5['siglaDisciplina'].'" readonly>
+		<input name="id" type="hidden" value="'.$a5['id'].'" readonly>
+	
+		<div class="pure-g"> 
+			<div class="pure-u-1-24"><p>Horas</p></div>
+			<div class="pure-u-23-24">
+				<input name="horas" class="pure-u-23-24" type="number" value="'.$a5['horas'].'">
+			</div>
+
+			<div class="pure-u-1-24"><p>Topico</p></div>
+			<div class="pure-u-23-24">
+				<input name="topico" class="pure-u-23-24" type="text" value="'.$a5['topico'].'">
+			</div>
+			<div class="pure-u-1-5">  
+				<button type="submit" class="pure-button pure-button-primary" name="acao" value="editarAtividades">Editar</button>
+			</div>
+	</div>
+</fieldset>
+</form>';
+}
+
+echo'<hr><br><br><br>';
 
 }
 ?> 
