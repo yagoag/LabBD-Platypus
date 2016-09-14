@@ -3,7 +3,7 @@
 	session_start();
 	require_once 'config.php';
 
-	$sql = "SELECT * FROM Pessoa WHERE cpf = ".$_POST['cpf']." AND senha = ".$_POST['senha'];
+	$sql = "SELECT * FROM Pessoa WHERE cpf = ".$_POST['cpf']." AND senha = '".$_POST['senha']."'";
 	$params = array();
 	$options =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
 	$stmt = sqlsrv_query( $conn, $sql , $params, $options );
