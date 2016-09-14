@@ -18,6 +18,16 @@ ul.a {
       list-style-type: lower-alpha;
   }
 
+.main-heading {
+  text-align: right;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.main-heading a {
+  text-decoration: none;
+}
+
 .pure-img-responsive {
     max-width: 100%;
     height: auto;

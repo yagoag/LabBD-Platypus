@@ -48,18 +48,18 @@ echo '<h2>
 
 
 <?php
-  $stmt = sqlsrv_query($conn, "SELECT * FROM TecnicoView");
+  $stmt = sqlsrv_query($conn, "SELECT * FROM TecnicoView WHERE siape = '".$_SESSION['siape']."'");
   while ($a = sqlsrv_fetch_array($stmt)) 
   {
     echo '<form class="pure-form pure-form-stacked" method="post" action="InfoTecPessoais.php">
               <fieldset>
-                <div class="pure-g">
+                <!--div class="pure-g">
                       <h5>
                         <div class="pure-u-23-24">
                           <input name="CPF" class="pure-u-1-2" type="text" value="CPF '.$a['cpf'].'" readonly>
                         </div>
                       </h5>                      
-                </div>
+                </div-->
                 <div class="pure-g"> 
 
 	
@@ -79,10 +79,10 @@ echo '<h2>
 		      <div class="pure-u-1-12"><p>Local de trabalho</p></div>
 
 		      <div class="pure-u-1-12">
-                  <input name="cpf" class="pure-u-23-24" type="text" value="'.$a['cpf'].'">
+                  <input name="cpf" class="pure-u-23-24" type="text" value="'.$a['cpf'].'" disabled>
               </div>
               <div class="pure-u-1-12">
-                  <input name="siape" class="pure-u-23-24" type="text" value="'.$a['siape'].'">
+                  <input name="siape" class="pure-u-23-24" type="text" value="'.$a['siape'].'" disabled>
               </div>
               <div class="pure-u-1-12">
                   <input name="sobreNome" class="pure-u-23-24" type="text" value="'.$a['sobreNome'].'">

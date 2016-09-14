@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="platypus.css">
 </head>
+<body>
+<div id="layout">
+    <div id="menu">
+        <?php require 'menu.php'; ?>
+    </div>
+
+    <div id="main">
 <?php
 require_once 'config.php';
 ?>
@@ -17,7 +25,7 @@ require_once 'config.php';
 </div>
 
 <?php
-  $stmt = sqlsrv_query($conn, "SELECT * FROM vlicencasFuncionarios");
+  $stmt = sqlsrv_query($conn, "SELECT * FROM vlicencasFuncionarios WHERE siape = '".$_SESSION['siape']."'");
   while ($a = sqlsrv_fetch_array($stmt)) {
     echo '<form class="pure-form pure-form-stacked" method="post" action="licencasFuncionarios.php">
               <fieldset>
@@ -45,6 +53,7 @@ require_once 'config.php';
           </form>';
   }	
 ?>
-
-  </form>
+  </div>
+</div>
+</body>
 </html>

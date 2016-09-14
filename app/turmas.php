@@ -56,7 +56,7 @@ require_once 'config.php';
                     <fieldset>
                         <div class="pure-g">
                             <div class="pure-u-1-12">
-                                <input name="sigla" class="pure-u-23-24" type="text" value="'.$a['sigla'].'">
+                                <input name="sigla" class="pure-u-23-24" type="text" value="'.$a['sigla'].'" disabled>
                             </div>
                             <div class="pure-u-1-12">
                                 <input name="nome" class="pure-u-23-24" type="text" value="'.$a['nome'].'" disabled>
@@ -68,13 +68,13 @@ require_once 'config.php';
                                 <input name="numCreditosTeoricos" class="pure-u-23-24" type="text" value="'.$a['numCreditosTeoricos'].'" disabled>
                             </div>
                             <div class="pure-u-1-12">
-                                <input name="semestre" class="pure-u-23-24" type="text" value="'.$a['semestre'].'">
+                                <input name="semestre" class="pure-u-23-24" type="text" value="'.$a['semestre'].'" disabled>
                             </div>
                             <div class="pure-u-1-12">
-                                <input name="ano" class="pure-u-23-24" type="text" value="'.$a['ano'].'">
+                                <input name="ano" class="pure-u-23-24" type="text" value="'.$a['ano'].'" disabled>
                             </div>
                             <div class="pure-u-1-12">
-                                <input name="siglaTurma" class="pure-u-23-24" type="text" value="'.$a['siglaTurma'].'">
+                                <input name="siglaTurma" class="pure-u-23-24" type="text" value="'.$a['siglaTurma'].'" disabled>
                             </div>
                             <div class="pure-u-1-12">
                                 <input name="valida" class="pure-u-23-24" type="text" value="'.$a['valida'].'">
