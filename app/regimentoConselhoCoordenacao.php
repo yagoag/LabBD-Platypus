@@ -49,10 +49,10 @@ require_once 'config.php';
               <fieldset>
                   <div class="pure-g">
                       <div class="pure-u-4-24">
-                          <input name="siglaCurso" class="pure-u-23-24" type="text" value="'.$a['siglaCurso'].'">
+                          <input name="siglaCurso" class="pure-u-23-24" type="text" value="'.$a['siglaCurso'].'" disabled>
                       </div>
                       <div class="pure-u-6-24">
-                          <input name="dataCriacao" class="pure-u-23-24" type="text" value="'.$a['dataCriacao']->format('Ymd').'">
+                          <input name="dataCriacao" class="pure-u-23-24" type="text" value="'.$a['dataCriacao']->format('Ymd').'" disabled>
                       </div>
                       <div class="pure-u-10-24">
                           <input name="regimento" class="pure-u-23-24" type="text" value="'.$a['regimento'].'">
@@ -64,7 +64,7 @@ require_once 'config.php';
           </form>';
   }
 ?>
-  <form class="pure-form pure-form-stacked"  method="post" action="regimentoConselhoCoordenacao.php">
+  <!--form class="pure-form pure-form-stacked"  method="post" action="regimentoConselhoCoordenacao.php">
       <fieldset>
           <div class="pure-g">
               <div class="pure-u-4-24">
@@ -82,7 +82,7 @@ require_once 'config.php';
             </div>
         </div>
       </fieldset>
-  </form>
+  </form-->
   </div>
 </div>
 </body>

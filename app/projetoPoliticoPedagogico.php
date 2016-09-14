@@ -50,10 +50,10 @@ require_once 'config.php';
               <fieldset>
                   <div class="pure-g">
                       <div class="pure-u-4-24">
-                          <input name="siglaCurso" class="pure-u-23-24" type="text" value="'.$a['siglaCurso'].'">
+                          <input name="siglaCurso" class="pure-u-23-24" type="text" value="'.$a['siglaCurso'].'" disabled>
                       </div>
                       <div class="pure-u-6-24">
-                          <input name="inicioVigencia" class="pure-u-23-24" type="text" value="'.$a['inicioVigencia']->format('Ymd').'">
+                          <input name="inicioVigencia" class="pure-u-23-24" type="text" value="'.$a['inicioVigencia']->format('Ymd').'" disabled>
                       </div>
                       <div class="pure-u-10-24">
                           <input name="projeto" class="pure-u-23-24" type="text" value="'.$a['projeto'].'">
@@ -61,14 +61,11 @@ require_once 'config.php';
                       <div class="pure-u-1-12">
                            <button type="submit" class="pure-button pure-button-primary" name="acao" value="editar">Editar</button>
                       </div>
-                      <div class="pure-u-1-12">
-                           <button type="submit" class="pure-button pure-button-primary" name="acao" value="apagar">Apagar</button>
-                      </div>
               </fieldset>
           </form>';
   }
 ?>
-  <form class="pure-form pure-form-stacked"  method="post" action="projetoPoliticoPedagogico.php">
+  <!--form class="pure-form pure-form-stacked"  method="post" action="projetoPoliticoPedagogico.php">
       <fieldset>
           <div class="pure-g">
               <div class="pure-u-4-24">
@@ -86,7 +83,7 @@ require_once 'config.php';
               </div>
         </div>
       </fieldset>
-  </form>
+  </form-->
   </div>
 </div>
 </body>
