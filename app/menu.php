@@ -56,7 +56,7 @@
         <div class="pure-menu-heading">Tecnico</div>
 
         <ul class="pure-menu-list">
-            <li class="pure-menu-item"><a href="turmas.php" class="pure-menu-link">Turmas</a></li>
+            <li class="pure-menu-item"><a href="InfoTecPessoais.php" class="pure-menu-link">Informações Pessoais</a></li>
             <li class="pure-menu-item"><a href="licencas.php" class="pure-menu-link">Licenças</a></li>
         </ul>
       <?php

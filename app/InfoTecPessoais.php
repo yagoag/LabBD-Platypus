@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="platypus.css">
+</head>
+<body>
+<div id="layout">
+    <div id="menu">
+        <?php require 'menu.php'; ?>
+    </div>
+
+    <div id="main">
+<?php
+require_once 'config.php';
+echo '<h2>
+        <p>Informações pessoais do Tecnico</p>  
+      </h2>';
+
+ if (isset($_POST['acao'])) 
+  {
+    if ($_POST['acao'] == 'editar') 
+    {
+      $stmt = sqlsrv_query($conn, "UPDATE TecnicoView 
+                                   SET cpf               = '".$_POST['cpf']."'              , 
+                                       siape             = '".$_POST['siape']."'            , 
+                                       sobreNome         = '".$_POST['sobreNome']."'        , 
+                                       preNome           = '".$_POST['preNome']."'          , 
+                                       rgCod             = '".$_POST['rgCod']."'            ,
+                                       rgOrg             = '".$_POST['rgOrg']."'            ,
+                                       endLog            = '".$_POST['endLog']."'           ,
+                                       endNum            = '".$_POST['endNum']."'           ,
+                                       endCid            = '".$_POST['endCid']."'           ,
+                                       endBai            = '".$_POST['endBai']."'           ,
+                                       endCEP            = '".$_POST['endCEP']."'           ,
+                                       nroGabinete       = '".$_POST['nroGabinete']."'      ,
+				       local             = '".$_POST['local']."'
+                                   WHERE cpf = '".$_POST['cpf']."'");
+      if (!$stmt) {
+          echo 'Ocorreu um erro ao atualizar suas informações pessoais.';
+      } else
+          echo 'Suas informações pessoais foram atualizadas com sucesso.';
+    }  
+  }
+?>
+
+
+
+<?php
+  $stmt = sqlsrv_query($conn, "SELECT * FROM TecnicoView");
+  while ($a = sqlsrv_fetch_array($stmt)) 
+  {
+    echo '<form class="pure-form pure-form-stacked" method="post" action="InfoTecPessoais.php">
+              <fieldset>
+                <div class="pure-g">
+                      <h5>
+                        <div class="pure-u-23-24">
+                          <input name="CPF" class="pure-u-1-2" type="text" value="CPF '.$a['cpf'].'" readonly>
+                        </div>
+                      </h5>                      
+                </div>
+                <div class="pure-g"> 
+
+	
+
+		      <div class="pure-u-1-12"><p>CPF</p></div>
+              <div class="pure-u-1-12"><p>SIAPE</p></div>
+              <div class="pure-u-1-12"><p>sobre Nome</p></div>
+              <div class="pure-u-1-12"><p>pré-Nome</p></div>
+              <div class="pure-u-1-12"><p>Códido RG</p></div>
+              <div class="pure-u-1-12"><p>Orgão RG</p></div>
+              <div class="pure-u-1-12"><p>Logradouro</p></div>
+              <div class="pure-u-1-24"><p>Número</p></div>
+              <div class="pure-u-1-12"><p>Cidade</p></div>
+              <div class="pure-u-1-12"><p>Bairro</p></div>
+              <div class="pure-u-1-12"><p>CEP</p></div>
+		      <div class="pure-u-1-24"><p>Número do Gabinete</p></div>
+		      <div class="pure-u-1-12"><p>Local de trabalho</p></div>
+
+		      <div class="pure-u-1-12">
+                  <input name="cpf" class="pure-u-23-24" type="text" value="'.$a['cpf'].'">
+              </div>
+              <div class="pure-u-1-12">
+                  <input name="siape" class="pure-u-23-24" type="text" value="'.$a['siape'].'">
+              </div>
+              <div class="pure-u-1-12">
+                  <input name="sobreNome" class="pure-u-23-24" type="text" value="'.$a['sobreNome'].'">
+              </div>
+              <div class="pure-u-1-12">
+                  <input name="preNome" class="pure-u-23-24" type="text" value="'.$a['preNome'].'">
+              </div>
+              <div class="pure-u-1-12">
+                  <input name="rgCod" class="pure-u-23-24" type="text" value="'.$a['rgCod'].'">
+              </div>
+              <div class="pure-u-1-12">
+                  <input name="rgOrg" class="pure-u-23-24" type="text" value="'.$a['rgOrg'].'">
+              </div>
+              <div class="pure-u-1-12">
+                  <input name="endLog" class="pure-u-23-24" type="text" value="'.$a['endLog'].'">
+              </div>
+              <div class="pure-u-1-24">
+                  <input name="endNum" class="pure-u-23-24" type="text" value="'.$a['endNum'].'">
+              </div>
+              <div class="pure-u-1-12">
+                  <input name="endCid" class="pure-u-7-8" type="text" value="'.$a['endCid'].'">
+              </div>
+              <div class="pure-u-1-12">
+                  <input name="endBai" class="pure-u-23-24" type="text" value="'.$a['endBai'].'">
+              </div>
+              <div class="pure-u-1-12">
+                  <input name="endCEP" class="pure-u-23-24" type="text" value="'.$a['endCEP'].'">
+              </div>
+		      <div class="pure-u-1-24">
+                          <input name="nroGabinete" class="pure-u-23-24" type="text" value="'.$a['nroGabinete'].'">
+                      </div>
+		      <div class="pure-u-1-12">
+                          <input name="local" class="pure-u-23-24" type="text" value="'.$a['local'].'">
+                      </div>
+
+		       <div class="pure-u-1-12">  
+                        <button type="submit" class="pure-button pure-button-primary" name="acao" value="editar">Editar</button>
+                      </div>
+		
+		</div>
+              </fieldset>
+          </form>';
+  }
+?> 
+  </div>
+</div>
+</body>
+</html>
