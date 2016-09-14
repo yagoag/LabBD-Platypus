@@ -36,9 +36,9 @@ if (isset($_POST['acao']))
 			AND siglaDisciplina = '".$_POST['siglaDisciplina']."'
 			");
 		if (!$stmt) {
-			echo 'Ocorreu um erro ao atualizar suas informações pessoais.';
+			echo 'Ocorreu um erro ao atualizar plano de ensino.';
 		} else
-		echo 'Suas informações pessoais foram atualizadas com sucesso.';
+		echo 'Plano de ensino atualizado com sucesso.';
 	}  
 }
 ?>
@@ -54,7 +54,7 @@ while ($a = sqlsrv_fetch_array($stmt))
 		<div class="pure-g">
 			<h5>
 				<div class="pure-u-23-24">
-					<input name="Siape" class="pure-u-1-2" type="text" value="Siape '.$a['siape'].'" readonly>
+					<input name="siape" class="pure-u-1-2" type="text" value="siape '.$a['siape'].'" readonly>
 				</div>
 			</h5>                      
 		</div>
@@ -107,7 +107,7 @@ while ($a = sqlsrv_fetch_array($stmt))
 
 			<div class="pure-u-1-24"><p>Objetivos Especificos</p></div>
 			<div class="pure-u-23-24">
-				<input name="objetivosEspecificos" class="pure-u-7-8" type="text" value="'.$a['objetivosEspecificos'].'">
+				<input name="objetivosEspecificos" class="pure-u-23-24" type="text" value="'.$a['objetivosEspecificos'].'">
 			</div>
 
 
