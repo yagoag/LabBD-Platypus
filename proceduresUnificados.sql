@@ -1570,6 +1570,13 @@ BEGIN
   BEGIN
     INSERT INTO PropoeItemReuniaoConselhoDeCoordenacao VALUES(@cpf, @siglaCurso, @dataCriacao, @idIP, @dataHora);
   END
+  ELSE
+  BEGIN
+    INSERT INTO ItemDePauta
+    VALUES(@idIP, @dataHora, @descricao);
+    
+    INSERT INTO PropoeItemReuniaoConselhoDeCoordenacao VALUES(@cpf, @siglaCurso, @dataCriacao, @idIP, @dataHora);
+  END
 END
 GO
 

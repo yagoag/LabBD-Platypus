@@ -690,6 +690,7 @@ BEGIN
     DECLARE @siglaCurso varchar(5);
     DECLARE @dataHora datetime;
     DECLARE @descricao varchar(max);
+	DECLARE @dataCriacao date;
 
     IF EXISTS(SELECT * FROM inserted)
     BEGIN
@@ -703,7 +704,7 @@ BEGIN
 
           WHILE @@FETCH_STATUS = 0
           BEGIN
-              EXEC atualizaItemdePautaRCC @idIP, @cpf, @preNome, @sobrenome, @siglaCurso, @dataHora, @descricao;
+              EXEC atualizaItemdePautaRCC @idIP, @dataHora, @descricao, @cpf, @preNome, @sobrenome, @siglaCurso;
               FETCH NEXT FROM cur INTO @idIP, @cpf, @preNome, @sobrenome, @siglaCurso, @dataHora, @descricao;
           END
 
@@ -712,14 +713,14 @@ BEGIN
       ELSE
       BEGIN
          -- Insert
-         DECLARE cur CURSOR FOR SELECT idIP, cpf, preNome, sobrenome, siglaCurso, dataHora, descricao FROM inserted;
+         DECLARE cur CURSOR FOR SELECT idIP, dataCriacao, cpf, preNome, sobrenome, siglaCurso, dataHora, descricao FROM inserted;
 
           OPEN cur;
-          FETCH NEXT FROM cur INTO @idIP, @cpf, @preNome, @sobrenome, @siglaCurso, @dataHora, @descricao;
+          FETCH NEXT FROM cur INTO @idIP, @dataCriacao, @cpf, @preNome, @sobrenome, @siglaCurso, @dataHora, @descricao;
           WHILE @@FETCH_STATUS = 0
           BEGIN
-              EXEC adicionarItemdePautaRCC @idIP, @cpf, @preNome, @sobrenome, @siglaCurso, @dataHora, @descricao;
-              FETCH NEXT FROM cur INTO @idIP, @cpf, @preNome, @sobrenome, @siglaCurso, @dataHora, @descricao;
+              EXEC adicionarItemdePautaRCC @idIP, @dataCriacao, @cpf, @preNome, @sobrenome, @siglaCurso, @dataHora, @descricao;
+              FETCH NEXT FROM cur INTO @idIP, @dataCriacao, @cpf, @preNome, @sobrenome, @siglaCurso, @dataHora, @descricao;
           END
 
           CLOSE cur;
@@ -728,15 +729,16 @@ BEGIN
     ELSE
     BEGIN
       -- Delete
-      DECLARE cur CURSOR FOR SELECT idIP, cpf, preNome, sobrenome, siglaCurso, dataHora, descricao FROM deleted;
+      DECLARE cur CURSOR FOR SELECT idIP, cpf, preNome, sobrenome, siglaCurso, dataHora, descricao, dataCriacao FROM deleted;
 
       OPEN cur;
-      FETCH NEXT FROM cur INTO @idIP, @cpf, @preNome, @sobrenome, @siglaCurso, @dataHora, @descricao;
+      FETCH NEXT FROM cur INTO @idIP, @cpf, @preNome, @sobrenome, @siglaCurso, @dataHora, @descricao, @dataCriacao;
 
       WHILE @@FETCH_STATUS = 0
       BEGIN
-          EXEC apagaItemdePautaRCC @idIP, @cpf, @preNome, @sobrenome, @siglaCurso, @dataHora, @descricao;
-          FETCH NEXT FROM cur INTO @idIP, @cpf, @preNome, @sobrenome, @siglaCurso, @dataHora, @descricao;
+          EXEC apagaItemdePautaRCC @idIP, @dataHora, @descricao, @cpf, @preNome, @sobrenome, @siglaCurso, @dataCriacao;
+		  
+          FETCH NEXT FROM cur INTO @idIP, @cpf, @preNome, @sobrenome, @siglaCurso, @dataHora, @descricao, @dataCriacao;
       END
 
       CLOSE cur;
@@ -1064,3 +1066,211 @@ BEGIN
   END  
 END
 GO
+
+-- Marcos
+CREATE TRIGGER tPlanoDeEnsino
+ON PlanoEnsinoDocente
+INSTEAD OF UPDATE
+AS
+BEGIN
+	IF @@ROWCOUNT = 0
+		BEGIN
+			RETURN
+		END
+
+		DECLARE @semestre				tinyint
+		DECLARE @ano					INT
+		DECLARE @siglaTurma				VARCHAR(5)
+		DECLARE @siglaDisciplina		VARCHAR(5)
+		DECLARE @siape					CHAR(9)
+		DECLARE @ementa					VARCHAR(max)
+		DECLARE @estrategia				VARCHAR(max)
+		DECLARE @objetivosEspecificos	VARCHAR(max)
+		DECLARE @objetivosGerais		VARCHAR(max)
+
+		DECLARE @preNome				VARCHAR(30)
+		DECLARE @sobreNome				VARCHAR(30)
+
+		IF EXISTS(SELECT * FROM inserted)
+		BEGIN
+			IF EXISTS(SELECT * FROM DELETED)
+			BEGIN
+				DECLARE cur CURSOR FOR SELECT preNome				,
+											  sobreNome				,
+											  semestre				,
+											  siglaTurma			,
+											  siglaDisciplina		,
+											  siape					,
+											  ementa				,
+											  estrategia			,
+											  objetivosEspecificos	,
+											  objetivosGerais
+				FROM inserted
+				OPEN cur
+				FETCH NEXT FROM cur INTO 	@preNome				,
+											@sobreNome				,
+											@semestre				,
+											@siglaTurma				,
+											@siglaDisciplina		,
+											@siape					,
+											@ementa					,
+											@estrategia				,
+											@objetivosEspecificos	,
+											@objetivosGerais		
+				WHILE @@FETCH_STATUS = 0
+				BEGIN
+					EXEC atualizaPlanoDeEnsino	@semestre				,
+												@ano 					,
+												@siglaTurma				,
+												@siglaDisciplina		,
+												@siape					,
+												@ementa					,
+												@objetivosEspecificos 	,
+												@objetivosGerais 		
+
+				FETCH NEXT FROM cur INTO 		@preNome				,
+												@sobreNome				,
+												@semestre				,
+												@siglaTurma				,
+												@siglaDisciplina		,
+												@siape					,
+												@ementa					,
+												@estrategia				,
+												@objetivosEspecificos	,
+												@objetivosGerais		
+
+				END
+				CLOSE cur
+			END
+		END
+END
+GO
+
+/*CREATE TRIGGER tRegimento
+ON RegimentoDocente
+INSTEAD OF UPDATE
+AS
+BEGIN
+	IF @@ROWCOUNT = 0
+		BEGIN
+			RETURN
+		END
+
+		DECLARE @siglaCurso		VARCHAR(5)
+		DECLARE @dataCriacao	DATE
+		DECLARE @regimento 		VARCHAR(MAX)
+
+		IF EXISTS(SELECT * FROM inserted)
+		BEGIN
+			IF EXISTS(SELECT * FROM deleted)
+			BEGIN
+				DECLARE cur CURSOR FOR SELECT siglaCurso	,
+											  dataCriacao	,
+											  regimento
+				FROM inserted
+				OPEN cur
+				FETCH NEXT FROM cur INTO @siglaCurso	,
+										 @dataCriacao	,
+										 @regimento 	
+
+				WHILE @@FETCH_STATUS = 0
+				BEGIN
+					EXEC atualizaRegimentoNDE @siglaCurso	,
+											  @dataCriacao	,
+											  @regimento
+
+					FETCH NEXT FROM cur INTO @siglaCurso	,
+											 @dataCriacao	,
+											 @regimento
+				END
+				CLOSE cur
+			END
+		END
+END
+GO*/
+
+CREATE TRIGGER tPrioridade
+ON TemPrioridadeDocente
+INSTEAD OF UPDATE
+AS
+BEGIN
+	IF @@ROWCOUNT = 0
+		BEGIN
+			RETURN
+		END
+
+		DECLARE @siglaDisciplina		VARCHAR(5)
+		DECLARE @siape					CHAR(9)
+		DECLARE @grau					TINYINT
+
+		IF EXISTS(SELECT * FROM inserted)
+		BEGIN
+			IF EXISTS(SELECT * FROM deleted)
+			BEGIN
+				DECLARE cur CURSOR FOR SELECT siglaDisciplina	,
+											  siape				,
+											  grau				
+				FROM inserted
+				OPEN cur
+				FETCH NEXT FROM cur INTO @siglaDisciplina 		,
+										 @siape 				,
+										 @grau
+				WHILE @@FETCH_STATUS = 0
+				BEGIN
+					EXEC atualizaPrioridade @siglaDisciplina 	,
+											@siape 				,
+											@grau
+					FETCH NEXT FROM cur INTO @siglaDisciplina 	,
+										 @siape 				,
+										 @grau
+				END
+				CLOSE cur
+			END
+		END
+END
+GO
+
+/*CREATE TRIGGER tProposta
+ON PropoeItemReuniaoNucleoDocenteEstruturante
+INSTEAD OF UPDATE
+AS
+BEGIN
+	IF @@ROWCOUNT = 0
+		BEGIN
+			RETURN
+		END
+
+		DECLARE @siapeDocente		CHAR(9)		
+		DECLARE @siglaCurso			VARCHAR(5)	
+		DECLARE @idIP				INT 		
+		DECLARE @dataHora 			DATETIME 	
+
+		IF EXISTS(SELECT * FROM inserted)
+		BEGIN
+			IF EXISTS(SELECT * FROM deleted)
+			BEGIN
+				DECLARE cur CURSOR FOR SELECT siglaDisciplina	,
+											  siglaCurso 		,
+											  idIP				,
+											  dataHora
+				FROM inserted
+				OPEN cur
+				FETCH NEXT FROM cur INTO 	  @siglaDisciplina  ,
+											  @siape 			,
+											  @grau
+				WHILE @@FETCH_STATUS = 0
+				BEGIN
+					EXEC atualizaDescricaoItemNDE @siapeDocente		,
+												  @siglaCurso		,
+												  @idIP 			,
+												  @dataHora	
+					FETCH NEXT FROM cur INTO 	  @siapeDocente		,
+												  @siglaCurso		,
+												  @idIP 			,
+												  @dataHora
+				END
+				CLOSE cur
+			END
+		END
+END
+GO*/

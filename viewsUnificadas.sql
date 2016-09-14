@@ -128,7 +128,7 @@ GO
 
 CREATE VIEW vlicencasFuncionarios AS
  	SELECT 
-		P.preNome, P.sobreNome, L.dataInicio, 
+		L.siape, P.preNome, P.sobreNome, L.dataInicio, 
 		L.dataTermino, indicacao, motivo	
 	FROM Licenca L, Funcionario F, Pessoa P 
 	WHERE L.siape = F.siape and P.cpf = F.cpf
@@ -156,7 +156,7 @@ CREATE VIEW vPropostaReuniaoConselhoCurso_CoordCurso as
 GO
 
 CREATE VIEW vItemDePautaConselhoCurso_CoordCurso as
-    SELECT PIRCC.idIP, PIRCC.cpf, P.preNome, P.sobreNome, PIRCC.siglaCurso, PIRCC.dataHora, IP.descricao
+    SELECT PIRCC.idIP, PIRCC.cpf, P.preNome, P.sobreNome, PIRCC.siglaCurso, PIRCC.dataHora, PIRCC.dataCriacao, IP.descricao
     FROM PropoeItemReuniaoConselhoDeCoordenacao PIRCC, ItemDePauta IP, ReuniaoConselhoCoordenacaoCurso RCC, Pessoa P
     WHERE RCC.siglaCurso = PIRCC.siglaCurso AND PIRCC.idIP = IP.idIP AND P.cpf = PIRCC.cpf;
 
