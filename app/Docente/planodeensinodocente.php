@@ -130,35 +130,22 @@ while ($a2 = sqlsrv_fetch_array($stmt2))
 {
 	echo '<form class="pure-form pure-form-stacked" method="post" action="planodeensinodocente.php">
 	<fieldset>
-		<div class="pure-g">
-			<h5>
-				<div class="pure-u-23-24">
-					siape <input name="siape" class="pure-u-1-2" type="hidden" value="'.$a2['siape'].'" readonly>
-				</div>
-			</h5>                      
-		</div>
+		
+		<input name="siape" type="hidden" value="'.$a2['siape'].'" readonly>
+	
 		<div class="pure-g"> 
 
-			<div class="pure-u-1-24"><p>Semestre</p></div>
-			<div class="pure-u-23-24">
+		
 				<input name="semestre" class="pure-u-23-24" type="hidden" value="'.$a2['semestre'].'" readonly>
-			</div>
 
-			<div class="pure-u-1-24"><p>Ano</p></div>
-			<div class="pure-u-23-24">
 				<input name="ano" class="pure-u-23-24" type="hidden" value="'.$a2['ano'].'" readonly>
-			</div>
 
-			<div class="pure-u-1-24"><p>Turma</p></div>
-			<div class="pure-u-23-24">
+
 				<input name="siglaTurma" class="pure-u-23-24" type="hidden" value="'.$a2['siglaTurma'].'" readonly>
-			</div>
 
-			<div class="pure-u-1-24"><p>Disciplina</p></div>
-			<div class="pure-u-23-24">
+
 				<input name="siglaDisciplina" class="pure-u-23-24" type="hidden" value="'.$a2['siglaDisciplina'].'" readonly>
-			</div>
-
+				
 			<div class="pure-u-1-24"><p>Ementa</p></div>
 			<div class="pure-u-23-24">
 				<input name="horas" class="pure-u-23-24" type="number" value="'.$a2['horas'].'">
