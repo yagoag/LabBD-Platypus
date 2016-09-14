@@ -15,9 +15,9 @@ echo '<h2>
 
 if (isset($_POST['acao'])) 
 {
-	if ($_POST['acao'] == 'editar') 
-	{
-		$stmt = sqlsrv_query($conn, "UPDATE PlanoEnsinoDocente
+	switch ($_POST['acao']) {
+		case 'editar':
+			$stmt = sqlsrv_query($conn, "UPDATE PlanoEnsinoDocente
 			SET 
 			semestre           		= ".$_POST['semestre']."         , 
 			ano           			= ".$_POST['ano']."         	   , 
@@ -35,15 +35,204 @@ if (isset($_POST['acao']))
 			AND siglaTurma = '".$_POST['siglaTurma']."'
 			AND siglaDisciplina = '".$_POST['siglaDisciplina']."'
 			");
-		if (!$stmt) {
-			echo 'Ocorreu um erro ao atualizar plano de ensino.';
-			
-			echo '<pre>' ;
-			print_r(sqlsrv_errors());
-			echo '</pre>';
-		} else
-		echo 'Plano de ensino atualizado com sucesso.';
-	}  
+			if (!$stmt) {
+				echo 'Ocorreu um erro ao atualizar plano de ensino.';
+				
+				echo '<pre>' ;
+				print_r(sqlsrv_errors());
+				echo '</pre>';
+			} else
+				echo 'Plano de ensino atualizado com sucesso.';
+			break;
+		
+		case 'editarAtividades':
+			$stmt = sqlsrv_query($conn, "UPDATE PlanoDeEnsino_Atividades
+			SET 
+			semestre           		= ".$_POST['semestre']."         , 
+			ano           			= ".$_POST['ano']."         	   , 
+			siglaTurma           	= '".$_POST['siglaTurma']."'       , 
+			siglaDisciplina      	= '".$_POST['siglaDisciplina']."'  , 
+			horas           		= '".$_POST['horas']."'            , 
+			id           		= '".$_POST['id']."'           , 
+			atividade           	= '".$_POST['atividade']."'                     
+			WHERE semestre = ".$_POST['semestre']." 
+			AND ano = ".$_POST['ano']." 
+			AND siglaTurma = '".$_POST['siglaTurma']."'
+			AND siglaDisciplina = '".$_POST['siglaDisciplina']."'
+			AND horas = '".$_POST['horasOriginal']."'
+			AND id = '".$_POST['id']."'
+			");
+			if (!$stmt) {
+				echo 'Ocorreu um erro ao atualizar plano de ensino.';
+				
+				echo '<pre>' ;
+				print_r(sqlsrv_errors());
+				echo '</pre>';
+			} else
+				echo 'Plano de ensino atualizado com sucesso.';
+			break;
+
+		case 'editarRecurso':
+			$stmt = sqlsrv_query($conn, "UPDATE PlanoDeEnsino_Recurso
+			SET 
+			semestre           		= ".$_POST['semestre']."         , 
+			ano           			= ".$_POST['ano']."         	   , 
+			siglaTurma           	= '".$_POST['siglaTurma']."'       , 
+			siglaDisciplina      	= '".$_POST['siglaDisciplina']."'  , 
+			recurso           		= '".$_POST['recurso']."'                            
+			WHERE semestre = ".$_POST['semestre']." 
+			AND ano = ".$_POST['ano']." 
+			AND siglaTurma = '".$_POST['siglaTurma']."'
+			AND siglaDisciplina = '".$_POST['siglaDisciplina']."'
+			AND recurso = '".$_POST['recursoOriginal']."'
+			");
+			if (!$stmt) {
+				echo 'Ocorreu um erro ao atualizar plano de ensino.';
+				
+				echo '<pre>' ;
+				print_r(sqlsrv_errors());
+				echo '</pre>';
+			} else
+				echo 'Plano de ensino atualizado com sucesso.';
+			break;
+		case 'editarEAD':
+			$stmt = sqlsrv_query($conn, "UPDATE PlanoDeEnsino_EAD
+			SET 
+			semestre           		= ".$_POST['semestre']."         , 
+			ano           			= ".$_POST['ano']."         	   , 
+			siglaTurma           	= '".$_POST['siglaTurma']."'       , 
+			siglaDisciplina      	= '".$_POST['siglaDisciplina']."'  , 
+			horas           		= '".$_POST['horas']."'            ,     
+			atividade           	= '".$_POST['atividade']."'                     
+			WHERE semestre = ".$_POST['semestre']." 
+			AND ano = ".$_POST['ano']." 
+			AND siglaTurma = '".$_POST['siglaTurma']."'
+			AND siglaDisciplina = '".$_POST['siglaDisciplina']."'
+			AND horas = '".$_POST['horasOriginal']."'
+			AND atividade = '".$_POST['atividadeOriginal']."'
+			");
+			if (!$stmt) {
+				echo 'Ocorreu um erro ao atualizar plano de ensino.';
+				
+				echo '<pre>' ;
+				print_r(sqlsrv_errors());
+				echo '</pre>';
+			} else
+				echo 'Plano de ensino atualizado com sucesso.';
+			break;
+		case 'editarDistribHoras':
+			$stmt = sqlsrv_query($conn, "UPDATE PlanoDeEnsino_DistribHoras
+			SET 
+			semestre           		= ".$_POST['semestre']."         , 
+			ano           			= ".$_POST['ano']."         	   , 
+			siglaTurma           	= '".$_POST['siglaTurma']."'       , 
+			siglaDisciplina      	= '".$_POST['siglaDisciplina']."'  , 
+			horas           		= '".$_POST['horas']."'            ,     
+			atividade           	= '".$_POST['atividade']."'                     
+			WHERE semestre = ".$_POST['semestre']." 
+			AND ano = ".$_POST['ano']." 
+			AND siglaTurma = '".$_POST['siglaTurma']."'
+			AND siglaDisciplina = '".$_POST['siglaDisciplina']."'
+			AND horas = '".$_POST['horasOriginal']."'
+			AND atividade = '".$_POST['atividadeOriginal']."'
+			");
+			if (!$stmt) {
+				echo 'Ocorreu um erro ao atualizar plano de ensino.';
+				
+				echo '<pre>' ;
+				print_r(sqlsrv_errors());
+				echo '</pre>';
+			} else
+				echo 'Plano de ensino atualizado com sucesso.';
+			break;
+		case 'editarBibBasica':
+			$stmt = sqlsrv_query($conn, "UPDATE PlanoDeEnsino_BibliografiaBasica
+			SET 
+			semestre           		= ".$_POST['semestre']."         , 
+			ano           			= ".$_POST['ano']."         	   , 
+			siglaTurma           	= '".$_POST['siglaTurma']."'       , 
+			siglaDisciplina      	= '".$_POST['siglaDisciplina']."'  , 
+			titulo           		= '".$_POST['titulo']."'            ,     
+			editor           	= '".$_POST['editor']."'                  ,   
+			bibAno           	= '".$_POST['bibAno']."'               ,      
+			autor           	= '".$_POST['autor']."'                     
+			WHERE semestre = ".$_POST['semestre']." 
+			AND ano = ".$_POST['ano']." 
+			AND siglaTurma = '".$_POST['siglaTurma']."'
+			AND siglaDisciplina = '".$_POST['siglaDisciplina']."'
+			AND titulo = '".$_POST['tituloOriginal']."'
+			AND editor = '".$_POST['editorOriginal']."'
+			AND bibAno = '".$_POST['bibAnoOriginal']."'
+			AND autor = '".$_POST['autorOriginal']."'
+			");
+			if (!$stmt) {
+				echo 'Ocorreu um erro ao atualizar plano de ensino.';
+				
+				echo '<pre>' ;
+				print_r(sqlsrv_errors());
+				echo '</pre>';
+			} else
+				echo 'Plano de ensino atualizado com sucesso.';
+			break;
+		case 'editarBibComp':
+			$stmt = sqlsrv_query($conn, "UPDATE PlanoDeEnsino_BibliografiaComplementar
+			SET 
+			semestre           		= ".$_POST['semestre']."         , 
+			ano           			= ".$_POST['ano']."         	   , 
+			siglaTurma           	= '".$_POST['siglaTurma']."'       , 
+			siglaDisciplina      	= '".$_POST['siglaDisciplina']."'  , 
+			titulo           		= '".$_POST['titulo']."'            ,     
+			editor           	= '".$_POST['editor']."'                  ,   
+			bibAno           	= '".$_POST['bibAno']."'               ,      
+			autor           	= '".$_POST['autor']."'                     
+			WHERE semestre = ".$_POST['semestre']." 
+			AND ano = ".$_POST['ano']." 
+			AND siglaTurma = '".$_POST['siglaTurma']."'
+			AND siglaDisciplina = '".$_POST['siglaDisciplina']."'
+			AND titulo = '".$_POST['tituloOriginal']."'
+			AND editor = '".$_POST['editorOriginal']."'
+			AND bibAno = '".$_POST['bibAnoOriginal']."'
+			AND autor = '".$_POST['autorOriginal']."'
+			");
+			if (!$stmt) {
+				echo 'Ocorreu um erro ao atualizar plano de ensino.';
+				
+				echo '<pre>' ;
+				print_r(sqlsrv_errors());
+				echo '</pre>';
+			} else
+				echo 'Plano de ensino atualizado com sucesso.';
+			break;	
+		case 'editarTopico':
+			$stmt = sqlsrv_query($conn, "UPDATE PlanoDeEnsino_Topico
+			SET 
+			semestre           		= ".$_POST['semestre']."         , 
+			ano           			= ".$_POST['ano']."         	   , 
+			siglaTurma           	= '".$_POST['siglaTurma']."'       , 
+			siglaDisciplina      	= '".$_POST['siglaDisciplina']."'  , 
+			horas           		= '".$_POST['horas']."'            , 
+			id           		= '".$_POST['id']."'           , 
+			topico           	= '".$_POST['topico']."'                     
+			WHERE semestre = ".$_POST['semestre']." 
+			AND ano = ".$_POST['ano']." 
+			AND siglaTurma = '".$_POST['siglaTurma']."'
+			AND siglaDisciplina = '".$_POST['siglaDisciplina']."'
+			AND horas = '".$_POST['horasOriginal']."'
+			AND id = '".$_POST['id']."'
+			");
+			if (!$stmt) {
+				echo 'Ocorreu um erro ao atualizar plano de ensino.';
+				
+				echo '<pre>' ;
+				print_r(sqlsrv_errors());
+				echo '</pre>';
+			} else
+				echo 'Plano de ensino atualizado com sucesso.';
+			break;
+
+		default:
+			break;
+	}
 }
 ?>
 
@@ -138,6 +327,7 @@ while ($a2 = sqlsrv_fetch_array($stmt2))
 		<input name="siglaTurma" type="hidden" value="'.$a2['siglaTurma'].'" readonly>
 		<input name="siglaDisciplina" type="hidden" value="'.$a2['siglaDisciplina'].'" readonly>
 		<input name="id" type="hidden" value="'.$a2['id'].'" readonly>
+		<input name="horasOriginal" type="hidden" value="'.$a2['horas'].'" readonly>
 	
 		<div class="pure-g"> 
 			<div class="pure-u-1-24"><p>Horas</p></div>
@@ -169,6 +359,7 @@ while ($a3 = sqlsrv_fetch_array($stmt3))
 		<input name="ano" type="hidden" value="'.$a3['ano'].'" readonly>
 		<input name="siglaTurma" type="hidden" value="'.$a3['siglaTurma'].'" readonly>
 		<input name="siglaDisciplina" type="hidden" value="'.$a3['siglaDisciplina'].'" readonly>
+		<input name="recursoOriginal" type="hidden" value="'.$a3['recurso'].'" readonly>
 	
 		<div class="pure-g"> 
 			<div class="pure-u-1-24"><p>Recurso</p></div>
@@ -177,7 +368,7 @@ while ($a3 = sqlsrv_fetch_array($stmt3))
 			</div>
 
 			<div class="pure-u-1-5">  
-				<button type="submit" class="pure-button pure-button-primary" name="acao" value="editarAtividades">Editar</button>
+				<button type="submit" class="pure-button pure-button-primary" name="acao" value="editarRecurso">Editar</button>
 			</div>
 	</div>
 </fieldset>
@@ -195,6 +386,8 @@ while ($a4 = sqlsrv_fetch_array($stmt4))
 		<input name="ano" type="hidden" value="'.$a4['ano'].'" readonly>
 		<input name="siglaTurma" type="hidden" value="'.$a4['siglaTurma'].'" readonly>
 		<input name="siglaDisciplina" type="hidden" value="'.$a4['siglaDisciplina'].'" readonly>
+		<input name="horasOriginal" type="hidden" value="'.$a4['horas'].'" readonly>
+		<input name="atividadeOriginal" type="hidden" value="'.$a4['atividade'].'" readonly>
 	
 		<div class="pure-g"> 
 			<div class="pure-u-1-24"><p>Horas</p></div>
@@ -207,7 +400,7 @@ while ($a4 = sqlsrv_fetch_array($stmt4))
 				<input name="atividade" class="pure-u-23-24" type="text" value="'.$a4['atividade'].'">
 			</div>
 			<div class="pure-u-1-5">  
-				<button type="submit" class="pure-button pure-button-primary" name="acao" value="editarAtividades">Editar</button>
+				<button type="submit" class="pure-button pure-button-primary" name="acao" value="editarEAD">Editar</button>
 			</div>
 	</div>
 </fieldset>
@@ -225,6 +418,8 @@ while ($a5 = sqlsrv_fetch_array($stmt5))
 		<input name="ano" type="hidden" value="'.$a5['ano'].'" readonly>
 		<input name="siglaTurma" type="hidden" value="'.$a5['siglaTurma'].'" readonly>
 		<input name="siglaDisciplina" type="hidden" value="'.$a5['siglaDisciplina'].'" readonly>
+		<input name="horasOriginal" type="hidden" value="'.$a5['horas'].'" readonly>
+		<input name="atividadeOriginal" type="hidden" value="'.$a5['atividade'].'" readonly>
 	
 		<div class="pure-g"> 
 			<div class="pure-u-1-24"><p>Horas</p></div>
@@ -237,7 +432,7 @@ while ($a5 = sqlsrv_fetch_array($stmt5))
 				<input name="atividade" class="pure-u-23-24" type="text" value="'.$a5['atividade'].'">
 			</div>
 			<div class="pure-u-1-5">  
-				<button type="submit" class="pure-button pure-button-primary" name="acao" value="editarAtividades">Editar</button>
+				<button type="submit" class="pure-button pure-button-primary" name="acao" value="editarDistribHoras">Editar</button>
 			</div>
 	</div>
 </fieldset>
@@ -255,6 +450,10 @@ while ($a6 = sqlsrv_fetch_array($stmt6))
 		<input name="ano" type="hidden" value="'.$a6['ano'].'" readonly>
 		<input name="siglaTurma" type="hidden" value="'.$a6['siglaTurma'].'" readonly>
 		<input name="siglaDisciplina" type="hidden" value="'.$a6['siglaDisciplina'].'" readonly>
+		<input name="tituloOriginal" type="hidden" value="'.$a6['titulo'].'" readonly>
+		<input name="editorOriginal" type="hidden" value="'.$a6['editor'].'" readonly>
+		<input name="bibAnoOriginal" type="hidden" value="'.$a6['bibAno'].'" readonly>
+		<input name="autorOriginal" type="hidden" value="'.$a6['autor'].'" readonly>
 	
 		<div class="pure-g"> 
 			<div class="pure-u-1-24"><p>Titulo</p></div>
@@ -278,7 +477,7 @@ while ($a6 = sqlsrv_fetch_array($stmt6))
 			</div>
 
 			<div class="pure-u-1-5">  
-				<button type="submit" class="pure-button pure-button-primary" name="acao" value="editarAtividades">Editar</button>
+				<button type="submit" class="pure-button pure-button-primary" name="acao" value="editarBibBasica">Editar</button>
 			</div>
 	</div>
 </fieldset>
@@ -297,7 +496,11 @@ while ($a7 = sqlsrv_fetch_array($stmt7))
 		<input name="ano" type="hidden" value="'.$a7['ano'].'" readonly>
 		<input name="siglaTurma" type="hidden" value="'.$a7['siglaTurma'].'" readonly>
 		<input name="siglaDisciplina" type="hidden" value="'.$a7['siglaDisciplina'].'" readonly>
-	
+		<input name="tituloOriginal" type="hidden" value="'.$a7['titulo'].'" readonly>
+		<input name="editorOriginal" type="hidden" value="'.$a7['editor'].'" readonly>
+		<input name="bibAnoOriginal" type="hidden" value="'.$a7['bibAno'].'" readonly>
+		<input name="autorOriginal" type="hidden" value="'.$a7['autor'].'" readonly>
+
 		<div class="pure-g"> 
 			<div class="pure-u-1-24"><p>Titulo</p></div>
 			<div class="pure-u-23-24">
@@ -320,7 +523,7 @@ while ($a7 = sqlsrv_fetch_array($stmt7))
 			</div>
 
 			<div class="pure-u-1-5">  
-				<button type="submit" class="pure-button pure-button-primary" name="acao" value="editarAtividades">Editar</button>
+				<button type="submit" class="pure-button pure-button-primary" name="acao" value="editarBibComp">Editar</button>
 			</div>
 	</div>
 </fieldset>
@@ -330,29 +533,30 @@ while ($a7 = sqlsrv_fetch_array($stmt7))
 	echo '<h4>
 <p>Tópico</p>  
 </h4>';
-$stmt5 = sqlsrv_query($conn, "SELECT * FROM PlanoDeEnsino_Topico WHERE semestre = ".$a['semestre']." AND ano = ".$a['ano']." AND siglaTurma = '".$a['siglaTurma']."' AND siglaDisciplina = '".$a['siglaDisciplina']."'");
-while ($a5 = sqlsrv_fetch_array($stmt5)) 
+$stmt8 = sqlsrv_query($conn, "SELECT * FROM PlanoDeEnsino_Topico WHERE semestre = ".$a['semestre']." AND ano = ".$a['ano']." AND siglaTurma = '".$a['siglaTurma']."' AND siglaDisciplina = '".$a['siglaDisciplina']."'");
+while ($a8 = sqlsrv_fetch_array($stmt8)) 
 {
 	echo '<form class="pure-form pure-form-stacked" method="post" action="planodeensinodocente.php">
 	<fieldset>
-		<input name="semestre" type="hidden" value="'.$a5['semestre'].'" readonly>
-		<input name="ano" type="hidden" value="'.$a5['ano'].'" readonly>
-		<input name="siglaTurma" type="hidden" value="'.$a5['siglaTurma'].'" readonly>
-		<input name="siglaDisciplina" type="hidden" value="'.$a5['siglaDisciplina'].'" readonly>
-		<input name="id" type="hidden" value="'.$a5['id'].'" readonly>
+		<input name="semestre" type="hidden" value="'.$a8['semestre'].'" readonly>
+		<input name="ano" type="hidden" value="'.$a8['ano'].'" readonly>
+		<input name="siglaTurma" type="hidden" value="'.$a8['siglaTurma'].'" readonly>
+		<input name="siglaDisciplina" type="hidden" value="'.$a8['siglaDisciplina'].'" readonly>
+		<input name="id" type="hidden" value="'.$a8['id'].'" readonly>
+		<input name="horasOriginal" type="hidden" value="'.$a8['horas'].'" readonly>
 	
 		<div class="pure-g"> 
 			<div class="pure-u-1-24"><p>Horas</p></div>
 			<div class="pure-u-23-24">
-				<input name="horas" class="pure-u-23-24" type="number" value="'.$a5['horas'].'">
+				<input name="horas" class="pure-u-23-24" type="number" value="'.$a8['horas'].'">
 			</div>
 
 			<div class="pure-u-1-24"><p>Topico</p></div>
 			<div class="pure-u-23-24">
-				<input name="topico" class="pure-u-23-24" type="text" value="'.$a5['topico'].'">
+				<input name="topico" class="pure-u-23-24" type="text" value="'.$a8['topico'].'">
 			</div>
 			<div class="pure-u-1-5">  
-				<button type="submit" class="pure-button pure-button-primary" name="acao" value="editarAtividades">Editar</button>
+				<button type="submit" class="pure-button pure-button-primary" name="acao" value="editarTopico">Editar</button>
 			</div>
 	</div>
 </fieldset>
