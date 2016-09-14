@@ -263,6 +263,90 @@ BEGIN
 END    
 GO
 
+CREATE TRIGGER tPlanoDeEnsino
+ON PlanoEnsinoDocente
+INSTEAD OF UPDATE
+AS
+BEGIN
+  IF @@ROWCOUNT = 0
+    BEGIN
+      RETURN
+    END
+
+    DECLARE @semestre       tinyint
+    DECLARE @ano          INT
+    DECLARE @siglaTurma       VARCHAR(5)
+    DECLARE @siglaDisciplina    VARCHAR(5)
+    DECLARE @siape          CHAR(9)
+    DECLARE @ementa         VARCHAR(max)
+    DECLARE @estrategia       VARCHAR(max)
+    DECLARE @objetivosEspecificos VARCHAR(max)
+    DECLARE @objetivosGerais    VARCHAR(max)
+
+    DECLARE @preNome        VARCHAR(30)
+    DECLARE @sobreNome        VARCHAR(30)
+
+    IF EXISTS(SELECT * FROM inserted)
+    BEGIN
+      IF EXISTS(SELECT * FROM DELETED)
+      BEGIN
+        DECLARE cur CURSOR FOR SELECT 
+                        semestre        ,
+                        ano           ,
+                        siglaTurma      ,
+                        siglaDisciplina   ,
+                        siape         ,
+                        ementa        ,
+                        estrategia      ,
+                        objetivosEspecificos  ,
+                        objetivosGerais   ,
+                        preNome       ,
+                        sobreNome       
+        FROM inserted
+        OPEN cur
+        FETCH NEXT FROM cur INTO  
+                      @semestre       ,
+                      @ano          ,
+                      @siglaTurma       ,
+                      @siglaDisciplina    ,
+                      @siape          ,
+                      @ementa         ,
+                      @estrategia       ,
+                      @objetivosEspecificos ,
+                      @objetivosGerais    ,
+                      @preNome        ,
+                      @sobreNome        
+        WHILE @@FETCH_STATUS = 0
+        BEGIN
+          EXEC atualizaPlanoDeEnsino  @semestre       ,
+                        @ano          ,
+                        @siglaTurma       ,
+                        @siglaDisciplina    ,
+                        @siape          ,
+                        @ementa         ,
+                        @objetivosEspecificos   ,
+                        @objetivosGerais    
+
+        FETCH NEXT FROM cur INTO    
+                        @semestre       ,
+                        @ano          ,
+                        @siglaTurma       ,
+                        @siglaDisciplina    ,
+                        @siape          ,
+                        @ementa         ,
+                        @estrategia       ,
+                        @objetivosEspecificos ,
+                        @objetivosGerais    ,
+                        @preNome        ,
+                        @sobreNome        
+
+        END
+        CLOSE cur
+      END
+    END
+END
+GO
+
 -- Aquino
 CREATE TRIGGER tIntervencaoDocente
 ON vIntervencaoDocente
