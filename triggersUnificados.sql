@@ -582,7 +582,7 @@ BEGIN
     ELSE
     BEGIN
       -- Delete
-      DECLARE cur CURSOR FOR SELECT @inicioVigencia FROM deleted;
+      DECLARE cur CURSOR FOR SELECT inicioVigencia FROM deleted;
 
       OPEN cur;
       FETCH NEXT FROM cur INTO @inicioVigencia;
