@@ -324,6 +324,7 @@ BEGIN
                         @siglaDisciplina    ,
                         @siape          ,
                         @ementa         ,
+                        @estrategia       ,
                         @objetivosEspecificos   ,
                         @objetivosGerais    
 
