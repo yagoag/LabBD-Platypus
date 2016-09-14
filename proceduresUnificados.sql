@@ -1423,3 +1423,194 @@ AS
 			  and siglaTurma = @siglaTurma and siglaDisciplina = @siglaDisciplina
 	END	  
 GO
+
+-- Lucas
+/*Atualiza o regimento de um conselho de coordenação de curso*/
+CREATE PROCEDURE atualizaRegimento (@siglaCurso varchar(5), @dataCriacao date, @regimento TEXT)
+AS
+BEGIN
+    DECLARE @ConselhoCoordenacaoExiste varchar(5);
+
+	SELECT @ConselhoCoordenacaoExiste = siglaCurso FROM ConselhoCoordenacao WHERE siglaCurso = @siglaCurso;
+	IF @ConselhoCoordenacaoExiste IS NOT NULL
+	BEGIN
+		UPDATE ConselhoCoordenacao
+		SET regimento = @regimento WHERE siglaCurso = @siglaCurso AND dataCriacao = @dataCriacao;
+	END
+END
+GO
+
+/*Adiciona projeto político pedagógico*/
+CREATE PROCEDURE adicionaPPP (@siglaCurso varchar(5), @inicioVigencia date, @projeto varchar(max))
+AS
+BEGIN
+  DECLARE @cursoExiste varchar(5);
+
+  SELECT @cursoExiste = sigla
+  FROM Curso
+  WHERE sigla = @siglaCurso
+
+  IF @cursoExiste IS NOT NULL
+  BEGIN
+      INSERT INTO ProjetoPoliticoPedagogico VALUES (@siglaCurso, @inicioVigencia, @projeto);
+  END
+END
+GO
+
+/*Deleta projeto político pedagógico*/
+CREATE PROCEDURE apagaPPP (@inicioVigencia date)
+AS
+BEGIN
+  DECLARE @PPPExiste DATE;
+
+  SELECT @PPPExiste = inicioVigencia
+  FROM ProjetoPoliticoPedagogico
+  WHERE inicioVigencia = @inicioVigencia
+
+  IF @PPPExiste IS NOT NULL
+  BEGIN
+      DELETE FROM ProjetoPoliticoPedagogico WHERE inicioVigencia = @inicioVigencia;
+  END
+END
+GO
+
+/*Atualiza projeto político pedagógico*/
+CREATE PROCEDURE atualizaPPP (@siglaCurso varchar(5), @inicioVigencia date, @projeto varchar(max))
+AS
+BEGIN
+  DECLARE @PPPExiste DATE;
+
+  SELECT @PPPExiste = inicioVigencia
+  FROM ProjetoPoliticoPedagogico
+  WHERE inicioVigencia = @inicioVigencia
+
+  IF @PPPExiste IS NOT NULL
+  BEGIN
+      UPDATE ProjetoPoliticoPedagogico
+      SET projeto = @projeto
+      WHERE siglaCurso = @siglaCurso AND inicioVigencia = @inicioVigencia;
+  END
+END
+GO
+
+/*Adiciona Proposta de Intervenca das Reuniões do Conselho de Coordenacao de Curso*/
+CREATE PROCEDURE adicionaPropostaIntervencaoCC(@idPICC INT, @idIP int, @dataCriacao date, @dataHora datetime, @cpf CHAR(11), @preNome varchar(30), @sobreNome varchar(30), @siglaCurso varchar(5), @propostaIntervencao varchar(max))
+AS
+BEGIN
+  DECLARE @ItemDePautaExiste INT;
+  DECLARE @MembroConsehoCoordenacaoExiste CHAR(11);
+
+  SELECT @ItemDePautaExiste = idIP
+  FROM ItemDePauta
+  WHERE idIP = @idIP;
+
+  SELECT @MembroConsehoCoordenacaoExiste = cpf
+  FROM MembroConsehoCoordenacao
+  WHERE cpf = @cpf;
+
+  IF @ItemDePautaExiste IS NOT NULL AND @MembroConsehoCoordenacaoExiste IS NOT NULL
+  BEGIN
+    INSERT INTO PropostaIntervencaoConselhoDeCoordenacao VALUES (@cpf, @siglaCurso, @idIP, @dataHora, @dataCriacao, @idPICC, @propostaIntervencao);
+  END
+END
+GO
+
+/*Deleta Proposta de Intervenca das Reuniões do Conselho de Coordenacao de Curso*/
+CREATE PROCEDURE apagaPropostaIntervencaoCC(@idPICC INT, @idIP int, @dataHora datetime, @cpf CHAR(11), @preNome varchar(30), @sobreNome varchar(30), @siglaCurso varchar(5), @propostaIntervencao varchar(max))
+AS
+BEGIN
+  DECLARE @propostaIntervencaoExiste INT;
+
+  SELECT @propostaIntervencaoExiste = idPICC
+  FROM PropostaIntervencaoConselhoDeCoordenacao
+  WHERE idPICC = @idPICC;
+
+  IF @propostaIntervencaoExiste IS NOT NULL
+  BEGIN
+    DELETE FROM PropostaIntervencaoConselhoDeCoordenacao WHERE idPICC = @idPICC;
+  END
+END
+GO
+
+/*Atualiza Proposta de Intervenca das Reuniões do Conselho de Coordenacao de Curso*/
+CREATE PROCEDURE atualizaPropostaIntervencaoCC(@idPICC INT, @idIP int, @dataHora datetime, @cpf CHAR(11), @preNome varchar(30), @sobreNome varchar(30), @siglaCurso varchar(5), @propostaIntervencao varchar(max))
+AS
+BEGIN
+  DECLARE @propostaIntervencaoExiste INT;
+
+  SELECT @propostaIntervencaoExiste = idPICC
+  FROM PropostaIntervencaoConselhoDeCoordenacao
+  WHERE idPICC = @idPICC;
+
+  IF @propostaIntervencaoExiste IS NOT NULL
+  BEGIN
+    UPDATE PropostaIntervencaoConselhoDeCoordenacao
+    SET propostaIntervencao = @propostaIntervencao
+    WHERE idPICC = @idPICC;
+  END
+END
+GO
+
+/*Adiciona item de pauta à reuniões do conselho de ConselhoCoordenacao*/
+CREATE PROCEDURE adicionarItemdePautaRCC(@idIP INT, @dataCriacao date,  @cpf CHAR(11), @preNome varchar(30), @sobreNome varchar(30), @siglaCurso varchar(5), @dataHora datetime, @descricao nvarchar)
+AS
+BEGIN
+  DECLARE @ItemDePautaExiste INT;
+  DECLARE @MembroConsehoCoordenacaoExiste CHAR(11);
+
+  SELECT @ItemDePautaExiste = idIP
+  FROM ItemDePauta
+  WHERE idIP = @idIP;
+
+  SELECT @MembroConsehoCoordenacaoExiste = cpf
+  FROM MembroConsehoCoordenacao
+  WHERE cpf = @cpf;
+
+  IF @ItemDePautaExiste IS NOT NULL AND @MembroConsehoCoordenacaoExiste IS NOT NULL
+  BEGIN
+    INSERT INTO PropoeItemReuniaoConselhoDeCoordenacao VALUES(@cpf, @siglaCurso, @dataCriacao, @idIP, @dataHora);
+  END
+END
+GO
+
+/*Deleta item de pauta à reuniões do conselho de ConselhoCoordenacao*/
+CREATE PROCEDURE apagaItemdePautaRCC(@idIP INT, @dataHora datetime, @descricao nvarchar, @cpf CHAR(11), @preNome varchar(30), @sobrenome varchar(30), @siglaCurso varchar(5), @dataCriacao DATE)
+AS
+BEGIN
+  DECLARE @ItemDePautaExiste INT;
+
+  SELECT @ItemDePautaExiste = idIP
+  FROM PropoeItemReuniaoConselhoDeCoordenacao
+  WHERE idIP = @idIP;
+
+  IF @ItemDePautaExiste IS NOT NULL
+  BEGIN
+    DELETE FROM PropoeItemReuniaoConselhoDeCoordenacao WHERE cpf = @cpf AND idIP = @idIP;
+    DELETE FROM ItemDePauta WHERE idIP = @idIP;
+  END
+END
+GO
+
+/*Atualiza item de pauta à reuniões do conselho de ConselhoCoordenacao*/
+CREATE PROCEDURE atualizaItemdePautaRCC(@idIP INT, @dataHora datetime, @descricao nvarchar, @cpf CHAR(11), @preNome varchar(30), @sobrenome varchar(30), @siglaCurso varchar(5))
+AS
+BEGIN
+  DECLARE @ItemDePautaExiste INT;
+  DECLARE @MembroConsehoCoordenacaoExiste CHAR(11);
+
+  SELECT @ItemDePautaExiste = idIP
+  FROM ItemDePauta
+  WHERE idIP = @idIP;
+
+  SELECT @MembroConsehoCoordenacaoExiste = cpf
+  FROM MembroConsehoCoordenacao
+  WHERE cpf = @cpf;
+
+  IF @ItemDePautaExiste IS NOT NULL AND @MembroConsehoCoordenacaoExiste IS NOT NULL
+  BEGIN
+    UPDATE ItemDePauta
+    SET descricao = @descricao
+    WHERE idIP = @idIP;
+  END
+END
+GO
