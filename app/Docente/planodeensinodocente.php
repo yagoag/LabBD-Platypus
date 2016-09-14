@@ -132,26 +132,18 @@ while ($a2 = sqlsrv_fetch_array($stmt2))
 	<fieldset>
 		
 		<input name="siape" type="hidden" value="'.$a2['siape'].'" readonly>
+		<input name="semestre" type="hidden" value="'.$a2['semestre'].'" readonly>
+		<input name="ano" type="hidden" value="'.$a2['ano'].'" readonly>
+		<input name="siglaTurma" type="hidden" value="'.$a2['siglaTurma'].'" readonly>
+		<input name="siglaDisciplina" type="hidden" value="'.$a2['siglaDisciplina'].'" readonly>
 	
 		<div class="pure-g"> 
-
-		
-				<input name="semestre" class="pure-u-23-24" type="hidden" value="'.$a2['semestre'].'" readonly>
-
-				<input name="ano" class="pure-u-23-24" type="hidden" value="'.$a2['ano'].'" readonly>
-
-
-				<input name="siglaTurma" class="pure-u-23-24" type="hidden" value="'.$a2['siglaTurma'].'" readonly>
-
-
-				<input name="siglaDisciplina" class="pure-u-23-24" type="hidden" value="'.$a2['siglaDisciplina'].'" readonly>
-				
-			<div class="pure-u-1-24"><p>Ementa</p></div>
+			<div class="pure-u-1-24"><p>Horas</p></div>
 			<div class="pure-u-23-24">
 				<input name="horas" class="pure-u-23-24" type="number" value="'.$a2['horas'].'">
 			</div>
 
-			<div class="pure-u-1-24"><p>Estrategia</p></div>
+			<div class="pure-u-1-24"><p>Atividade</p></div>
 			<div class="pure-u-23-24">
 				<input name="atividade" class="pure-u-23-24" type="text" value="'.$a2['atividade'].'">
 			</div>
