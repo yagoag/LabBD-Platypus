@@ -29,19 +29,19 @@
                     <fieldset>
                         <div class="pure-g">
                             <div class="pure-u-4-24">
-                                <input name="dataTermino" class="pure-u-23-24" type="text" value="'.$a['descricao'].'" disabled>
+                                <input name="dataTermino" class="pure-u-23-24" type="text" value="'.$a['descricao'].'" readonly>
                             </div>
                             <div class="pure-u-4-24">
-                                <input name="siape" class="pure-u-23-24" type="text" value="'.$a['siglaDisciplina'].'" disabled>
+                                <input name="siape" class="pure-u-23-24" type="text" value="'.$a['siglaDisciplina'].'" readonly>
                             </div>
                             <div class="pure-u-4-24">
-                                <input name="documento" class="pure-u-23-24" type="text" value="'.$a['siglaTurma'].'" disabled>
+                                <input name="documento" class="pure-u-23-24" type="text" value="'.$a['siglaTurma'].'" readonly>
                             </div>
                             <div class="pure-u-4-24">
-                                <input name="indicacao" class="pure-u-23-24" type="text" value="'.$a['semestre'].'" disabled>
+                                <input name="indicacao" class="pure-u-23-24" type="text" value="'.$a['semestre'].'" readonly>
                             </div>
                             <div class="pure-u-4-24">
-                                <input name="indicacao" class="pure-u-23-24" type="text" value="'.$a['ano'].'" disabled>
+                                <input name="indicacao" class="pure-u-23-24" type="text" value="'.$a['ano'].'" readonly>
                             </div>
                             <div class="pure-u-4-24">
                                 <a href="planoDeEnsinoEspecifico.php?disc='.$a['siglaDisciplina'].'&turma='.$a['siglaTurma'].'&sem='.$a['semestre'].'&ano='.$a['ano'].'" class="pure-button">Visitar</a>

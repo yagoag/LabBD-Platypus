@@ -50,10 +50,10 @@ require_once 'config.php';
               <fieldset>
                   <div class="pure-g">
                       <div class="pure-u-4-24">
-                          <input name="siglaCurso" class="pure-u-23-24" type="text" value="'.$a['siglaCurso'].'" disabled>
+                          <input name="siglaCurso" class="pure-u-23-24" type="text" value="'.$a['siglaCurso'].'" readonly>
                       </div>
                       <div class="pure-u-6-24">
-                          <input name="inicioVigencia" class="pure-u-23-24" type="text" value="'.$a['inicioVigencia']->format('Ymd').'" disabled>
+                          <input name="inicioVigencia" class="pure-u-23-24" type="text" value="'.$a['inicioVigencia']->format('Ymd').'" readonly>
                       </div>
                       <div class="pure-u-10-24">
                           <input name="projeto" class="pure-u-23-24" type="text" value="'.$a['projeto'].'">

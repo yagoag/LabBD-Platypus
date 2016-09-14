@@ -79,10 +79,10 @@ echo '<h2>
 		      <div class="pure-u-1-12"><p>Local de trabalho</p></div>
 
 		      <div class="pure-u-1-12">
-                  <input name="cpf" class="pure-u-23-24" type="text" value="'.$a['cpf'].'" disabled>
+                  <input name="cpf" class="pure-u-23-24" type="text" value="'.$a['cpf'].'" readonly>
               </div>
               <div class="pure-u-1-12">
-                  <input name="siape" class="pure-u-23-24" type="text" value="'.$a['siape'].'" disabled>
+                  <input name="siape" class="pure-u-23-24" type="text" value="'.$a['siape'].'" readonly>
               </div>
               <div class="pure-u-1-12">
                   <input name="sobreNome" class="pure-u-23-24" type="text" value="'.$a['sobreNome'].'">

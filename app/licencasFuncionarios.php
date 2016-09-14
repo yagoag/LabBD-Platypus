@@ -31,22 +31,22 @@ require_once 'config.php';
               <fieldset>
                   <div class="pure-g">
                       <div class="pure-u-3-24">
-                          <input name="preNome" class="pure-u-23-24" disabled = "true" type="text"  value="'.($a['preNome']).'">
+                          <input name="preNome" class="pure-u-23-24" readonly type="text"  value="'.($a['preNome']).'">
                       </div>
                       <div class="pure-u-3-24">
-                          <input name="sobreNome" class="pure-u-23-24" disabled = "true" type="text" value="'.($a['sobreNome']).'">
+                          <input name="sobreNome" class="pure-u-23-24" readonly type="text" value="'.($a['sobreNome']).'">
                       </div>
                       <div class="pure-u-3-24">
-                          <input name="dataInicio" class="pure-u-23-24" disabled = "true" type="text"  value="'.($a['dataInicio']->format('Y-m-d')).'">
+                          <input name="dataInicio" class="pure-u-23-24" readonly type="text"  value="'.($a['dataInicio']->format('Y-m-d')).'">
                       </div>
                       <div class="pure-u-3-24">
-                          <input name="dataTermino" class="pure-u-23-24" disabled = "true" type="text"  value="'.($a['dataTermino']->format('Y-m-d')).'">
+                          <input name="dataTermino" class="pure-u-23-24" readonly type="text"  value="'.($a['dataTermino']->format('Y-m-d')).'">
                       </div>
                       <div class="pure-u-6-24">
-                          <input name="indicacao" class="pure-u-23-24" disabled = "true" type="text" value="'.($a['indicacao']).'">
+                          <input name="indicacao" class="pure-u-23-24" readonly type="text" value="'.($a['indicacao']).'">
                       </div>
                       <div class="pure-u-6-24">
-                          <input name="motivo" class="pure-u-23-24" disabled = "true" type="text"  value="'.($a['motivo']).'">
+                          <input name="motivo" class="pure-u-23-24" readonly type="text"  value="'.($a['motivo']).'">
                       </div>
 					                       
               </fieldset>

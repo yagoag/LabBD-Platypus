@@ -28,19 +28,19 @@
                     <fieldset>
                         <div class="pure-g">
                             <div class="pure-u-4-24">
-                                <input name="dataInicio" class="pure-u-23-24" type="text" value="'.$a['ra'].'" disabled>
+                                <input name="dataInicio" class="pure-u-23-24" type="text" value="'.$a['ra'].'" readonly>
                             </div>
                             <div class="pure-u-4-24">
-                                <input name="dataTermino" class="pure-u-23-24" type="text" value="'.$a['cpf'].'" disabled>
+                                <input name="dataTermino" class="pure-u-23-24" type="text" value="'.$a['cpf'].'" readonly>
                             </div>
                             <div class="pure-u-4-24">
-                                <input name="siape" class="pure-u-23-24" type="text" value="'.$a['status'].'" disabled>
+                                <input name="siape" class="pure-u-23-24" type="text" value="'.$a['status'].'" readonly>
                             </div>
                             <div class="pure-u-4-24">
-                                <input name="documento" class="pure-u-23-24" type="text" value="'.$a['preNome'].'" disabled>
+                                <input name="documento" class="pure-u-23-24" type="text" value="'.$a['preNome'].'" readonly>
                             </div>
                             <div class="pure-u-4-24">
-                                <input name="indicacao" class="pure-u-23-24" type="text" value="'.$a['sobreNome'].'" disabled>
+                                <input name="indicacao" class="pure-u-23-24" type="text" value="'.$a['sobreNome'].'" readonly>
                             </div>
                     </fieldset>
                 </form>';

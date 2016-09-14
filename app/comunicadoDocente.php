@@ -39,7 +39,7 @@ require_once 'config.php';
 ?>
 <div class="pure-g">
     <div class="pure-u-2-24"><p>Siape Docente</p></div>
-    <div class="pure-u-2-24"><p>PréNome</p></div>
+    <div class="pure-u-2-24"><p>PreNome</p></div>
     <div class="pure-u-2-24"><p>Sobrenome</p></div>
     <div class="pure-u-2-24"><p>Sigla do Curso</p></div>
     <div class="pure-u-1-24"><p>Id IP</p></div>

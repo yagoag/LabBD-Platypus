@@ -56,25 +56,25 @@ require_once 'config.php';
                     <fieldset>
                         <div class="pure-g">
                             <div class="pure-u-1-12">
-                                <input name="sigla" class="pure-u-23-24" type="text" value="'.$a['sigla'].'" disabled>
+                                <input name="sigla" class="pure-u-23-24" type="text" value="'.$a['sigla'].'" readonly>
                             </div>
                             <div class="pure-u-1-12">
-                                <input name="nome" class="pure-u-23-24" type="text" value="'.$a['nome'].'" disabled>
+                                <input name="nome" class="pure-u-23-24" type="text" value="'.$a['nome'].'" readonly>
                             </div>
                             <div class="pure-u-1-12">
-                                <input name="numCreditosPraticos" class="pure-u-23-24" type="text" value="'.$a['numCreditosPraticos'].'" disabled>
+                                <input name="numCreditosPraticos" class="pure-u-23-24" type="text" value="'.$a['numCreditosPraticos'].'" readonly>
                             </div>
                             <div class="pure-u-1-12">
-                                <input name="numCreditosTeoricos" class="pure-u-23-24" type="text" value="'.$a['numCreditosTeoricos'].'" disabled>
+                                <input name="numCreditosTeoricos" class="pure-u-23-24" type="text" value="'.$a['numCreditosTeoricos'].'" readonly>
                             </div>
                             <div class="pure-u-1-12">
-                                <input name="semestre" class="pure-u-23-24" type="text" value="'.$a['semestre'].'" disabled>
+                                <input name="semestre" class="pure-u-23-24" type="text" value="'.$a['semestre'].'" readonly>
                             </div>
                             <div class="pure-u-1-12">
-                                <input name="ano" class="pure-u-23-24" type="text" value="'.$a['ano'].'" disabled>
+                                <input name="ano" class="pure-u-23-24" type="text" value="'.$a['ano'].'" readonly>
                             </div>
                             <div class="pure-u-1-12">
-                                <input name="siglaTurma" class="pure-u-23-24" type="text" value="'.$a['siglaTurma'].'" disabled>
+                                <input name="siglaTurma" class="pure-u-23-24" type="text" value="'.$a['siglaTurma'].'" readonly>
                             </div>
                             <div class="pure-u-1-12">
                                 <input name="valida" class="pure-u-23-24" type="text" value="'.$a['valida'].'">
@@ -106,13 +106,13 @@ require_once 'config.php';
                         <input name="sigla" class="pure-u-23-24" type="text">
                     </div>
                     <div class="pure-u-1-12">
-                        <input name="nome" class="pure-u-23-24" type="text" disabled>
+                        <input name="nome" class="pure-u-23-24" type="text" readonly>
                     </div>
                     <div class="pure-u-1-12">
-                        <input name="numCreditosPraticos" class="pure-u-23-24" type="text" disabled>
+                        <input name="numCreditosPraticos" class="pure-u-23-24" type="text" readonly>
                     </div>
                     <div class="pure-u-1-12">
-                        <input name="numCreditosTeoricos" class="pure-u-23-24" type="text" disabled>
+                        <input name="numCreditosTeoricos" class="pure-u-23-24" type="text" readonly>
                     </div>
                     <div class="pure-u-1-12">
                         <input name="semestre" class="pure-u-23-24" type="text">
