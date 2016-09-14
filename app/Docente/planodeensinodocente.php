@@ -37,24 +37,7 @@ if (isset($_POST['acao']))
 			");
 		if (!$stmt) {
 			echo 'Ocorreu um erro ao atualizar plano de ensino.';
-			echo "UPDATE PlanoEnsinoDocente
-			SET 
-			semestre           		= ".$_POST['semestre']."         , 
-			ano           			= ".$_POST['ano']."         	   , 
-			siglaTurma           	= '".$_POST['siglaTurma']."'       , 
-			siglaDisciplina      	= '".$_POST['siglaDisciplina']."'  , 
-			siape           		= '".$_POST['siape']."'            , 
-			ementa           		= '".$_POST['ementa']."'           , 
-			estrategia           	= '".$_POST['estrategia']."'       , 
-			objetivosGerais         = '".$_POST['objetivosGerais']."'  , 
-			objetivosEspecificos    = '".$_POST['objetivosEspecificos']."',
-			sobreNome         		= '".$_POST['sobreNome']."'        , 
-			preNome           		= '".$_POST['preNome']."'               
-			WHERE semestre = ".$_POST['semestre']." 
-			AND ano = ".$_POST['ano']." 
-			AND siglaTurma = '".$_POST['siglaTurma']."'
-			AND siglaDisciplina = '".$_POST['siglaDisciplina']."'
-			";
+			
 			echo '<pre>' ;
 			print_r(sqlsrv_errors());
 			echo '</pre>';
@@ -75,7 +58,7 @@ while ($a = sqlsrv_fetch_array($stmt))
 		<div class="pure-g">
 			<h5>
 				<div class="pure-u-23-24">
-					<input name="siape" class="pure-u-1-2" type="text" value="siape '.$a['siape'].'" readonly>
+					siape <input name="siape" class="pure-u-1-2" type="text" value="'.$a['siape'].'" readonly>
 				</div>
 			</h5>                      
 		</div>
@@ -141,5 +124,61 @@ while ($a = sqlsrv_fetch_array($stmt))
 	</div>
 </fieldset>
 </form>';
+$stmt2 = sqlsrv_query($conn, "SELECT * FROM PlanoDeEnsino_Atividades WHERE semestre = ".$a['semestre']." AND ano = ".$a['ano']." AND siglaTurma = '".$a['siglaTurma']."' AND siglaDisciplina = '".$a['siglaDisciplina']."'");
+
+while ($a2 = sqlsrv_fetch_array($stmt2)) 
+{
+	echo '<form class="pure-form pure-form-stacked" method="post" action="planodeensinodocente.php">
+	<fieldset>
+		<div class="pure-g">
+			<h5>
+				<div class="pure-u-23-24">
+					siape <input name="siape" class="pure-u-1-2" type="hidden" value="'.$a2['siape'].'" readonly>
+				</div>
+			</h5>                      
+		</div>
+		<div class="pure-g"> 
+
+			<div class="pure-u-1-24"><p>Semestre</p></div>
+			<div class="pure-u-23-24">
+				<input name="semestre" class="pure-u-23-24" type="hidden" value="'.$a2['semestre'].'" readonly>
+			</div>
+
+			<div class="pure-u-1-24"><p>Ano</p></div>
+			<div class="pure-u-23-24">
+				<input name="ano" class="pure-u-23-24" type="hidden" value="'.$a2['ano'].'" readonly>
+			</div>
+
+			<div class="pure-u-1-24"><p>Turma</p></div>
+			<div class="pure-u-23-24">
+				<input name="siglaTurma" class="pure-u-23-24" type="hidden" value="'.$a2['siglaTurma'].'" readonly>
+			</div>
+
+			<div class="pure-u-1-24"><p>Disciplina</p></div>
+			<div class="pure-u-23-24">
+				<input name="siglaDisciplina" class="pure-u-23-24" type="hidden" value="'.$a2['siglaDisciplina'].'" readonly>
+			</div>
+
+			<div class="pure-u-1-24"><p>Ementa</p></div>
+			<div class="pure-u-23-24">
+				<input name="horas" class="pure-u-23-24" type="number" value="'.$a2['horas'].'">
+			</div>
+
+			<div class="pure-u-1-24"><p>Estrategia</p></div>
+			<div class="pure-u-23-24">
+				<input name="atividade" class="pure-u-23-24" type="text" value="'.$a2['atividade'].'">
+			</div>
+
+			<div class="pure-u-1-5">  
+				<button type="submit" class="pure-button pure-button-primary" name="acao" value="editarAtividades">Editar</button>
+			</div>
+	</div>
+</fieldset>
+</form>';
+}
+
+echo'<hr>
+<br>';
+
 }
 ?> 
