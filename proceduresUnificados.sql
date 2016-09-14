@@ -1298,3 +1298,128 @@ BEGIN
 
 END
 GO
+
+-- Alexandre
+CREATE PROCEDURE pAtualizaInfoPessoalAluno 
+		(-- Informacoes como Pessoa
+                 @cpf               CHAR(11), 
+		 @senha             VARCHAR(30), 
+                 @sobreNome         VARCHAR(30),
+                 @preNome           VARCHAR(30), 
+                 @rgCod             VARCHAR(10),
+		 @rgOrg             VARCHAR(7),
+		 @endLog            VARCHAR(40),
+		 @endNum            INT,
+		 @endCid            VARCHAR(30),
+		 @endBai            VARCHAR(30),
+		 @endCEP            CHAR(8),
+                 -- Informacoes como Aluno                 
+                 @ra                INT, 
+                 @sexoDoc           VARCHAR(max),
+                 @sexoDesc          varchar(max), 
+                 @sexoNome          varchar(20),
+                 @maePrenome        VARCHAR(30), 
+                 @maeSobrenome      VARCHAR(30),
+                 @paiPrenome        VARCHAR(30), 
+                 @paiSobrenome      VARCHAR(30), 
+                 @nascData          date, 
+                 @nascLocal         varchar(30),
+                 @nascUF            char(2), 
+                 @emailProvedor     varchar(30), 
+                 @emailEndereco     varchar(20), 
+                 @ensMedAnoTermino  int, 
+                 @ensMedInstituicao varchar(30))
+
+AS
+	BEGIN
+		UPDATE Pessoa
+		SET cpf       = @cpf      , 
+         	    senha     = @senha    , 
+		    sobreNome = @sobreNome, 
+		    preNome   = @preNome  , 
+		    rgCod     = @rgCod    ,
+		    endLog    = @endLog   ,
+		    endNum    = @endNum   , 
+		    endCid    = @endCid   ,
+		    endBai    = @endBai   ,
+		    endCEP    = @endCEP    
+		WHERE cpf = @cpf;
+
+		UPDATE Aluno
+		SET     cpf               = @cpf               , 
+			sexoDoc           = @sexoDoc           , 
+			sexoDesc          = @sexoDesc          , 
+			sexoNome          = @sexoNome          , 
+			maePrenome        = @maePrenome        ,
+			maeSobrenome      = @maeSobrenome      ,
+			paiPrenome        = @paiPrenome        , 
+			paiSobrenome      = @paiSobrenome      ,
+			nascData          = @nascData          ,
+			nascLocal         = @nascLocal         , 
+			nascUF            = @nascUF            , 
+			emailProvedor     = @emailProvedor     , 
+			emailEndereco     = @emailEndereco     , 
+			ensMedAnoTermino  = @ensMedAnoTermino  , 
+			ensMedInstituicao = @ensMedInstituicao  
+		WHERE cpf = @cpf;
+	END
+GO
+
+--  Inscrições em turmas
+--Insert
+CREATE PROCEDURE pInsereInscriçõesEmTurma 
+                (@ra                  int        , 
+		 @nomeDisciplina      varchar(64),
+		 @siglaDisciplina	  varchar(5) , 
+		 @numCreditosPraticos int        ,
+		 @numCreditosTeoricos int        ,	
+		 @siglaTurma          varchar(5) , 
+		 @ano                 int        , 
+	         @semestre            tinyint    ,
+                 @vagas               int        ,
+                 @inscricaoMin        int        ,
+   	         @inscricaoMax        int        , 
+		 @situacao            varchar(30), 
+		 @motivo              varchar(30))
+AS
+	BEGIN
+		DECLARE @alunoExiste int
+		BEGIN
+        	SELECT @alunoExiste = ra 
+        	FROM Aluno 
+        	WHERE ra = @ra
+        	IF @alunoExiste IS NOT NULL
+        	BEGIN
+        		DECLARE @turmaExiste varchar(5)
+        		BEGIN
+	        		SELECT @turmaExiste = siglaTurma 
+	        		FROM Turma 
+	        		WHERE @semestre        = semestre   AND 
+	        		      @ano             = ano        AND 
+						  @siglaTurma      = siglaTurma AND 
+						  @siglaDisciplina = siglaDisciplina
+			 		IF @turmaExiste IS NOT NULL
+				 		INSERT INTO  AlunoInscreveTurma
+						VALUES (@ra, @semestre, @ano,
+							    @siglaTurma, @siglaDisciplina, 
+							    @situacao, @motivo) 
+        		END
+        	END	
+        END
+	END
+GO
+
+-- delete
+CREATE PROCEDURE pRemoveInscriçõesEmTurma 
+                (@ra                  int        , 
+				 @siglaDisciplina	  varchar(5) , 
+ 	   		     @siglaTurma          varchar(5) , 
+			     @ano                 int        , 
+			     @semestre            tinyint    )
+AS
+	BEGIN
+		DELETE FROM AlunoInscreveTurma
+		WHERE ra = @ra and semestre = @semestre and ano = @ano
+			  and siglaTurma = @siglaTurma and siglaDisciplina = @siglaDisciplina
+	END	  
+GO
