@@ -30,13 +30,34 @@ if (isset($_POST['acao']))
 			objetivosEspecificos    = '".$_POST['objetivosEspecificos']."',
 			sobreNome         		= '".$_POST['sobreNome']."'        , 
 			preNome           		= '".$_POST['preNome']."'               
-			WHERE semestre = '".$_POST['semestre']."' 
-			AND ano = '".$_POST['ano']."' 
+			WHERE semestre = ".$_POST['semestre']." 
+			AND ano = ".$_POST['ano']." 
 			AND siglaTurma = '".$_POST['siglaTurma']."'
 			AND siglaDisciplina = '".$_POST['siglaDisciplina']."'
 			");
 		if (!$stmt) {
 			echo 'Ocorreu um erro ao atualizar plano de ensino.';
+			echo "UPDATE PlanoEnsinoDocente
+			SET 
+			semestre           		= ".$_POST['semestre']."         , 
+			ano           			= ".$_POST['ano']."         	   , 
+			siglaTurma           	= '".$_POST['siglaTurma']."'       , 
+			siglaDisciplina      	= '".$_POST['siglaDisciplina']."'  , 
+			siape           		= '".$_POST['siape']."'            , 
+			ementa           		= '".$_POST['ementa']."'           , 
+			estrategia           	= '".$_POST['estrategia']."'       , 
+			objetivosGerais         = '".$_POST['objetivosGerais']."'  , 
+			objetivosEspecificos    = '".$_POST['objetivosEspecificos']."',
+			sobreNome         		= '".$_POST['sobreNome']."'        , 
+			preNome           		= '".$_POST['preNome']."'               
+			WHERE semestre = ".$_POST['semestre']." 
+			AND ano = ".$_POST['ano']." 
+			AND siglaTurma = '".$_POST['siglaTurma']."'
+			AND siglaDisciplina = '".$_POST['siglaDisciplina']."'
+			";
+			echo '<pre>' ;
+			print_r(sqlsrv_errors());
+			echo '</pre>';
 		} else
 		echo 'Plano de ensino atualizado com sucesso.';
 	}  
@@ -72,12 +93,12 @@ while ($a = sqlsrv_fetch_array($stmt))
 
 			<div class="pure-u-1-24"><p>Semestre</p></div>
 			<div class="pure-u-23-24">
-				<input name="semestre" class="pure-u-23-24" type="text" value="'.$a['semestre'].'" readonly>
+				<input name="semestre" class="pure-u-23-24" type="number" value="'.$a['semestre'].'" readonly>
 			</div>
 
 			<div class="pure-u-1-24"><p>Ano</p></div>
 			<div class="pure-u-23-24">
-				<input name="ano" class="pure-u-23-24" type="text" value="'.$a['ano'].'" readonly>
+				<input name="ano" class="pure-u-23-24" type="number" value="'.$a['ano'].'" readonly>
 			</div>
 
 			<div class="pure-u-1-24"><p>Turma</p></div>
