@@ -94,7 +94,7 @@
         <div class="pure-menu-heading">Coordenador de Curso</div>
 
         <ul class="pure-menu-list">
-            <li class="pure-menu-item"><a href="itemdePautaRCC.php" class="pure-menu-link">Itens de Pauta</a></li>
+            <li class="pure-menu-item"><a href="regimentoConselhoCoordenacao.php" class="pure-menu-link">Regimemento do Conselho</a></li>
             <li class="pure-menu-item"><a href="projetoPoliticoPedagogico.php" class="pure-menu-link">Projeto Político Pedagógico</a></li>
           <li class="pure-menu-item"><a href="situacaoEnade.php" class="pure-menu-link">Situação Enade</a></li>
         </ul>
